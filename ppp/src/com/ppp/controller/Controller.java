@@ -1,9 +1,9 @@
-package com.pet.controller;
+package com.ppp.controller;
 
 import javax.servlet.http.*;
 
-import com.pet.di.*;
-import com.pet.service.*;
+import com.ppp.di.*;
+import com.ppp.service.*;
 
 public class Controller {
 	

@@ -1,4 +1,4 @@
-package com.pet.servlet;
+package com.ppp.servlet;
 
 import java.io.*;
 import java.util.*;
@@ -7,7 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
-import com.pet.di.*;
+import com.ppp.di.*;
 
 @WebServlet({"/petpapa/*"})
 public class DispatcherServlet extends HttpServlet {

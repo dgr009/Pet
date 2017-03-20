@@ -1,12 +1,12 @@
-package com.pet.service;
+package com.ppp.service;
 
 import java.sql.*;
 
 import javax.servlet.http.*;
 
 import com.google.gson.*;
-import com.pet.util.*;
 import com.ppp.dao.*;
+import com.ppp.util.*;
 import com.ppp.vo.*;
 
 public class Service {
