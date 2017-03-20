@@ -231,4 +231,6 @@ public interface Sql {
 	public String insertHospitalReserveTiem="insert into reserve_hospital_time(reserve_hospital_no,hospital_time_kind,hospital_no) values(?,?,'?')";
 	//115. 미용실 예약 시간대 추가
 	public String insertBeautyReserveTime="insert into reserve_beauty_time(reserve_beauty_time_no,BEAUTY_TIME_KIND,BEAUTY_NO) values(?,'?',?)";
+	//116. 회원 마지막번호 조회
+	public String memberNoMax="select max(member_no) from member";
 }

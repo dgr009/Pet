@@ -71,6 +71,7 @@ public class Member {
 	}
 	public int getMemberActive() {
 		return memberActive;
+
 	}
 	public void setMemberActive(int memberActive) {
 		this.memberActive = memberActive;
@@ -88,4 +89,5 @@ public class Member {
 		AdminNo = adminNo;
 	}
 	
+
 }
