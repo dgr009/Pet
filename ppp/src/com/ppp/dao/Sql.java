@@ -233,4 +233,10 @@ public interface Sql {
 	public String insertBeautyReserveTime="insert into reserve_beauty_time(reserve_beauty_time_no,BEAUTY_TIME_KIND,BEAUTY_NO) values(?,'?',?)";
 	//116. 회원 마지막번호 조회
 	public String memberNoMax="select max(member_no) from member";
+	//117. 병원 마지막번호 조회
+	public String hospitalNoMax="select max(hospital_no) from hospital";
+	//118. 미용실 마지막번호 조회
+	public String beautyNoMax="select max(beauty_no)from beauty";
+	//119. 호텔 마지막번호 조회
+	public String hotelNoMax="select max(hotel_no)from hotel";
 }
