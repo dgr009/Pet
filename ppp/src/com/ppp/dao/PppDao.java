@@ -6,7 +6,7 @@ import com.ppp.util.*;
 import com.ppp.vo.*;
 
 public class PppDao {
-	
+	//일반회원 번호 마지막 찾기
 	public int selectMemberNoMax(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -18,25 +18,12 @@ public class PppDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JdbcUtil.close(pstmt, null);
+			JdbcUtil.close(pstmt, rs);
 		}
 		return -1;
 	}
-	public int selectCount(Connection conn) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			pstmt = conn.prepareStatement(Sql.allArticle);
-			rs = pstmt.executeQuery();
-			if(rs.next())
-				return rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(pstmt, null);
-		}
-		return -1;		
-	}
+	
+	//일반 회원 등록(추가)
 	public int memberInsert(Connection conn, Member mem) {
 		PreparedStatement pstmt = null;
 		try {
@@ -63,7 +50,5 @@ public class PppDao {
 		}
 		return 0;
 	}
-	public int memberUpdate(Connection conn, Member mem) {
-		return -1;
-	}
+	
 }

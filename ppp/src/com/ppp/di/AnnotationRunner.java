@@ -52,6 +52,7 @@ public class AnnotationRunner {
 		}
 	}
 	private static ModelAndView invoke(String uri, HttpServletRequest req) {
+		System.out.println(uri);
 		Method method = null;
 		Object returnObject = null;
 		String requestMethod = req.getMethod();

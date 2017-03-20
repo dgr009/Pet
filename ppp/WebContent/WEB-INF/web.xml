@@ -17,4 +17,12 @@
 		<param-name>webappName</param-name>
 		<param-value>ppp</param-value>
 	</context-param>
+	<context-param>
+    <param-name>adminId</param-name>
+    <param-value>ppp</param-value>
+  </context-param>
+  <context-param>
+    <param-name>adminPwd</param-name>
+    <param-value>1111</param-value>
+  </context-param>
 </web-app>

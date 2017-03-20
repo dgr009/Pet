@@ -15,7 +15,8 @@ public class Service {
 		this.dao = dao;
 	}
 	
-	public String createEnd(HttpServletRequest req) {
+	//
+	public String memberCreateEnd(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		int memberNo = dao.selectMemberNoMax(conn);
 		Member mem = MappingUtil.getMemberFromRequest(req, memberNo);
@@ -25,5 +26,10 @@ public class Service {
 		else ob.addProperty("result", "fail");
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
+	}
+
+	public int memberLogin(HttpServletRequest req) {
+		
+		return 0;
 	}
 }
