@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 
 import com.ppp.di.*;
 
-@WebServlet({"/petpapa/*"})
+@WebServlet({"/ppp/*"})
 public class DispatcherServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {

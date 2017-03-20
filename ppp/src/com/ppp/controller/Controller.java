@@ -7,14 +7,14 @@ import com.ppp.service.*;
 
 public class Controller {
 	
-	@RequestMapping(value="/petpapa/memberregister", method="GET")
+	@RequestMapping(value="/ppp/memberregister", method="GET")
 	public static ModelAndView registerStart(HttpServletRequest req){
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/memberResistration.html");
 		
 		return mav;
 	}
-	@RequestMapping(value="/petpapa/memberregister", method="POST")
+	@RequestMapping(value="/ppp/memberregister", method="POST")
 	public static ModelAndView registerEnd(HttpServletRequest req){
 		Service service = (Service)req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
