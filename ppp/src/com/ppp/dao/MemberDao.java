@@ -2,7 +2,7 @@ package com.ppp.dao;
 
 import java.sql.*;
 
-import com.pet.util.*;
+import com.ppp.util.*;
 import com.ppp.vo.*;
 
 public class MemberDao {
