@@ -1,0 +1,316 @@
+
+1. 관리자
+
+create table admin (  
+admin_no number(5) primary key, 
+admin_id NVARCHAR2(20),
+admin_pwd NVARCHAR2(20),
+admin_name NVARCHAR2(20),
+admin_mail NVARCHAR2(30)
+);
+
+2. 회원
+
+create table member (
+member_no number(5) primary key,
+member_address NVARCHAR2(20),
+member_id NVARCHAR2(20),
+member_pwd NVARCHAR2(20),
+member_gender nchar(1),
+member_phone NVARCHAR2(20),
+member_name NVARCHAR2(20),
+member_mail NVARCHAR2(30),
+member_coupon number(3),
+member_active number(1),
+member_active_date DATE,
+admin_no number(5) references admin(admin_no)
+);
+
+3. 병원회원
+
+create table hospital (
+hospital_no number(5) primary key,
+hospital_name NVARCHAR2(20),
+hospital_orner_name NVARCHAR2(20),
+hospital_orner_no NCHAR(10),
+hospital_mail NVARCHAR2(20),
+hospital_phone NVARCHAR2(20),
+hospital_address NVARCHAR2(100),
+hospital_id NVARCHAR2(20),
+hospital_pwd NVARCHAR2(20),
+hospital_photo nvarchar2(100),
+hospital_active number(1),
+hospital_active_date DATE,
+admin_no number(5) references admin(admin_no)
+);
+
+4. 미용실회원
+
+create table beauty (
+beauty_no number(5) primary key,
+beauty_name NVARCHAR2(20),
+beauty_orner_name NVARCHAR2(20),
+beauty_orner_no NCHAR(10),
+beauty_mail NVARCHAR2(20),
+beauty_phone NVARCHAR2(20),
+beauty_address NVARCHAR2(100),
+beauty_id NVARCHAR2(20),
+beauty_pwd NVARCHAR2(20),
+beauty_photo nvarchar2(100),
+beauty_active number(1),
+beauty_active_date DATE,
+admin_no number(5) references admin(admin_no)
+);
+
+5. 호텔회원
+
+create table hotel (
+hotel_no number(5) primary key,
+hotel_name NVARCHAR2(20),
+hotel_orner_name NVARCHAR2(20),
+hotel_orner_no NCHAR(10),
+hotel_mail NVARCHAR2(20),
+hotel_phone NVARCHAR2(20),
+hotel_address NVARCHAR2(100),
+hotel_id NVARCHAR2(20),
+hotel_pwd NVARCHAR2(20),
+hotel_photo nvarchar2(100),
+hotel_active number(1),
+hotel_active_date DATE,
+admin_no number(5) references admin(admin_no)
+);
+
+6. 병원예약
+
+create table reserve_hospital (
+reserve_hospital_no number(5), 예약번호
+reserve_hospital_date DATE,
+member_no number(5), 회원번호 회원
+hospital_no number(5), 병원번호 병원 
+constraint reserve_hospital_pk primary key(member_no,hospital_no,reserve_hospital_no)
+);
+
+
+7. 미용실예약
+
+create table reserve_beauty (
+reserve_beauty_no number(5),
+reserve_beauty_date DATE,
+member_no number(5),
+beauty_no number(5),
+constraint reserve_beauty_pk primary key(member_no,beauty_no,reserve_beauty_no)
+);
+
+
+8. 호텔예약
+
+create table reserve_hotel (
+reserve_hotel_no number(5),
+reserve_hotel_date DATE,
+member_no number(5),
+hotel_no number(5),
+room_no number(5),
+constraint reserve_hotel_pk primary key(member_no,hotel_no,room_no,reserve_hotel_no)
+
+);
+
+9. 병원상세예약
+
+create table reserve_hospital_detail (
+reserve_hospital_no number(5),
+member_no number(5),
+hospital_no number(5),
+animal_kind NVARCHAR2(20),
+animal_weight number(5),
+constraint reserve_hospital_detail_pk primary key(member_no,hospital_no,reserve_hospital_no)
+);
+
+
+10. 미용실상세예약
+
+create table reserve_beauty_detail (
+reserve_beauty_no number(5),
+member_no number(5),
+beauty_no number(5),
+animal_kind NVARCHAR2(20),
+animal_weight number(5),
+constraint reserve_beauty_detail_pk primary key(member_no,beauty_no,reserve_beauty_no)
+);
+
+11. 호텔상세예약
+
+create table reserve_hotel_detail (
+reserve_hotel_no number(5),
+member_no number(5),
+hotel_no number(5),
+room_no number(5),
+animal_kind NVARCHAR2(20),
+animal_weight number(5),
+check_in DATE,
+check_out DATE,
+reserve_hotel_price number(10),
+constraint reserve_hotel_detail_pk primary key(member_no,hotel_no,room_no,reserve_hotel_no)
+);
+
+12. 호텔 방
+
+create table room(
+room_no number(5),
+hotel_no number(5),
+room_kind nvarchar2(30),
+room_price number(10),
+constraint room_pk primary key(hotel_no,room_no)
+);
+
+13. 병원 리뷰
+
+create table hospital_review(
+hospital_review_no number(5) primary key,
+hospital_review_score number(5),
+hospital_review_epilogue NVARCHAR2(1333),
+hospital_no number(5) references hospital(hospital_no),
+member_no number(5) references member(member_no)
+);
+
+14. 미용실 리뷰
+
+create table beauty_review(
+beauty_review_no number(5) primary key,
+beauty_review_score number(5),
+beauty_review_epilogue NVARCHAR2(1333),
+beauty_no number(5) references beauty(beauty_no),
+member_no number(5) references member(member_no)
+);
+
+15. 호텔 리뷰
+
+create table hotel_review(
+hotel_review_no number(5) primary key,
+hotel_review_score number(5),
+hotel_review_epilogue NVARCHAR2(1333),
+hotel_no number(5) references hotel(hotel_no),
+member_no number(5) references member(member_no)
+);
+
+16. 자유게시판
+
+create table free_board(
+free_board_no number(5) primary key,
+free_board_title NVARCHAR2(50),
+free_board_count number(5),
+free_board_comment_count number(5),
+free_board_content NVARCHAR2(1333),
+free_board_date DATE,
+member_id NVARCHAR2(20),
+member_no number(5) references member(member_no)
+);
+
+17. 자유게시판 댓글
+
+create table free_board_comment(
+free_board_no number(5),
+free_board_comment_no number(5),
+member_id NVARCHAR2(20),
+free_board_comment_content NVARCHAR2(1333),
+free_board_date DATE,
+member_no number(5) references member(member_no),
+constraint free_board_comment_pk primary key(free_board_no,free_board_comment_no)
+);
+
+18. 문의게시판
+
+create table inquire_board (
+inquire_board_no number(5) primary key,
+member_id nvarchar2(20),
+inquire_board_title nvarchar2(50),
+inquire_board_content nvarchar2(1333),
+inquire_board_date DATE,
+inquire_board_comment_count number(5),
+member_no number(5) references member(member_no),
+admin_no number(5) references admin(admin_no)
+);
+
+19. 문의게시판댓글
+
+create table inquire_board_comment(
+inquire_board_no number(5),
+inquire_board_comment_no number(5),
+admin_id NVARCHAR2(20),
+inquire_board_comment_content NVARCHAR2(1333),
+inquire_board_comment_date DATE,
+admin_no number(5) references admin(admin_no),
+constraint inquire_board_comment_pk primary key(inquire_board_no,inquire_board_comment_no)
+);
+
+20. 관리자 쪽지함
+
+create table admin_message(
+admin_message_no number(5) primary key,
+admin_message_title nvarchar2(50),
+admin_message_content nvarchar2(1333),
+admin_message_date DATE,
+admin_no number(5) references admin(admin_no)
+);
+
+21. 애완동물
+
+create table animal(
+member_no number(5),
+animal_no number(5),
+animal_name nvarchar2(20),
+animal_kind nvarchar2(20),
+animal_gender nchar(2),
+animal_breed nvarchar2(20),
+animal_weight number(5),
+constraint animal_pk primary key(member_no,animal_no)
+);
+
+
+22. 회원 쪽지함
+
+create table member_message(
+member_message_no number(5),
+member_message_title nvarchar2(50),
+member_message_content nvarchar2(1333),
+member_message_date DATE,
+member_no number(5) references member(member_no)
+);
+
+
+23. 수의사 프로필
+
+create table vet(
+vet_no number(5),
+vet_name nvarchar2(5),
+vet_introduce nvarchar2(1333),
+hospital_no number(5),
+constraint vet_pk primary key(vet_no,hospital_no)
+);
+
+
+24. 미용사 프로필
+
+create table beautician(
+beautician_no number(5),
+beautician_name nvarchar2(5),
+beautician_introduce nvarchar2(1333),
+beauty_no number(5),
+constraint beautician_pk primary key(beautician_no,beauty_no)
+);
+
+25. 병원 예약 시간
+create table reserve_hospital_time(
+reserve_hospital_time_no number(5),
+hospital_no number(5),
+hospital_time_kind nvarchar2(15),
+constraint reserve_hospital_time_pk primary key(reserve_hospital_time_no,hospital_no)
+);
+
+
+26. 미용실 예약 시간
+create table reserve_beauty_time(
+reserve_beauty_time_no number(5),
+beauty_no number(5),
+beauty_time_kind nvarchar2(15),
+constraint reserve_beauty_time_pk primary key(reserve_beauty_time_no,beauty_no)
+);
