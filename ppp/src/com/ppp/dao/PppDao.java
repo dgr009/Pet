@@ -37,7 +37,7 @@ public class PppDao {
 		}
 		return -1;		
 	}
-	public int insert(Connection conn, Member mem) {
+	public int memberInsert(Connection conn, Member mem) {
 		PreparedStatement pstmt = null;
 		try {
 			
@@ -62,5 +62,8 @@ public class PppDao {
 			JdbcUtil.close(pstmt, null);
 		}
 		return 0;
+	}
+	public int memberDelete(Connection conn, Member mem){
+		return -1;
 	}
 }
