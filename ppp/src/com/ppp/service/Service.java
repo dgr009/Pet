@@ -10,8 +10,8 @@ import com.ppp.util.*;
 import com.ppp.vo.*;
 
 public class Service {
-	private MemberDao dao;
-	public Service(MemberDao dao) {
+	private PppDao dao;
+	public Service(PppDao dao) {
 		this.dao = dao;
 	}
 	

@@ -5,7 +5,7 @@ import java.sql.*;
 import com.ppp.util.*;
 import com.ppp.vo.*;
 
-public class MemberDao {
+public class PppDao {
 	
 	public int selectMemberNoMax(Connection conn) {
 		PreparedStatement pstmt = null;
