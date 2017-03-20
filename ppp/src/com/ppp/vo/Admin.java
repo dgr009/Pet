@@ -6,6 +6,7 @@ public class Admin {
 	String adminPwd;
 	String adminName;
 	String adminMain;
+	String adminMail;
 	public int getAdminNo() {
 		return adminNo;
 	}
@@ -35,6 +36,12 @@ public class Admin {
 	}
 	public void setAdminMain(String adminMain) {
 		this.adminMain = adminMain;
+	}
+	public String getAdminMail() {
+		return adminMail;
+	}
+	public void setAdminMail(String adminMail) {
+		this.adminMail = adminMail;
 	}
 	
 }

@@ -22,7 +22,7 @@ public interface Sql {
 	//10. 회원 쿠폰수 조회
 	public String memberCoupon="select member_no,member_id,member_address,member_name,member_phone,member_mail,member_gender,member_coupon from member where member_coupon=? and member_active=1";
 	//11. 회원 쿠폰수 수정
-	public String updateMemberCoupon="update member set member_coupon = 0 where member_coupon=? and member_no=?";
+	public String updateMemberCoupon="update member set member_coupon = 0 where member_no=?";
 	//12. 회원 비활성화
 	public String inactiveMember="update member set member_active = 2 where member_no=?";
 	//13. 비활성화 된 회원 조회
@@ -142,7 +142,7 @@ public interface Sql {
 	//70. 자유게시판 댓글 삭제
 	public String deleteFreeBoardComment="delete free_board_comment where member_no=? and free_board_comment_no=?";
 	//71. 관리자 보낸 쪽지함 보기
-	public String allAdminMessage="select * from admin_message where admin_no=?;";
+	public String allAdminMessage="select * from message where admin_no=?;";
 	//72. 문의게시판 수정
 	public String updateInquireBoard="update inquire_board set inquire_board_content='?' where admin_no=?";
 	//73. 제목으로 문의게시판 글 검색
@@ -220,9 +220,9 @@ public interface Sql {
 	//109. 반려동물 추가
 	public String insertAnimal="insert into animal(member_no,animal_no,animal_name,animal_kind,animal_gender,animal_breed,animal_weight) values(?,?,'?','?','?','?',?)";
 	//110. 관리자 쪽지 추가
-	public String insertAdminMessage="insert into admin_message(admin_message_no,admin_message_title,admin_message_content,admin_message_date,admin_no) values(?,'?','?',?,?)";
-	//111. 회원 쪽지 추가
-	public String insertMemberMessage="insert into member_message(member_message_no,member_message_title,member_message_content,member_message_date,member_no) values(?,'?','?',?,?)";
+	public String insertMessage="insert into message(message_no,message_title,message_content,message_date,admin_no,member_no) values(?,'?','?',?,?,?)";
+	//111. 회원 쪽지 검색
+	public String insertMemberMessage="select m.message_no,m.message_title,m.message_content,m.message_date ,b.member_id from message m, member b where m.member_no=b.member_no and  b.member_id=?";
 	//112. 수의사 추가
 	public String insertVet="insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,'?','?',?)";
 	//113. 미용사 추가
@@ -236,7 +236,11 @@ public interface Sql {
 	//117. 병원 마지막번호 조회
 	public String hospitalNoMax="select max(hospital_no) from hospital";
 	//118. 미용실 마지막번호 조회
-	public String beautyNoMax="select max(beauty_no)from beauty";
+	public String beautyNoMax="select max(beauty_no) from beauty";
 	//119. 호텔 마지막번호 조회
-	public String hotelNoMax="select max(hotel_no)from hotel";
+	public String hotelNoMax="select max(hotel_no) from hotel";
+	//120. 관리자 마지막번호 조회
+	public String adminNoMax="select max(admin_no) from admin";
+	// 관리자 아이디 중복확인
+	public String adminidCheck="select count(*) from admin where admin_id='?'";
 }
