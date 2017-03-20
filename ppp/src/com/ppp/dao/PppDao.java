@@ -63,4 +63,7 @@ public class PppDao {
 		}
 		return 0;
 	}
+	public int insertAdmin(Connection conn,Admin a){
+		return -1;
+	}
 }
