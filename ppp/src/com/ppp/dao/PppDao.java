@@ -37,7 +37,7 @@ public class PppDao {
 		}
 		return -1;		
 	}
-	public int insert(Connection conn, Member mem) {
+	public int memberInsert(Connection conn, Member mem) {
 		PreparedStatement pstmt = null;
 		try {
 			
@@ -63,7 +63,7 @@ public class PppDao {
 		}
 		return 0;
 	}
-	public int insertAdmin(Connection conn,Admin a){
+	public int memberUpdate(Connection conn, Member mem) {
 		return -1;
 	}
 	public int deleteAdmin(Connection conn,Admin a){

@@ -19,7 +19,7 @@ public class Service {
 		Connection conn = JdbcUtil.getConnection();
 		int memberNo = dao.selectMemberNoMax(conn);
 		Member mem = MappingUtil.getMemberFromRequest(req, memberNo);
-		int result = dao.insert(conn, mem);
+		int result = dao.memberInsert(conn, mem);
 		JsonObject ob = new JsonObject();
 		if(result==1) ob.addProperty("result", "success");
 		else ob.addProperty("result", "fail");
