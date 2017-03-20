@@ -1,6 +1,6 @@
 package com.ppp.vo;
 
-public class AdminVo {
+public class Admin {
 	int adminNo;
 	String adminId;
 	String adminPwd;

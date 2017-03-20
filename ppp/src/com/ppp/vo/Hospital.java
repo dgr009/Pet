@@ -2,7 +2,7 @@ package com.ppp.vo;
 
 import java.sql.Date;
 
-public class HospitalVo {
+public class Hospital {
 	int hospitalNo;
 	String hospitalId;
 	String hospitalPwd;
