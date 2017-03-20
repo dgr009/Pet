@@ -2,7 +2,7 @@ package com.ppp.vo;
 
 import java.sql.Date;
 
-public class MemberVo {
+public class Member {
 	int memberNo;
 	String memberId;
 	String memberPwd;
@@ -11,7 +11,7 @@ public class MemberVo {
 	String memberGender;
 	String memberPhone;
 	String memberMail;
-	String memberCoupon;
+	int memberCoupon;
 	int memberActive;
 	Date memberActiveDate;
 	int AdminNo;
@@ -63,10 +63,10 @@ public class MemberVo {
 	public void setMemberMail(String memberMail) {
 		this.memberMail = memberMail;
 	}
-	public String getMemberCoupon() {
+	public int getMemberCoupon() {
 		return memberCoupon;
 	}
-	public void setMemberCoupon(String memberCoupon) {
+	public void setMemberCoupon(int memberCoupon) {
 		this.memberCoupon = memberCoupon;
 	}
 	public int getMemberActive() {

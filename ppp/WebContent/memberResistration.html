@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bootstrap template</title>
+
+<!-- Bootstrap -->
+<link href="/petpapa/css/bootstrap.min.css" rel="tylesheet">
+<!-- font awesome -->
+<link rel="stylesheet" href="/petpapa/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
+	
+<!-- Custom style -->
+<link rel="stylesheet" href="/petpapa/css/style.css" media="screen"
+	title="no title" charset="utf-8">
+
+<link href="/petpapa/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="/petpapa/css/font-awesome.min.css"	rel="stylesheet" type="text/css">
+
+
+<link href="/petpapa/css/magnific-popup.css" rel="stylesheet">
+
+
+<link href="/petpapa/css/creative.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+
+	<article class="container">
+		<div class="page-header">
+			<h1>회원가입</h1>
+		</div>
+		<div class="col-md-6 col-md-offset-3">
+			<form role="form" action='/memberregister' method='post'>
+				<div class="form-group">
+					<label for="InputEmail">이메일 주소</label> <input type="email"
+						class="form-control" id="InputEmail" name="member_mail" placeholder="이메일 주소">
+						<br>
+					<button class="btn btn-success">
+						인증번호 전송<i class="fa fa-edit spaceLeft"></i>
+					</button>
+					<button class="btn btn-success">
+						인증번호 입력<i class="fa fa-edit spaceLeft"></i>
+					</button>
+
+
+
+				</div>
+				<div class="form-group">
+					<label for="username">이름</label> <input type="text"
+						class="form-control" id="username"  name="member_name" placeholder="이름을 입력해 주세요">
+				</div>
+				<div class="form-group">
+					<label for="username">ID</label> <input type="text"
+						class="form-control" id="userid"  name="member_id" placeholder="id를 입력해주세요.">
+						<button type="submit" class="btn btn-info">
+						ID중복확인<i class="fa fa-check spaceLeft"></i>
+					</button>
+				</div>
+				<div class="form-group">
+					<label for="InputPassword1">비밀번호</label> <input type="password"
+						class="form-control" id="InputPassword1" name="member_pwd"  placeholder="비밀번호">
+				</div>
+				<div class="form-group">
+					<label for="InputPassword2">비밀번호 확인</label> <input type="password"
+						class="form-control" id="InputPassword2" placeholder="비밀번호 확인">
+					<p class="help-block">비밀번호 확인을 위해 다시한번 입력 해 주세요</p>
+				</div>
+
+				<div class="form-group">
+					<label for="username">주소</label> <input type="text"
+						class="form-control" id="useradress"  name="member_adrress" placeholder="이름을 입력해 주세요">
+				</div>
+				<div class="form-group">
+					<label for="username">성별</label> <input type="text"
+						class="form-control" id="usergender" name="member_gender"  placeholder="성별을 입력해 주세요 ex:남 or 여">
+				</div>
+				<div class="form-group">
+					<label for="username">생년월일</label> <input type="text"
+						class="form-control" id="userbirth"  placeholder="생년월일을 입력해주세요 ex : 890622">
+				</div>
+				
+				<div class="form-group">
+					<div class="input-group">
+						
+						</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>약관 동의</label>
+					<div data-toggle="buttons">
+						<label class="btn btn-primary active"> <span
+							class="fa fa-check"></span> <input id="agree" type="checkbox"
+							autocomplete="off" checked>
+						</label> <a href="#">이용약관</a>에 동의합니다.
+					</div>
+				</div>
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-info">
+						회원가입<i class="fa fa-check spaceLeft"></i>
+					</button>
+					<button type="submit" class="btn btn-warning">
+						가입취소<i class="fa fa-times spaceLeft"></i>
+					</button>
+					<br> <br>
+					<button type="" class="btn btn-info">
+						<a href="/petpapa/index.html" class="btn btn-info">홈으로</a>
+
+
+					</button>
+				</div>
+			</form>
+		</div>
+
+	</article>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="/petpapa/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -9,4 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+   <context-param>
+		<param-name>packageName</param-name>
+		<param-value>com.ppp.controller</param-value>
+	</context-param>
+	<context-param>
+		<param-name>webappName</param-name>
+		<param-value>ppp</param-value>
+	</context-param>
 </web-app>

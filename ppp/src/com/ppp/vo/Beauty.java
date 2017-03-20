@@ -2,7 +2,7 @@ package com.ppp.vo;
 
 import java.sql.Date;
 
-public class BeautyVo {
+public class Beauty {
 	int beautyNo;
 	String beautyId;
 	String beautyPwd;
