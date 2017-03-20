@@ -63,7 +63,7 @@ public class PppDao {
 		}
 		return 0;
 	}
-	public int memberDelete(Connection conn, Member mem){
+	public int memberUpdate(Connection conn, Member mem) {
 		return -1;
 	}
 }
