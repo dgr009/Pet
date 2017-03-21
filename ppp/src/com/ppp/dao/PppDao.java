@@ -252,6 +252,10 @@ public class PppDao {
 		h.setHospitalNo(rs.getInt("hospitalNo"));
 		h.setHospitalName(rs.getString("hospitalName"));
 		h.setHospitalOrnerName(rs.getString("hospitalOrnerName"));
+		h.setHospitalOrnerNo(rs.getString("hospitalOrnerNo"));
+		h.setHospitalMail(rs.getString("hospitalMail"));
+		h.setHospitalPhone(rs.getString("hospitalPhone"));
+		
 		return h;
 		
 	}
