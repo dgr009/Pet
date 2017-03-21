@@ -1,10 +1,35 @@
 package com.ppp.dao;
 
+<<<<<<< HEAD
 import java.sql.*;
 import java.util.*;
+=======
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+>>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 
+<<<<<<< HEAD
 import com.ppp.util.*;
 import com.ppp.vo.*;
+=======
+import com.ppp.util.JdbcUtil;
+import com.ppp.vo.Admin;
+import com.ppp.vo.Beauty;
+import com.ppp.vo.BeautyReserve;
+import com.ppp.vo.Hospital;
+import com.ppp.vo.HospitalReserve;
+import com.ppp.vo.Hotel;
+import com.ppp.vo.HotelReserve;
+import com.ppp.vo.Member;
+import com.ppp.vo.Message;
+import com.ppp.vo.ReserveBeautyTime;
+import com.ppp.vo.ReserveHospitalTime;
+import com.ppp.vo.Room;
+>>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 
 public class PppDao {
 	// 일반회원 번호 마지막 찾기
@@ -327,7 +352,11 @@ public class PppDao {
 	}
 
 	// 병원회원 검색 기본
+<<<<<<< HEAD
 	public Hospital basicHospital(ResultSet rs) throws SQLException {
+=======
+	private Hospital basicHospital(ResultSet rs) throws SQLException{
+>>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 		Hospital h = new Hospital();
 		h.setHospitalNo(rs.getInt("hospitalNo"));
 		h.setHospitalName(rs.getString("hospitalName"));
@@ -617,5 +646,672 @@ public class PppDao {
 		}
 		return -1;
 	}
+<<<<<<< HEAD
 
 }
+=======
+	// 병원회원 사업자 등록번호 중복확인
+	public int hospitalOrnerNoCheck(Connection conn, String hospitalOrnerNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		try {
+			pstmt = conn.prepareStatement(Sql.hospitalOnerNoCheck);
+			pstmt.setString(1, hospitalOrnerNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt,rs);
+		}return -1;
+	}
+	// 병원 예약시간 등록
+	public int insertHospitalReserveTiem(Connection conn, ReserveHospitalTime rht ){
+		PreparedStatement pstmt =  null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertHospitalReserveTiem);
+			pstmt.setInt(1, rht.getReserveHospitalTimeNo());
+			pstmt.setString(2, rht.getHospitalTimeKind());
+			pstmt.setInt(3, rht.getHospitalNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, null);
+		}return -1;
+	}
+	// 병원예약내역 조회 기본
+	private HospitalReserve basicHospitalReserve(ResultSet rs) throws SQLException{
+		HospitalReserve hr = new HospitalReserve();
+		hr.setHospitalNo(rs.getInt("hospitalNo"));
+		hr.setMemberNo(rs.getInt("memberNo"));
+		hr.setReserveHospitalNo(rs.getInt("reserveHotelNo"));
+		hr.setReserveHospitalDate(rs.getDate("reserveHospitalDate"));
+		return hr;
+		
+	}
+	// 병원회원 전체 예약내역 확인
+	public ArrayList<HospitalReserve> allHospitalReserve(Connection conn, HospitalReserve hr){
+		PreparedStatement pstmt =null;
+		ResultSet rs = null;
+		ArrayList<HospitalReserve> list = new ArrayList<>();
+		try {
+			pstmt= conn.prepareStatement(Sql.findAllReserveHospital);
+			rs= pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHospitalReserve(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}return null;
+	}
+	// 병원회원 날짜별 예약내역 확인
+	public HospitalReserve selectHospitalReserveByDatd(Connection conn, Date reserveHospitalDate){
+		PreparedStatement pstmt =null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.findDateReserveHospital);
+			pstmt.setDate(1, reserveHospitalDate);
+			if(rs.next()){
+				return basicHospitalReserve(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt,rs);
+		} return null;
+	}
+	// 병원회원 예약시간대 수정
+	public int updateHospitalReserveTime(Connection conn, int reserveHospitalTimeNo , int hospitalNo){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateReserveHospitalTime);
+			pstmt.setInt(1, reserveHospitalTimeNo);
+			pstmt.setInt(2, hospitalNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 지역별 병원회원 검색
+	public ArrayList<Hospital> selectHospitalByArea(Connection conn, Hospital h){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hospital> list = new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(Sql.findAreaHospital);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHospital(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 평점별 병원회원 검색
+	public ArrayList<Hospital> selectHospitalByScore(Connection conn, Hospital h){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hospital> list = new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(Sql.findScoreHospita);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHospital(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 리뷰순 병원회원 검색
+	public ArrayList<Hospital> selectHospitalByReview(Connection conn, Hospital h){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hospital> list = new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(Sql.findReviewCntHospital);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHospital(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 병원회원 기본정보 수정
+	public int updateHospital(Connection conn, Hospital h){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt=conn.prepareStatement(Sql.updateHospital);
+			pstmt.setString(1, h.getHospitalName());
+			pstmt.setString(2, h.getHospitalMail());
+			pstmt.setString(3, h.getHospitalAddress());
+			pstmt.setString(4, h.getHospitalPhone());
+			pstmt.setString(5, h.getHospitalOrnerName());
+			pstmt.setInt(6, h.getHospitalNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt,null);
+		}return -1;
+	}
+
+	// 병원회원 아이디 찾기
+	public Hospital findHospitalId(Connection conn, String hospitalMail, String hospitalOrnerNo ){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Hospital h = new Hospital();
+		try {
+			pstmt=conn.prepareStatement(Sql.findHospitalId);
+			pstmt.setString(1, hospitalMail);
+			pstmt.setString(2, hospitalOrnerNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				h.setHospitalId(rs.getString("hospitalId"));
+				return h;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt,rs);
+		}return null;
+	}
+	// 병원회원 비밀번호 찾기
+	public Hospital findHospitalPwd(Connection conn, String hospitalMail, String hopitalOrnerNo, String hospitalId){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Hospital h = new Hospital();
+		try {
+			pstmt=conn.prepareStatement(Sql.findHospitalPwd);
+			pstmt.setString(1, hospitalMail);
+			pstmt.setString(2, hopitalOrnerNo);
+			pstmt.setString(3, hospitalMail);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				h.setHospitalPwd(rs.getString("hospitalPwd"));
+				return h;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 미용실회원 아이디 중복체크
+	public int beautyidCheck(Connection conn, String beautyId){
+		PreparedStatement pstmt = null;
+		ResultSet rs= null;
+		try {
+			pstmt = conn.prepareStatement(Sql.beautyIdCheck);
+			pstmt.setString(1, beautyId);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return -1;
+	}
+	// 미용실회원 사업자등록번호 중복확인
+	public int beautyOrnerNoCheck(Connection conn, String beautyOrnerNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt=conn.prepareStatement(Sql.beuatyOrnerNoCheck);
+			pstmt.setString(1, beautyOrnerNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return -1;
+	}
+	//미용실 예약시간 등록
+	public int insertBeautyReserveTiem(Connection conn, ReserveBeautyTime rbt ){
+		PreparedStatement pstmt =  null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertHospitalReserveTiem);
+			pstmt.setInt(1, rbt.getReserveBeautyTimeNo());
+			pstmt.setString(2, rbt.getBeautyTimeKind());
+			pstmt.setInt(3, rbt.getBeautyNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, null);
+		}return -1;
+	}
+	//미용실회원 예약내역 조회 기본
+	public BeautyReserve basicBeautyReserve(ResultSet rs) throws SQLException{
+		BeautyReserve br = new BeautyReserve();
+		br.setReserveBeautyNo(rs.getInt("reserveBeautyNo"));
+		br.setBeautyNo(rs.getInt("beautyNo"));
+		br.setReserveBeautyDate(rs.getDate("reserveBeautyDate"));
+		br.setMemberNo(rs.getInt("memberNo"));
+		return br;
+	}
+	// 미용실회원 전체 예약내역 조회
+	public ArrayList<BeautyReserve> findAllReserveBeauty(Connection conn,BeautyReserve br){
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		ArrayList<BeautyReserve> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findAllReserveBeauty);
+			pstmt.setInt(1, br.getBeautyNo());
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicBeautyReserve(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 미용실회원 날짜별 예약내역 조회
+	public ArrayList<BeautyReserve> findReserveBeautyByDate(Connection conn, Date reserveBeautyDate){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<BeautyReserve> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findDateReserveBeauty);
+			pstmt.setDate(1, reserveBeautyDate);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicBeautyReserve(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 미용실 예약 시간대 수정
+	public int updateReserveBeauty(Connection conn, int reserveBeautyTimeNo , int beautyNo ){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateReserveBeautyTime);
+			pstmt.setInt(1, reserveBeautyTimeNo);
+			pstmt.setInt(2, beautyNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 지역별 미용실 조회
+	public ArrayList<Beauty> selectBeautyByArea(Connection conn, Beauty b){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Beauty> list= new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findAreaBeauty);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicBeauty(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}return null;
+	}
+	// 평점별 미용실 조회
+	public ArrayList<Beauty> selectBeautyByScore(Connection conn, Beauty b){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Beauty> list= new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findScoreBeauty);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicBeauty(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}return null;
+	}
+	// 리뷰순 미용실 조회
+	public ArrayList<Beauty> selectBeautyByReview(Connection conn, Beauty b){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Beauty> list= new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findReviewCntBeauty);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicBeauty(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}return null;
+	}
+	//미용실회원 기본정보 수정
+	public int updateBeauty(Connection conn, Beauty b){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt=conn.prepareStatement(Sql.updateBeauty);
+			pstmt.setString(1, b.getBeautyName());
+			pstmt.setString(2, b.getBeautyMail());
+			pstmt.setString(3, b.getBeautyAddress());
+			pstmt.setString(4, b.getBeautyPhone());
+			pstmt.setString(5, b.getBeautyOrnerName());
+			pstmt.setInt(6, b.getBeautyNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt,null);
+		} return -1;
+	}
+	//미용실회원 아이디 찾기
+	public Beauty findbeautyId(Connection conn, String beautyMail, String beautyOrnerNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Beauty b = new Beauty();
+		try {
+			pstmt= conn.prepareStatement(Sql.findBeautyId);
+			pstmt.setString(1, beautyMail);
+			pstmt.setString(2, beautyOrnerNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				b.setBeautyId(rs.getString("beautyId"));
+				return b;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	//미용실회원 비밀번호 찾기
+	public Beauty findbeautyPwd(Connection conn, String beautyMail, String beautyOrnerNo , String beautyId){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Beauty b = new Beauty();
+		try {
+			pstmt= conn.prepareStatement(Sql.findBeautyId);
+			pstmt.setString(1, beautyMail);
+			pstmt.setString(2, beautyOrnerNo);
+			pstmt.setString(3, beautyId);
+			if(rs.next()){
+				b.setBeautyPwd(rs.getString("beautyPwd"));
+				return b;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt, null);
+		} return null;
+	}
+
+
+
+	// 호텔회원 아이디 중복체크
+	public int hotelidCheck(Connection conn, String hotelId){
+		PreparedStatement pstmt = null;
+		ResultSet rs= null;
+		try {
+			pstmt = conn.prepareStatement(Sql.hotelIdCheck);
+			pstmt.setString(1, hotelId);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return -1;
+	}
+	// 호텔회원 사업자등록번호 중복확인
+	public int hotelOrnerNoCheck(Connection conn, String hotelOrnerNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt=conn.prepareStatement(Sql.hotelOrnerNoCheck);
+			pstmt.setString(1, hotelOrnerNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return -1;
+	}
+	//호텔 방 등록
+	public int insertHotelReserveTiem(Connection conn, Room r){
+		PreparedStatement pstmt =  null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertRoom);
+			pstmt.setInt(1, r.getRoomNo());
+			pstmt.setInt(2, r.getHotelNo());
+			pstmt.setString(3, r.getRoomKind());
+			pstmt.setInt(4, r.getRoomPrice());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, null);
+		}return -1;
+	}
+	// 호텔 예약내역 조회 기본
+	public HotelReserve basicHotelReserve(ResultSet rs) throws SQLException{
+		HotelReserve hr = new HotelReserve();	
+		hr.setReserveHotelNo(rs.getInt("reserveHotelNo"));
+		hr.setHotelNo(rs.getInt("hotelNo"));
+		hr.setReserveHotelDate(rs.getDate("reserveHotelDate"));
+		hr.setMemberNo(rs.getInt("memberNo"));
+		return hr;
+	}
+	// 호텔회원 전체 예약내역 조회
+	public ArrayList<HotelReserve> findAllReserveHotel(Connection conn,HotelReserve hr){
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		ArrayList<HotelReserve> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findAllReserveHotel);
+			pstmt.setInt(1, hr.getHotelNo());
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHotelReserve(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 호텔회원 날짜별 예약내역 조회
+	public ArrayList<HotelReserve> findReserveHotelByDate(Connection conn, Date reserveHotelDate){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<HotelReserve> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findDateReserveHotel);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHotelReserve(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 호텔 방 수정
+	public int updateReserveHotel(Connection conn, int reserveHotelTimeNo , int hotelNo ){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateRoom);
+			pstmt.setInt(1, reserveHotelTimeNo);
+			pstmt.setInt(2, hotelNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 지역별 호텔 조회
+	public ArrayList<Hotel> selectHotelByArea(Connection conn, Hotel h){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hotel> list= new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findAreaHotel);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHotel(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}return null;
+	}
+	// 평점별 호텔 조회
+	public ArrayList<Hotel> selectBeautyByHotel(Connection conn, Hotel h){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hotel> list= new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findScoreHotel);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHotel(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}return null;
+	}
+	// 리뷰순 호텔 조회
+	public ArrayList<Hotel> selectHotelByReview(Connection conn, Hotel h){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hotel> list= new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findReviewCntHotel);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHotel(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}return null;
+	}
+	//호텔회원 기본정보 수정
+	public int updateHotel(Connection conn, Hotel h){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt=conn.prepareStatement(Sql.updateBeauty);
+			pstmt.setString(1, h.getHotelName());
+			pstmt.setString(2, h.getHotelMail());
+			pstmt.setString(3, h.getHotelAddress());
+			pstmt.setString(4, h.getHotelPhone());
+			pstmt.setString(5, h.getHotelOrnerName());
+			pstmt.setInt(6, h.getHotelNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt,null);
+		} return -1;
+	}
+	//호텔회원 아이디 찾기
+	public Hotel findHotelId(Connection conn, String hotelMail, String hotelOrnerNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Hotel h = new Hotel();
+		try {
+			pstmt= conn.prepareStatement(Sql.findBeautyId);
+			pstmt.setString(1, hotelMail);
+			pstmt.setString(2, hotelOrnerNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				h.setHotelId(rs.getString("hotelId"));
+				return h;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	//호텔회원 비밀번호 찾기
+	public Hotel findHotelPwd(Connection conn, String hotelMail, String hotelOrnerNo , String hotelId){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Hotel h = new Hotel();
+		try {
+			pstmt= conn.prepareStatement(Sql.findHotelPwd);
+			pstmt.setString(1, hotelMail);
+			pstmt.setString(2, hotelOrnerNo);
+			pstmt.setString(3, hotelId);
+			if(rs.next()){
+				h.setHotelPwd(rs.getString("hotelPwd"));
+				return h;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt, null);
+		} return null;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git

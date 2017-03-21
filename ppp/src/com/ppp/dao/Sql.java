@@ -222,7 +222,7 @@ public interface Sql {
 	//110. 관리자 쪽지 추가
 	public String insertMessage="insert into message(message_no,message_title,message_content,message_date,admin_no,member_no) values(?,?,?,?,?,?)";
 	//111. 회원 쪽지 검색
-	public String insertMemberMessage="select m.message_no,m.message_title,m.message_content,m.message_date ,b.member_id from message m, member b where m.member_no=b.member_no and  b.member_id=?";
+	public String insertMemberMessage="select m.message_no,m.message_title,m.message_content,m.message_date ,b.member_id from message m, member b where m.member_no=b.member_no and  b.member_no=?";
 	//112. 수의사 추가
 	public String insertVet="insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,?,?,?)";
 	//113. 미용사 추가
@@ -234,6 +234,7 @@ public interface Sql {
 	//116. 회원 마지막번호 조회
 	public String memberNoMax="select max(member_no)+1 from member";
 	//117. 병원 마지막번호 조회
+<<<<<<< HEAD
 	public String hospitalNoMax="select max(hospital_no)+1 from hospital";
 	//118. 미용실 마지막번호 조회
 	public String beautyNoMax="select max(beauty_no)+1 from beauty";
@@ -249,5 +250,14 @@ public interface Sql {
 	public String adminidCheck="select count(*) from admin where admin_id=?";
 	// 병원회원 아이디 중복확인
 	public String hospitalIdCheck="select count(*) from hospital where hospital_id=?";
-
+	// 병원 사업자 등록번호 중복확인
+	public String hospitalOnerNoCheck="selelct count(*) from hospital where hospital_orner_no=?";
+	// 미용실회원 아이디 중복확인
+	public String beautyIdCheck="select count(*) from beauty where beauty_id=?";
+	// 미용실회원 사업자 등록번호 중복확인
+	public String beuatyOrnerNoCheck="select count(*) from beauty where beauty_orner_no=?";
+	// 호텔회원 아이디 찾기
+	public String hotelIdCheck="select count(*) from hotel where hotel_id=?";
+	// 호텔회원 사업자 등록번호 중복확인
+	public String hotelOrnerNoCheck="select count(*) from hotel where hotel_orner_no";
 }

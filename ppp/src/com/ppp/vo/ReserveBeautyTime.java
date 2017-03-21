@@ -1,13 +1,13 @@
 package com.ppp.vo;
 
 public class ReserveBeautyTime {
-	   String reserveBeautyTimeNo;
+	   int reserveBeautyTimeNo;
 	   int beautyNo;
 	   String beautyTimeKind;
-	public String getReserveBeautyTimeNo() {
+	public int getReserveBeautyTimeNo() {
 		return reserveBeautyTimeNo;
 	}
-	public void setReserveBeautyTimeNo(String reserveBeautyTimeNo) {
+	public void setReserveBeautyTimeNo(int reserveBeautyTimeNo) {
 		this.reserveBeautyTimeNo = reserveBeautyTimeNo;
 	}
 	public int getBeautyNo() {
