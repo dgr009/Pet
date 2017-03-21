@@ -20,7 +20,7 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/member/login");
     	whiteList.add("/ppp/member/memberregister");
     	whiteList.add("/ppp/admin/adminregister");
-    	whiteList.add("/ppp/admin/login");
+    	whiteList.add("/ppp/admin/adminlogin");
     	whiteList.add("/ppp/services/*");
     	
     }
@@ -31,7 +31,7 @@ public class PppLoginFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
 		String uri = req.getRequestURI();
-		System.out.println(uri);
+		System.out.println("filter uri: "+uri);
 		String go = uri;
 		Member member = (Member)session.getAttribute("member");
 		Admin admin = (Admin)session.getAttribute("admin");
@@ -41,10 +41,17 @@ public class PppLoginFilter implements Filter {
 			// 예를 들어 /board/view를 요청했는데 로그인이 안된 경우
 			// 로그인을 한 다음 /board/view로 다시 이동해야 한다
 			// 따라서 로그인 후 다시 이동할 주소를 세션에 저장한 다음 로그인으로 이동
-			go = "/ppp/member/login";
+			String user = uri.substring(uri.indexOf("/",2)+1, uri.lastIndexOf("/"));
+			System.out.println("user : " + user);
+			if(user.equals("member"))
+				go = "/ppp/member/login";
+			if(user.equals("admin"))
+				go = "/ppp/admin/adminlogin";
 			session.setAttribute("destination", uri);
 			if(req.getParameter("member_no")!=null)
 				session.setAttribute("member_no", req.getParameter("member_no"));
+			if(req.getParameter("admin_no")!=null)
+				session.setAttribute("admin_no", req.getParameter("admin_no"));
 			res.sendRedirect(go);
 		} else {
 			chain.doFilter(request, response);

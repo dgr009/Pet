@@ -50,7 +50,7 @@ public class DispatcherServlet extends HttpServlet {
 				String destination = mav.getView();
 				if(mav.getView().equals("/")) 
 					destination = "/" + request.getServletContext().getInitParameter("webappName");
-				System.out.println(destination);
+				System.out.println("dispatcher destination: "+destination);
 				response.sendRedirect(destination);
 			}
 		}	

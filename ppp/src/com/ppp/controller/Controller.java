@@ -95,7 +95,7 @@ public class Controller {
 			ModelAndView mav = new ModelAndView();
 			HttpSession session = req.getSession();
 			String go = (String)session.getAttribute("destination");
-			System.out.println("go:" + go);
+			System.out.println("1go:" + go);
 			mav.setView("/services/adminLogin.jsp");
 
 			return mav;
@@ -114,14 +114,17 @@ public class Controller {
 			} else {
 				System.out.println("로그인 성공");
 				HttpSession session = req.getSession();
-				String go = (String) session.getAttribute("destination");
-				if(go.equals("/ppp/admin/adminlogin"))
+				System.out.println("1");
+				String go = (String)session.getAttribute("destination");
+				System.out.println("2");
+				if(go.equals("/admin/adminlogin")){
+					System.out.println("들어옴???");
 					go = "/ppp/adminindex2.jsp";
+				}
 				
-				System.out.println("go:" + go);
+				System.out.println("2go:" + go);
 				session.removeAttribute("destination");
-				if (go == null)
-					go = "/ppp/adminindex2.jsp";
+				
 				Admin admin = MappingUtil.getAdminFromRequest(req, adminNo);
 				session.setAttribute("admin", admin);
 				mav.setView(go);
