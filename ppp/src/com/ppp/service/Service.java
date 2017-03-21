@@ -29,18 +29,15 @@ public class Service {
 		return new Gson().toJson(ob);
 	}
 
-	public String memberLogin(HttpServletRequest req) {
+	public int memberLogin(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
 		member.put("member_id", req.getParameter("member_id"));
 		member.put("member_pwd", req.getParameter("member_pwd"));
 		int result = 0; 
-		result = dao.memberLogin(conn,member);
-		JsonObject ob = new JsonObject();
-		if(result==0) ob.addProperty("result", result);
-		else ob.addProperty("result", result);
-		System.out.println(new Gson().toJson(ob));
+		result = dao.memberLogin(conn,member); 
+	
 		JdbcUtil.close(conn);
-		return new Gson().toJson(ob);
+		return result;
 	}
 }
