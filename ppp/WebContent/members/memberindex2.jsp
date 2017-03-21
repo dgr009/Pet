@@ -9,6 +9,6 @@
 <body>
 로그인 성공 <br>
 
-<a href="/ppp/members/index.html">돌아가기</a>
+<a href="/ppp/members/MemberHome.html">돌아가기</a>
 </body>
 </html>
