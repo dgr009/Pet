@@ -1,6 +1,6 @@
 package com.ppp.vo;
 
-public class RserveHospitalTime {
+public class ReserveHospitalTime {
 	   int reserveHospitalTimeNo;
 	   int hospitalNo;
 	   String hospitalTimeKind;
