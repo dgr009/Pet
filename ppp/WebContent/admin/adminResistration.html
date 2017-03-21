@@ -8,10 +8,10 @@
     <title>bootstrap template</title>
 
     <!-- Bootstrap -->
-    <link href="/ppp/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- font awesome -->
     <!-- Custom style -->
-    <link rel="stylesheet" href="/ppp/css/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,10 +25,10 @@
 
       <article class="container">
         <div class="page-header">
-          <h1>회원가입 <small>basic form</small></h1>
+          <h1>관리자 회원가입 <small>basic form</small></h1>
         </div>
         <div class="col-md-6 col-md-offset-3">
-          <form role="form" action='/ppp/member/memberregister' method='post'>
+          <form role="form">
             <div class="form-group">
               <label for="InputId">아이디</label>
               <input type="text" class="form-control" id="InputId" placeholder="아이디">
@@ -46,36 +46,7 @@
               <label for="username">이름</label>
               <input type="text" class="form-control" id="username" placeholder="이름을 입력해 주세요">
             </div>
-            <div class="form-group">
-              <label for="usertel">연락처</label>
-              <input type="tel" class="form-control" id="usertel" placeholder="-빼고 연락처를 입력하세요.">
-            </div>
-            <div class="form-group">
-              <label for="usertel">성별</label>
-           	<select class="form-control" name="sungbyul" id="sungbyul">
-           		<option value>남자</option>
-           		<option value>여자</option>
-           	</select>
-           	
-            </div>
-            <div class="form-group">
-              <label for="username">이메일인증</label>
-              <div class="input-group">
-                <input type="email" class="form-control" id="userEmail" placeholder="email을 입력해주세요.">
-                <span class="input-group-btn">
-                  <button class="btn btn-success">인증번호 전송<i class="fa fa-mail-forward spaceLeft"></i></button>
-                </span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="username">인증번호 입력</label>
-              <div class="input-group">
-                <input type="text" class="form-control" id="username" placeholder="인증번호">
-                <span class="input-group-btn">
-                  <button class="btn btn-success">인증번호 입력<i class="fa fa-edit spaceLeft"></i></button>
-                </span>
-              </div>
-            </div>
+          
             <div class="form-group">
                 <label>약관 동의</label>
               <div data-toggle="buttons">
@@ -99,6 +70,6 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/ppp/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
