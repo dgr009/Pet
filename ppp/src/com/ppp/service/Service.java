@@ -55,6 +55,7 @@ public class Service {
 		return new Gson().toJson(ob);
 	}
 
+	//관리자 로그인
 	public int adminLogin(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> admin = new HashMap<>();
@@ -65,5 +66,17 @@ public class Service {
 	
 		JdbcUtil.close(conn);
 		return result;
+	}
+
+	//일반회원 아이디찾기
+	public String memberIdSearch(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> member = new HashMap<>();
+		member.put("member_mail", req.getParameter("member_mail"));
+		member.put("member_name", req.getParameter("member_name"));
+		JsonObject ob = new JsonObject();
+		ob.addProperty("result", dao.memberIdCheck(conn, member));
+		JdbcUtil.close(conn);
+		return new Gson().toJson(ob);
 	}
 }

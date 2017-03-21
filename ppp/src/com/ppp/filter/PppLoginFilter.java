@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 
 import com.ppp.vo.*;
 
-@WebFilter("/ppp/*")
+//@WebFilter("/*")
 public class PppLoginFilter implements Filter {
 	// 로그인 없이 접근할 수 있는 경로를 지정
 	private ArrayList<String> whiteList = new ArrayList<>();
@@ -20,6 +20,7 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/member/login");
     	whiteList.add("/ppp/member/memberregister");
     	whiteList.add("/ppp/admin/adminregister");
+    	whiteList.add("/ppp/admins/adminRegistration.html");
     	whiteList.add("/ppp/admin/adminlogin");
     	whiteList.add("/ppp/admins/adminLogin.jsp");
     	whiteList.add("/ppp/members/login.jsp");
@@ -44,9 +45,9 @@ public class PppLoginFilter implements Filter {
 			// 따라서 로그인 후 다시 이동할 주소를 세션에 저장한 다음 로그인으로 이동
 			String user = uri.substring(uri.indexOf("/",2)+1, uri.lastIndexOf("/"));
 			System.out.println("user : " + user);
-			if(user.equals("member"))
+			if(user.equals("member") || user.equals("members"))
 				go = "/ppp/member/login";
-			if(user.equals("admin"))
+			if(user.equals("admin") || user.equals("admins"))
 				go = "/ppp/admin/adminlogin";
 			session.setAttribute("destination", uri);
 			if(req.getParameter("member_no")!=null)
@@ -55,6 +56,10 @@ public class PppLoginFilter implements Filter {
 				session.setAttribute("admin_no", req.getParameter("admin_no"));
 			res.sendRedirect(go);
 		} else {
+			
+			if(member==null) session.removeAttribute("member");
+			else if(admin==null) session.removeAttribute("admin");
+			
 			chain.doFilter(request, response);
 		}
 	}

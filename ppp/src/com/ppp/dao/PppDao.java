@@ -50,7 +50,29 @@ public class PppDao {
 		}
 		return 0;
 	}
-
+	// 일반 회원 아이디찾기
+	public String memberIdCheck(Connection conn,HashMap<String, String> member){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+				
+		try {
+			pstmt = conn.prepareStatement(Sql.findMemberId);
+			pstmt.setString(1, member.get("member_mail"));
+			pstmt.setString(2, member.get("member_name"));
+			
+			if(rs.next())
+				return rs.getString(1);
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		
+		return null;
+	}
+	
 	// 일반 회원 로그인
 	public int memberLogin(Connection conn, HashMap<String, String> member) {
 		PreparedStatement pstmt = null;
@@ -211,7 +233,7 @@ public class PppDao {
 		}
 		return null;
 	}
-
+	
 	// 아이디로 회원정보 조회
 	public Member selectMemberById(Connection conn, String memberId) {
 		PreparedStatement pstmt = null;
