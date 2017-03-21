@@ -34,12 +34,10 @@ public class Controller {
 		Service service = (Service)req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/services/login.jsp");
-		System.out.println("들어옴??");
 		int memberNo = service.memberLogin(req);
 		
 		if(memberNo==0) {
 			mav.setView("/services/login.jsp");
-			System.out.println("sadasd");
 		}
 		else {
 			HttpSession session = req.getSession();
