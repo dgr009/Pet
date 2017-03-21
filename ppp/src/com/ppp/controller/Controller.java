@@ -22,7 +22,7 @@ public class Controller {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.memberCreateEnd(req));
-		mav.setView("/ppp/members/MemberHome.html");
+		mav.setView("/ppp/MemberHome.html");
 		mav.setRedirect();
 
 		return mav;
@@ -58,7 +58,7 @@ public class Controller {
 			System.out.println("go:" + go);
 			session.removeAttribute("destination");
 			if (go == null)
-				go = "/ppp/members/MemberHome.html";
+				go = "/ppp/MemberHome.html";
 			Member member = MappingUtil.getMemberFromRequest(req, memberNo);
 			session.setAttribute("member", member);
 			mav.setView(go);
