@@ -234,7 +234,6 @@ public interface Sql {
 	//116. 회원 마지막번호 조회
 	public String memberNoMax="select max(member_no)+1 from member";
 	//117. 병원 마지막번호 조회
-<<<<<<< HEAD
 	public String hospitalNoMax="select max(hospital_no)+1 from hospital";
 	//118. 미용실 마지막번호 조회
 	public String beautyNoMax="select max(beauty_no)+1 from beauty";
