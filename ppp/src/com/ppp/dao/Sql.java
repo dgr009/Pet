@@ -182,13 +182,13 @@ public interface Sql {
 	//90. 관리자 추가
 	public String insertAdmin="INSERT INTO admin(admin_no,admin_id,admin_pwd,admin_name,admin_mail) VALUES(?,'?','?','?','?')";
 	//91. 회원 추가
-	public String insertMember="insert into member(member_no,member_address,member_id,member_pwd,member_gender,member_phone,member_name,member_mail,member_coupon,member_active,member_active_date,admin_no) values(?,'?','?','?','?','?','?','?',?,1,?,?)";
+	public String insertMember="insert into member(member_no,member_address,member_id,member_pwd,member_gender,member_phone,member_name,member_mail,member_coupon,member_active,admin_no) values(?,'?','?','?','?','?','?','?',?,1,?)";
 	//92. 병원회원 추가
-	public String insertHospital="insert into hospital(hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_phone,hospital_address,hospital_id,hospital_pwd,hospital_photo,hospital_active,hospital_active_date,admin_no) values(?,'?','?','?','?','?','?','?','?','?',1,?,?)";
+	public String insertHospital="insert into hospital(hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_phone,hospital_address,hospital_id,hospital_pwd,hospital_photo,hospital_active,admin_no) values(?,'?','?','?','?','?','?','?','?','?',1,?)";
 	//93. 미용실회원 추가
-	public String insertBeauty="insert into beauty(beauty_no,beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_phone,beauty_address,beauty_id,beauty_pwd,beauty_photo,beauty_active,beauty_active_date,admin_no) values(?,'?','?','?','?','?','?','?','?','?',1,?,?)";
+	public String insertBeauty="insert into beauty(beauty_no,beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_phone,beauty_address,beauty_id,beauty_pwd,beauty_photo,beauty_active,admin_no) values(?,'?','?','?','?','?','?','?','?','?',1,?)";
 	//94. 호텔회원 추가
-	public String insertHotel="insert into hotel(hotel_no,hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_phone,hotel_address,hotel_id,hotel_pwd,hotel_photo,hotel_active,hotel_active_date,admin_no) values(?,'?','?','?','?','?','?','?','?','?',1,?,?)";
+	public String insertHotel="insert into hotel(hotel_no,hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_phone,hotel_address,hotel_id,hotel_pwd,hotel_photo,hotel_active,admin_no) values(?,'?','?','?','?','?','?','?','?','?',1,?)";
 	//95. 병원예약 추가
 	public String insertReserveHospital="insert into reserve_hospital(reserve_hospital_no,reserve_hospital_date,member_no,hospital_no) values(?,?,?,?)";
 	//96. 미용실예약 추가

@@ -10,6 +10,7 @@ import javax.naming.spi.DirStateFactory.Result;
 
 import com.ppp.util.JdbcUtil;
 import com.ppp.vo.Admin;
+import com.ppp.vo.Hospital;
 import com.ppp.vo.Member;
 import com.ppp.vo.Message;
 
@@ -45,8 +46,7 @@ public class PppDao {
 			pstmt.setString(8, mem.getMemberMail());
 			pstmt.setInt(9, mem.getMemberCoupon());
 			pstmt.setInt(10, mem.getMemberActive());
-			pstmt.setDate(11, mem.getMemberActiveDate());
-			pstmt.setInt(12, mem.getAdminNo());
+			pstmt.setInt(11, mem.getAdminNo());
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -222,6 +222,50 @@ public class PppDao {
 		return -1;
 	}
 	
-	
-	
+	// 병원 회원 추가
+	public int insertHospital(Connection conn, Hospital h){
+		PreparedStatement pstmt =null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertHospital);
+			pstmt.setInt(1, h.getHospitalNo());
+			pstmt.setString(2, h.getHospitalName());
+			pstmt.setString(3, h.getHospitalOrnerName());
+			pstmt.setString(4, h.getHospitalOrnerNo());	
+			pstmt.setString(5, h.getHospitalMail());
+			pstmt.setString(6, h.getHospitalPhone());
+			pstmt.setString(7, h.getHospitalAddress());
+			pstmt.setString(8, h.getHospitalId());
+			pstmt.setString(9, h.getHospitalPwd());
+			pstmt.setString(10, h.getHospitalPhoto());
+			pstmt.setInt(11, h.getAdminNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		}
+		return -1;
+	}
+	// 병원회원 검색 기본
+	public Hospital basicHospital(ResultSet rs) throws SQLException{
+		Hospital h = new Hospital();
+		h.setHospitalNo(rs.getInt("hospitalNo"));
+		h.setHospitalName(rs.getString("hospitalName"));
+		h.setHospitalOrnerName(rs.getString("hospitalOrnerName"));
+		return h;
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
