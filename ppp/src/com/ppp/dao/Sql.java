@@ -247,5 +247,12 @@ public interface Sql {
 	public String hospitalIdCheck="select count(*) from hospital where hospital_id=?";
 	// 병원 사업자 등록번호 중복확인
 	public String hospitalOnerNoCheck="selelct count(*) from hospital where hospital_orner_no=?";
-	
+	// 미용실회원 아이디 중복확인
+	public String beautyIdCheck="select count(*) from beauty where beauty_id=?";
+	// 미용실회원 사업자 등록번호 중복확인
+	public String beuatyOrnerNoCheck="select count(*) from beauty where beauty_orner_no=?";
+	// 호텔회원 아이디 찾기
+	public String hotelIdCheck="select count(*) from hotel where hotel_id=?";
+	// 호텔회원 사업자 등록번호 중복확인
+	public String hotelOrnerNoCheck="select count(*) from hotel where hotel_orner_no";
 }
