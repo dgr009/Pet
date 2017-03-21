@@ -182,11 +182,7 @@ public interface Sql {
 	//90. 관리자 추가
 	public String insertAdmin="INSERT INTO admin(admin_no,admin_id,admin_pwd,admin_name,admin_mail) VALUES(?,?,?,?,?)";
 	//91. 회원 추가
-<<<<<<< HEAD
-	public String insertMember="insert into member(member_no,member_address,member_id,member_pwd,member_gender,member_phone,member_name,member_mail,member_coupon,member_active,member_active_date,admin_no) values(?,?,?,?,?,?,?,?,?,?,?,?)";
-=======
 	public String insertMember="insert into member(member_no,member_address,member_id,member_pwd,member_gender,member_phone,member_name,member_mail,member_coupon,member_active,admin_no) values(?,?,?,?,?,?,?,?,?,1,?)";
->>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 	//92. 병원회원 추가
 	public String insertHospital="insert into hospital(hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_phone,hospital_address,hospital_id,hospital_pwd,hospital_photo,hospital_active,admin_no) values(?,?,?,?,?,?,?,?,?,?,1,?)";
 	//93. 미용실회원 추가

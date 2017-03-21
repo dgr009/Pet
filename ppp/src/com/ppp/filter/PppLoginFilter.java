@@ -15,9 +15,12 @@ public class PppLoginFilter implements Filter {
 	private ArrayList<String> whiteList = new ArrayList<>();
     public PppLoginFilter() {
     	whiteList.add("/ppp/index.html");
+    	whiteList.add("/ppp/adminindex.jsp");
     	whiteList.add("/ppp/member/login");
     	whiteList.add("/ppp/member/memberregister");
-    	whiteList.add("/ppp/services/login.jsp");
+    	whiteList.add("/ppp/admin/adminregister");
+    	whiteList.add("/ppp/admin/login");
+    	whiteList.add("/ppp/services/*");
     	
     }
 	public void destroy() {

@@ -22,7 +22,6 @@
   </head>
   <body>
 
-
       <article class="container">
         <div class="page-header">
           <h1>회원가입 <small>basic form</small></h1>
@@ -31,11 +30,11 @@
           <form role="form" action='/ppp/member/memberregister' method='post'>
             <div class="form-group">
               <label for="InputId">아이디</label>
-              <input type="text" class="form-control" id="InputId" placeholder="아이디">
+              <input type="text" class="form-control" id="InputId" name="member_id" placeholder="아이디">
             </div>
             <div class="form-group">
               <label for="InputPassword1">비밀번호</label>
-              <input type="password" class="form-control" id="InputPassword1" placeholder="비밀번호">
+              <input type="password" class="form-control" name="member_pwd" id="InputPassword1" placeholder="비밀번호">
             </div>
             <div class="form-group">
               <label for="InputPassword2">비밀번호 확인</label>
@@ -44,24 +43,24 @@
             </div>
             <div class="form-group">
               <label for="username">이름</label>
-              <input type="text" class="form-control" id="username" placeholder="이름을 입력해 주세요">
+              <input type="text" class="form-control" name="member_name" id="username" placeholder="이름을 입력해 주세요">
             </div>
             <div class="form-group">
               <label for="usertel">연락처</label>
-              <input type="tel" class="form-control" id="usertel" placeholder="-빼고 연락처를 입력하세요.">
+              <input type="tel" class="form-control" id="usertel" name="member_phone" placeholder="-빼고 연락처를 입력하세요.">
             </div>
             <div class="form-group">
               <label for="usertel">성별</label>
-           	<select class="form-control" name="sungbyul" id="sungbyul">
-           		<option value>남자</option>
-           		<option value>여자</option>
+           	<select class="form-control" name="member_gender" id="sungbyul">
+           		<option value="M">남자</option>
+           		<option value="F">여자</option>
            	</select>
            	
             </div>
             <div class="form-group">
               <label for="username">이메일인증</label>
               <div class="input-group">
-                <input type="email" class="form-control" id="userEmail" placeholder="email을 입력해주세요.">
+                <input type="email" class="form-control" id="userEmail" name="member_mail" placeholder="email을 입력해주세요.">
                 <span class="input-group-btn">
                   <button class="btn btn-success">인증번호 전송<i class="fa fa-mail-forward spaceLeft"></i></button>
                 </span>

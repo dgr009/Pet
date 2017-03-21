@@ -39,8 +39,7 @@ public class PppDao {
 			pstmt.setString(7, mem.getMemberName());
 			pstmt.setString(8, mem.getMemberMail());
 			pstmt.setInt(9, mem.getMemberCoupon());
-			pstmt.setInt(10, mem.getMemberActive());
-			pstmt.setInt(11, mem.getAdminNo());
+			pstmt.setInt(10, mem.getAdminNo());
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
