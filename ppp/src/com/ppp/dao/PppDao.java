@@ -1,6 +1,7 @@
 package com.ppp.dao;
 
 import java.sql.*;
+import java.util.*;
 
 import com.ppp.util.*;
 import com.ppp.vo.*;
@@ -48,6 +49,30 @@ public class PppDao {
 		} finally {
 			JdbcUtil.close(pstmt, null);
 		}
+		return 0;
+	}
+
+	public int memberLogin(Connection conn, HashMap<String, String> member) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.memberLogin);
+			pstmt.setString(1,member.get("member_id"));
+			pstmt.setString(2,member.get("member_pwd"));
+			
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				return rs.getInt(1);
+
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+
 		return 0;
 	}
 	

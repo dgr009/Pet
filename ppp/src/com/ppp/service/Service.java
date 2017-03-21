@@ -1,6 +1,7 @@
 package com.ppp.service;
 
 import java.sql.*;
+import java.util.*;
 
 import javax.servlet.http.*;
 
@@ -19,8 +20,8 @@ public class Service {
 	public String memberCreateEnd(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		int memberNo = dao.selectMemberNoMax(conn);
-		Member mem = MappingUtil.getMemberFromRequest(req, memberNo);
-		int result = dao.memberInsert(conn, mem);
+		Member member = MappingUtil.getMemberFromRequest(req, memberNo);
+		int result = dao.memberInsert(conn, member);
 		JsonObject ob = new JsonObject();
 		if(result==1) ob.addProperty("result", "success");
 		else ob.addProperty("result", "fail");
@@ -28,8 +29,18 @@ public class Service {
 		return new Gson().toJson(ob);
 	}
 
-	public int memberLogin(HttpServletRequest req) {
-		
-		return 0;
+	public String memberLogin(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> member = new HashMap<>();
+		member.put("member_id", req.getParameter("member_id"));
+		member.put("member_pwd", req.getParameter("member_pwd"));
+		int result = 0; 
+		result = dao.memberLogin(conn,member);
+		JsonObject ob = new JsonObject();
+		if(result==0) ob.addProperty("result", result);
+		else ob.addProperty("result", result);
+		System.out.println(new Gson().toJson(ob));
+		JdbcUtil.close(conn);
+		return new Gson().toJson(ob);
 	}
 }

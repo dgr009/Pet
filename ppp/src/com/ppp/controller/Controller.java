@@ -22,7 +22,7 @@ public class Controller {
 		Service service = (Service)req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.memberCreateEnd(req));
-		mav.setView("/members/memberResistration.html");
+		mav.setView("/ppp/index.html");
 		mav.setRedirect();
 		
 		return mav;
@@ -34,9 +34,9 @@ public class Controller {
 		Service service = (Service)req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/services/login.jsp");
-		int memberNo = service.memberLogin(req);
+		mav.addObject("result", service.memberLogin(req));
 		
-		if(memberNo==0) {
+		/*if(memberNo==0) {
 			mav.setView("/services/login.jsp");
 		}
 		else {
@@ -52,7 +52,7 @@ public class Controller {
 			session.setAttribute("member", member);
 			mav.setView(go);
 			mav.setRedirect();
-		}
+		}*/
 		return mav;
 	}
 }

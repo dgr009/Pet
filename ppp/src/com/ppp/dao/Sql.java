@@ -182,7 +182,7 @@ public interface Sql {
 	//90. 관리자 추가
 	public String insertAdmin="INSERT INTO admin(admin_no,admin_id,admin_pwd,admin_name,admin_mail) VALUES(?,'?','?','?','?')";
 	//91. 회원 추가
-	public String insertMember="insert into member(member_no,member_address,member_id,member_pwd,member_gender,member_phone,member_name,member_mail,member_coupon,member_active,member_active_date,admin_no) values(?,'?','?','?','?','?','?','?',?,1,?,?)";
+	public String insertMember="insert into member(member_no,member_address,member_id,member_pwd,member_gender,member_phone,member_name,member_mail,member_coupon,member_active,member_active_date,admin_no) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	//92. 병원회원 추가
 	public String insertHospital="insert into hospital(hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_phone,hospital_address,hospital_id,hospital_pwd,hospital_photo,hospital_active,hospital_active_date,admin_no) values(?,'?','?','?','?','?','?','?','?','?',1,?,?)";
 	//93. 미용실회원 추가
@@ -232,11 +232,13 @@ public interface Sql {
 	//115. 미용실 예약 시간대 추가
 	public String insertBeautyReserveTime="insert into reserve_beauty_time(reserve_beauty_time_no,BEAUTY_TIME_KIND,BEAUTY_NO) values(?,'?',?)";
 	//116. 회원 마지막번호 조회
-	public String memberNoMax="select max(member_no) from member";
+	public String memberNoMax="select max(member_no)+1 from member";
 	//117. 병원 마지막번호 조회
-	public String hospitalNoMax="select max(hospital_no) from hospital";
+	public String hospitalNoMax="select max(hospital_no)+1 from hospital";
 	//118. 미용실 마지막번호 조회
-	public String beautyNoMax="select max(beauty_no)from beauty";
+	public String beautyNoMax="select max(beauty_no)+1 from beauty";
 	//119. 호텔 마지막번호 조회
-	public String hotelNoMax="select max(hotel_no)from hotel";
+	public String hotelNoMax="select max(hotel_no)+1 from hotel";
+	//회원. 회원 로그인
+	public String memberLogin="select member_no from member where member_id=? and member_pwd=?";
 }
