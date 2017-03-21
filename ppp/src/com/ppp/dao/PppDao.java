@@ -1,35 +1,10 @@
 package com.ppp.dao;
 
-<<<<<<< HEAD
 import java.sql.*;
 import java.util.*;
-=======
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
->>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 
-<<<<<<< HEAD
 import com.ppp.util.*;
 import com.ppp.vo.*;
-=======
-import com.ppp.util.JdbcUtil;
-import com.ppp.vo.Admin;
-import com.ppp.vo.Beauty;
-import com.ppp.vo.BeautyReserve;
-import com.ppp.vo.Hospital;
-import com.ppp.vo.HospitalReserve;
-import com.ppp.vo.Hotel;
-import com.ppp.vo.HotelReserve;
-import com.ppp.vo.Member;
-import com.ppp.vo.Message;
-import com.ppp.vo.ReserveBeautyTime;
-import com.ppp.vo.ReserveHospitalTime;
-import com.ppp.vo.Room;
->>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 
 public class PppDao {
 	// 일반회원 번호 마지막 찾기
@@ -352,11 +327,7 @@ public class PppDao {
 	}
 
 	// 병원회원 검색 기본
-<<<<<<< HEAD
-	public Hospital basicHospital(ResultSet rs) throws SQLException {
-=======
 	private Hospital basicHospital(ResultSet rs) throws SQLException{
->>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 		Hospital h = new Hospital();
 		h.setHospitalNo(rs.getInt("hospitalNo"));
 		h.setHospitalName(rs.getString("hospitalName"));
@@ -646,10 +617,7 @@ public class PppDao {
 		}
 		return -1;
 	}
-<<<<<<< HEAD
 
-}
-=======
 	// 병원회원 사업자 등록번호 중복확인
 	public int hospitalOrnerNoCheck(Connection conn, String hospitalOrnerNo){
 		PreparedStatement pstmt=null;
@@ -1304,14 +1272,3 @@ public class PppDao {
 }
 
 
-
-
-
-
-
-
-
-
-
-
->>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
