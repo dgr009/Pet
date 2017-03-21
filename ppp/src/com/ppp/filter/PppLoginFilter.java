@@ -16,6 +16,7 @@ public class PppLoginFilter implements Filter {
     public PppLoginFilter() {
     	whiteList.add("/ppp/index.html");
     	whiteList.add("/ppp/adminindex.jsp");
+    	whiteList.add("/ppp/adminindex2.jsp");
     	whiteList.add("/ppp/member/login");
     	whiteList.add("/ppp/member/memberregister");
     	whiteList.add("/ppp/admin/adminregister");
@@ -33,8 +34,9 @@ public class PppLoginFilter implements Filter {
 		System.out.println(uri);
 		String go = uri;
 		Member member = (Member)session.getAttribute("member");
+		Admin admin = (Admin)session.getAttribute("admin");
 		// 화이트리스트에 없는 로그인이 필요한 경로에 접근했고 로그인이 안된 경우
-		if((!whiteList.contains(uri)) && member==null) {
+		if((!whiteList.contains(uri)) && (member==null && admin==null)) {
 			System.out.println("로그인 안됨");
 			// 예를 들어 /board/view를 요청했는데 로그인이 안된 경우
 			// 로그인을 한 다음 /board/view로 다시 이동해야 한다

@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-관리자니므니므
+관리자니므니므<br><br>
 
 <a href="/ppp/admin/adminregister">관리자 추가</a>
+<a href="/ppp/admin/adminlogin">관리자 로그인</a>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/ppp/admin/login" method="post">
+<form action="/ppp/admin/adminlogin" method="post">
 	아이디 : <input type="text" name="admin_id"><br>
 	비밀번호 : <input type="password" name="admin_pwd"><br>
 	<button>로그인</button>

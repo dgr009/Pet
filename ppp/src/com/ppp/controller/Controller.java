@@ -69,7 +69,7 @@ public class Controller {
 		
 		
 		//////////////////////////
-		// 관리자 등록(추가)폼
+		//관리자 등록(추가)폼
 		@RequestMapping(value = "/admin/adminregister", method = "GET")
 		public static ModelAndView adminRegisterStart(HttpServletRequest req) {
 			ModelAndView mav = new ModelAndView();
@@ -77,20 +77,20 @@ public class Controller {
 			return mav;
 		}
 
-		// 관리자 등록(추가)
+		//관리자 등록(추가)
 		@RequestMapping(value = "/admin/adminregister", method = "POST")
 		public static ModelAndView adminRegisterEnd(HttpServletRequest req) {
 			Service service = (Service) req.getServletContext().getAttribute("service");
 			ModelAndView mav = new ModelAndView();
-			mav.addObject("result", service.memberCreateEnd(req));
+			mav.addObject("result", service.adminCreateEnd(req));
 			mav.setView("/ppp/adminindex.jsp");
 			mav.setRedirect();
 
 			return mav;
 		}
 
-		// 로그인
-		@RequestMapping(value = "/admin/login", method = "GET")
+		//관리자 로그인(폼으로)
+		@RequestMapping(value = "/admin/adminlogin", method = "GET")
 		public static ModelAndView adminLoginStart(HttpServletRequest req) {
 			ModelAndView mav = new ModelAndView();
 			HttpSession session = req.getSession();
@@ -101,26 +101,28 @@ public class Controller {
 			return mav;
 		}
 
-		// 로그인
-		@RequestMapping(value = "/admin/login", method = "POST")
+		//관리자 로그인
+		@RequestMapping(value = "/admin/adminlogin", method = "POST")
 		public static ModelAndView adminLoginEnd(HttpServletRequest req) {
 			Service service = (Service) req.getServletContext().getAttribute("service");
 			ModelAndView mav = new ModelAndView();
-			mav.setView("/services/adminLogin.jsp");
-			int memberNo = service.memberLogin(req);
+			int adminNo = service.adminLogin(req);
 
-			if (memberNo == 0) {
+			if (adminNo == 0) {
 				System.out.println("아이디나 비밀번호 확인필요");
 				mav.setView("/services/adminLogin.jsp");
 			} else {
 				System.out.println("로그인 성공");
 				HttpSession session = req.getSession();
 				String go = (String) session.getAttribute("destination");
+				if(go.equals("/ppp/admin/adminlogin"))
+					go = "/ppp/adminindex2.jsp";
+				
 				System.out.println("go:" + go);
 				session.removeAttribute("destination");
 				if (go == null)
-					go = "/ppp/index.html";
-				Admin admin = new Admin();
+					go = "/ppp/adminindex2.jsp";
+				Admin admin = MappingUtil.getAdminFromRequest(req, adminNo);
 				session.setAttribute("admin", admin);
 				mav.setView(go);
 				mav.setRedirect();

@@ -241,6 +241,8 @@ public interface Sql {
 	public String hotelNoMax="select max(hotel_no)+1 from hotel";
 	//회원. 회원 로그인
 	public String memberLogin="select member_no from member where member_id=? and member_pwd=?";
+	//관리자. 관리자 로그인
+	public String adminLogin="select admin_no from admin where admin_id=? and admin_pwd=?";
 	//120. 관리자 마지막번호 조회
 	public String adminNoMax="select max(admin_no)+1 from admin";
 	// 관리자 아이디 중복확인
