@@ -7,18 +7,20 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import com.ppp.dao.*;
 import com.ppp.di.*;
+import com.ppp.service.*;
 
-@WebServlet({"/ppp/*"})
+@WebServlet({"/ppp/*","/member/*","/admin/*", "/hotel/*", "/hospital/*", "/beauty/*" })
 public class DispatcherServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		/*EmpMgrDao dao = new EmpMgrDao();
-		EmpMgrService service = new EmpMgrService(dao);
+		PppDao dao = new PppDao();
+		Service service = new Service(dao);
 		ServletContext context = getServletContext();
 		context.setAttribute("service", service);
-		*/
+		
 		String path = getServletContext().getRealPath("/");
 		String packageName = getServletContext().getInitParameter("packageName");
 		AnnotationRunner.getRequestMapping(path, packageName);
@@ -48,7 +50,7 @@ public class DispatcherServlet extends HttpServlet {
 				String destination = mav.getView();
 				if(mav.getView().equals("/")) 
 					destination = "/" + request.getServletContext().getInitParameter("webappName");
-				System.out.println(destination);
+				System.out.println("dispatcher destination: "+destination);
 				response.sendRedirect(destination);
 			}
 		}	

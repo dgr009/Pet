@@ -52,6 +52,7 @@ public class AnnotationRunner {
 		}
 	}
 	private static ModelAndView invoke(String uri, HttpServletRequest req) {
+		System.out.println("invoke uri : "+uri);
 		Method method = null;
 		Object returnObject = null;
 		String requestMethod = req.getMethod();
@@ -79,7 +80,7 @@ public class AnnotationRunner {
 	}
 	public static ModelAndView execute(HttpServletRequest req) {
 		String uri = req.getRequestURI();
-		System.out.println(uri);
+		System.out.println("anota excute uri : "+uri);
 		uri = uri.substring(uri.indexOf("/")+1); 	// 루트 경로 "/" 제거
 		uri = uri.substring(uri.indexOf("/"));
 		return invoke(uri, req);

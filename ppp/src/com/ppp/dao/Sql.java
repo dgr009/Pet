@@ -232,15 +232,19 @@ public interface Sql {
 	//115. 미용실 예약 시간대 추가
 	public String insertBeautyReserveTime="insert into reserve_beauty_time(reserve_beauty_time_no,BEAUTY_TIME_KIND,BEAUTY_NO) values(?,?,?)";
 	//116. 회원 마지막번호 조회
-	public String memberNoMax="select max(member_no) from member";
+	public String memberNoMax="select max(member_no)+1 from member";
 	//117. 병원 마지막번호 조회
-	public String hospitalNoMax="select max(hospital_no) from hospital+1";
+	public String hospitalNoMax="select max(hospital_no)+1 from hospital";
 	//118. 미용실 마지막번호 조회
-	public String beautyNoMax="select max(beauty_no) from beauty+1";
+	public String beautyNoMax="select max(beauty_no)+1 from beauty";
 	//119. 호텔 마지막번호 조회
-	public String hotelNoMax="select max(hotel_no) from hotel+1";
+	public String hotelNoMax="select max(hotel_no)+1 from hotel";
+	//회원. 회원 로그인
+	public String memberLogin="select member_no,member_address,member_id,member_pwd,member_gender,member_phone,member_name,member_mail,member_coupon,member_active,admin_no from member where member_id=? and member_pwd=?";
+	//관리자. 관리자 로그인
+	public String adminLogin="select admin_no from admin where admin_id=? and admin_pwd=?";
 	//120. 관리자 마지막번호 조회
-	public String adminNoMax="select max(admin_no) from admin+1";
+	public String adminNoMax="select max(admin_no)+1 from admin";
 	// 관리자 아이디 중복확인
 	public String adminidCheck="select count(*) from admin where admin_id=?";
 	// 병원회원 아이디 중복확인
@@ -269,4 +273,5 @@ public interface Sql {
 	public String updateInquireBoardComment="update inquire_board_comment set inquire_board_comment_content=? where admin_no=?";
 	// 쪽지 삭제
 	public String deleteMessage="delete message where member_no=?";
+
 }
