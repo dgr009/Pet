@@ -59,7 +59,7 @@ public class PppDao {
 			pstmt = conn.prepareStatement(Sql.findMemberId);
 			pstmt.setString(1, member.get("member_mail"));
 			pstmt.setString(2, member.get("member_name"));
-			
+			rs = pstmt.executeQuery();
 			if(rs.next())
 				return rs.getString(1);
 	
@@ -73,19 +73,55 @@ public class PppDao {
 		return null;
 	}
 	
+	//일반회원 비밀번호 찾기
+		public String memberPwdCheck(Connection conn, HashMap<String, String> member) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+					
+			try {
+				pstmt = conn.prepareStatement(Sql.findMemberPwd);
+				pstmt.setString(1, member.get("member_mail"));
+				pstmt.setString(2, member.get("member_name"));
+				pstmt.setString(3, member.get("member_id"));
+				rs = pstmt.executeQuery();
+				if(rs.next())
+					return rs.getString(1);
+		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				JdbcUtil.close(pstmt, rs);
+			}
+			
+			return null;
+		}
 	// 일반 회원 로그인
-	public int memberLogin(Connection conn, HashMap<String, String> member) {
+	public Member memberLogin(Connection conn, HashMap<String, String> member) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		Member m=new Member();
 		try {
 			pstmt = conn.prepareStatement(Sql.memberLogin);
 			pstmt.setString(1, member.get("member_id"));
 			pstmt.setString(2, member.get("member_pwd"));
 
 			rs = pstmt.executeQuery();
-			if (rs.next())
-				return rs.getInt(1);
+			
+			while(rs.next()){
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberAddress(rs.getString("member_address"));
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberPwd(rs.getString("member_pwd"));
+				m.setMemberGender(rs.getString("member_gender"));
+				m.setMemberPhone(rs.getString("member_phone"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setMemberMail(rs.getString("member_mail"));
+				m.setMemberCoupon(rs.getInt("member_coupon"));
+				m.setMemberActive(rs.getInt("member_active"));
+				m.setAdminNo(rs.getInt("admin_no"));
+			}
+			return m;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -94,7 +130,7 @@ public class PppDao {
 			JdbcUtil.close(pstmt, rs);
 		}
 
-		return 0;
+		return null;
 	}
 
 	// 관리자 회원 로그인
@@ -1292,6 +1328,8 @@ public class PppDao {
 			JdbcUtil.close(pstmt, null);
 		} return null;
 	}
+
+	
 }
 
 

@@ -30,12 +30,12 @@ public class Service {
 	}
 
 	//일반회원 로그인
-	public int memberLogin(HttpServletRequest req) {
+	public Member memberLogin(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
 		member.put("member_id", req.getParameter("member_id"));
 		member.put("member_pwd", req.getParameter("member_pwd"));
-		int result = 0; 
+		Member result = null; 
 		result = dao.memberLogin(conn,member); 
 	
 		JdbcUtil.close(conn);
@@ -79,4 +79,19 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
+
+	public String memberPwdSearch(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> member = new HashMap<>();
+		member.put("member_id", req.getParameter("member_id"));
+		member.put("member_mail", req.getParameter("member_mail"));
+		member.put("member_name", req.getParameter("member_name"));
+		JsonObject ob = new JsonObject();
+		ob.addProperty("result", dao.memberPwdCheck(conn, member));
+		JdbcUtil.close(conn);
+		return new Gson().toJson(ob);
+
+	}
+
+	
 }

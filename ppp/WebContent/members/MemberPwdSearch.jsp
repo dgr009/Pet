@@ -12,13 +12,13 @@
 		$('#go').on('click',function(){
 			$.ajax({
 				type:'POST',
-				url:'/ppp/member/memberidsearch',
-				data: {member_name:$("#member_name").val(),member_mail:$("#member_mail").val()},
+				url:'/ppp/member/memberpwdsearch',
+				data: {member_id:$("#member_id").val(),member_name:$("#member_name").val(),member_mail:$("#member_mail").val()},
 				success:function(response){
 					if(response.result === undefined){
-						$('#target').html('정보와 일치하는 아이디가 없습니다.').css('border','1px solid red').css('color','red');
+						$('#target').html('정보가 일치하지 않습니다.').css('border','1px solid red').css('color','red');
 					}else
-						$('#target').html('귀하의 아이디는 '+response.result+' 입니다.').css('border','1px solid red').css('color','red');
+						$('#target').html('귀하의 비밀번호는 '+response.result+' 입니다.').css('border','1px solid red').css('color','red');
 				}
 			})
 		})
@@ -27,9 +27,10 @@
 </head>
 <body>
 
+	<p>아이디 : <input type='text' id='member_id' name='member_id'></p>
 	<p>이름 : <input type='text' id='member_name' name='member_name'></p>
 	<p>메일 : <input type='text' id='member_mail' name='member_mail'></p>
-	<button id='go'>아이디 찾기</button>
+	<button id='go'>비밀번호 찾기</button>
 	<br>
 	<p id='target'></p>
 
