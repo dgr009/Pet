@@ -80,7 +80,7 @@ public interface Sql {
 	//39. 병원 정보 수정
 	public String updateHospital="update hospital set hospital_name=?,hospital_mail=?,hospital_address=?,hospital_phone=?,hospital_orner_name=? where hospital_no=?";
 	//40. 미용실 정보 수정
-	public String updateBeauty="update beauty set beauty_name=?,beauty_mail=?,beauty_address=?,beauty_phone=?,beauty_orner_name=? where beauty_no?";
+	public String updateBeauty="update beauty set beauty_name=?,beauty_mail=?,beauty_address=?,beauty_phone=?,beauty_orner_name=? where beauty_no=?";
 	//41. 호텔 정보 수정
 	public String updateHotel="update hotel set hotel_name=?,hotel_mail=?,hotel_address=?,hotel_phone=?,hotel_orner_name=? where hotel_no=?";
 	//42. 병원 아이디 찾기
@@ -222,7 +222,7 @@ public interface Sql {
 	//110. 관리자 쪽지 추가
 	public String insertMessage="insert into message(message_no,message_title,message_content,message_date,admin_no,member_no) values(?,?,?,?,?,?)";
 	//111. 회원 쪽지 검색
-	public String insertMemberMessage="select m.message_no,m.message_title,m.message_content,m.message_date ,b.member_id from message m, member b where m.member_no=b.member_no and  b.member_no=?";
+	public String findMessage="select m.message_no,m.message_title,m.message_content,m.message_date ,b.member_id from message m, member b where m.member_no=b.member_no and  b.member_no=?";
 	//112. 수의사 추가
 	public String insertVet="insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,?,?,?)";
 	//113. 미용사 추가
@@ -255,4 +255,18 @@ public interface Sql {
 	public String hotelIdCheck="select count(*) from hotel where hotel_id=?";
 	// 호텔회원 사업자 등록번호 중복확인
 	public String hotelOrnerNoCheck="select count(*) from hotel where hotel_orner_no";
+	// 병원리뷰 수정
+	public String updateHospitalReview="update hospital_review set hospital_review_epilogue=? where hospital_review_no=? and member_no=?";
+	// 미용실리뷰 수정
+	public String updateBeautyReview="update beauty_review set beauty_review_epilogue=? where beauty_review_no=? and member_no=?";
+	// 호텔리뷰 수정
+	public String updateHotelReview="update hotel_review set hotel_review_epilogue=? where hotel_review_no=? and member_no=?";
+	// 제목으로 자유게시판 글 검색
+	public String findTitleFreeBoard="select * from free_board where free_board_title like '%?%' ";
+	// 문의게시판 리스트 보기
+	public String findAllInquireBoard="select * from inquire_board";
+	// 문의게시판 댓글 수정
+	public String updateInquireBoardComment="update inquire_board_comment set inquire_board_comment_content=? where admin_no=?";
+	// 쪽지 삭제
+	public String deleteMessage="delete message where member_no=?";
 }
