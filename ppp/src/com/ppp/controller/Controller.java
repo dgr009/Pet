@@ -1,5 +1,7 @@
 package com.ppp.controller;
 
+import java.util.*;
+
 import javax.servlet.http.*;
 
 import com.ppp.di.*;
@@ -46,7 +48,7 @@ public class Controller {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		Member member = service.memberLogin(req);
-
+		//ArrayList<Animal> animallist = service.animalSelect(req);
 		if (member.getMemberId() == null) {
 			System.out.println("아이디나 비밀번호 확인필요");
 			mav.setView("/ppp/member/membermain");
@@ -60,6 +62,7 @@ public class Controller {
 			if (go == null)
 			go = "/ppp/member/membermain";
 			session.setAttribute("member", member);
+			
 			mav.setView(go);
 			mav.setRedirect();
 		}
@@ -148,16 +151,6 @@ public class Controller {
 		return mav;
 	}
 
-	// 일반회원 로그인후 메인으로
-	/*@RequestMapping(value = "/member/membermain2", method = "GET")
-	public static ModelAndView memberMainAfterLogin(HttpServletRequest req) {
-		Service service = (Service) req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
-		mav.setView("/members/MemberHome.jsp");
-
-		return mav;
-	}*/
-
 	// 일반회원 정보 수정
 	@RequestMapping(value = "/member/memberupdate", method = "POST")
 	public static ModelAndView memberUpdateEnd(HttpServletRequest req) {
@@ -178,7 +171,15 @@ public class Controller {
 			mav.setRedirect();
 			return mav;
 		}
-	//
+	// 일반회원 동물 추가
+		@RequestMapping(value = "/member/animalinsert", method = "GET")
+		public static ModelAndView animalInsert(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.setView("/ppp/members/Animalinsert.jsp");
+			mav.setRedirect();
+			return mav;
+		}
 
 	//////////////////////////
 	// 관리자 등록(추가)폼

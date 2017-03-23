@@ -109,5 +109,23 @@ public class Service {
 		return new Gson().toJson(ob);
 	}
 
+	public ArrayList<Animal> animalSelect(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> member = new HashMap<>();
+		member.put("member_id", req.getParameter("member_id"));
+		member.put("member_pwd", req.getParameter("member_pwd"));
+		Member m = null;
+		m = dao.memberLogin(conn, member);
+		
+		if(m == null)
+			return null;
+		
+		ArrayList<Animal> result = null; 
+		result = dao.animalList(conn,m.getMemberNo()); 
+	
+		JdbcUtil.close(conn);
+		return result;
+	}
+
 	
 }
