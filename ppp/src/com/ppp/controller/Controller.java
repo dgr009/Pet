@@ -131,7 +131,6 @@ public class Controller {
 
 		return mav;
 	}
-<<<<<<< HEAD
 	
 	// 회원 홈페이지로 이동
 		@RequestMapping(value = "/member/memberhome", method = "GET")
@@ -145,7 +144,6 @@ public class Controller {
 		
 		
 	//////////////////////////////////////////////////////////////////
-=======
 
 	// 일반회원 정보 수정(폼으로)
 	@RequestMapping(value = "/member/memberupdate", method = "GET")
@@ -191,7 +189,6 @@ public class Controller {
 	//
 
 	//////////////////////////
->>>>>>> branch 'sangyun' of https://github.com/dgr009/Pet.git
 	// 관리자 등록(추가)폼
 	@RequestMapping(value = "/admin/adminregister", method = "GET")
 	public static ModelAndView adminRegisterStart(HttpServletRequest req) {
