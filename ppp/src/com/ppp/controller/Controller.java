@@ -26,7 +26,7 @@ public class Controller {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.memberCreateEnd(req));
-		mav.setView("/ppp/members/MemberHome.html");
+		mav.setView("/ppp/members/MemberHome.jsp");
 		mav.setRedirect();
 
 		return mav;
@@ -49,20 +49,20 @@ public class Controller {
 	public static ModelAndView memberLoginEnd(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/members/memberHome2.html");
 		Member member = service.memberLogin(req);
 
-		if (member.getMemberNo() == 0) {
+		if (member.getMemberId() == null) {
 			System.out.println("아이디나 비밀번호 확인필요");
-			mav.setView("/members/login.jsp");
+			mav.setView("/ppp/member/membermain");
+			mav.setRedirect();
 		} else {
 			System.out.println("로그인 성공");
 			HttpSession session = req.getSession();
-			String go = (String) session.getAttribute("destination");
+			/*String go = (String) session.getAttribute("destination");
 			System.out.println("go:" + go);
 			session.removeAttribute("destination");
-			if (go == null)
-				go = "/ppp/members/MemberHome2.html";
+			if (go == null)*/
+			String go = "/ppp/member/membermain";
 			session.setAttribute("member", member);
 			mav.setView(go);
 			mav.setRedirect();
@@ -75,7 +75,7 @@ public class Controller {
 	public static ModelAndView memberIdCheck(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/ppp/members/MemberHome.html");
+		mav.setView("/ppp/member/membermain");
 		mav.setRedirect();
 
 		HttpSession session = req.getSession();
@@ -131,6 +131,7 @@ public class Controller {
 
 		return mav;
 	}
+<<<<<<< HEAD
 	
 	// 회원 홈페이지로 이동
 		@RequestMapping(value = "/member/memberhome", method = "GET")
@@ -144,6 +145,53 @@ public class Controller {
 		
 		
 	//////////////////////////////////////////////////////////////////
+=======
+
+	// 일반회원 정보 수정(폼으로)
+	@RequestMapping(value = "/member/memberupdate", method = "GET")
+	public static ModelAndView memberUpdateStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/members/MemberUpdate.jsp");
+
+		return mav;
+	}
+
+	// 일반회원 메인으로
+	@RequestMapping(value = "/member/membermain", method = "GET")
+	public static ModelAndView memberMain(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/members/MemberHome.jsp");
+
+		return mav;
+	}
+
+	// 일반회원 로그인후 메인으로
+	/*@RequestMapping(value = "/member/membermain2", method = "GET")
+	public static ModelAndView memberMainAfterLogin(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/members/MemberHome.jsp");
+
+		return mav;
+	}*/
+
+	// 일반회원 정보 수정
+	@RequestMapping(value = "/member/memberupdate", method = "POST")
+	public static ModelAndView memberUpdateEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.memberUpdate(req));
+		mav.setView("/ppp/members/MemberHome.jsp");
+		mav.setRedirect();
+		return mav;
+	}
+
+	//
+
+	//////////////////////////
+>>>>>>> branch 'sangyun' of https://github.com/dgr009/Pet.git
 	// 관리자 등록(추가)폼
 	@RequestMapping(value = "/admin/adminregister", method = "GET")
 	public static ModelAndView adminRegisterStart(HttpServletRequest req) {

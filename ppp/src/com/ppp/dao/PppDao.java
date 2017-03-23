@@ -1938,6 +1938,31 @@ public class PppDao {
 		}
 		return -1;
 	}
+
+	//일반 회원 수정
+	public int memberUpdate(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		try {
+			
+			pstmt = conn.prepareStatement(Sql.updateMember);
+			pstmt.setString(1, m.getMemberName());
+			pstmt.setString(2, m.getMemberPwd());
+			pstmt.setString(3, m.getMemberAddress());
+			pstmt.setString(4, m.getMemberPhone());
+			pstmt.setString(5, m.getMemberMail());
+			pstmt.setString(6, m.getMemberGender());
+			pstmt.setInt(7, m.getMemberNo());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		}
+		return 0;
+	}
+
+	
 }
 
 

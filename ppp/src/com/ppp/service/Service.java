@@ -91,6 +91,7 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
+
 	
 	////////////////////////////////////////////////////////////
 	//일반회원 전체 리스트
@@ -101,5 +102,22 @@ public class Service {
 	//	JsonObject ob = new JsonObject();
 	//	JdbcUtil.close(conn);
 	//	return new Gson().toJson(ob);
+
+
+	//일반회원 정보수정
+	public String memberUpdate(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int memberNo = Integer.parseInt(req.getParameter("member_no"));
+		Member m = MappingUtil.getMemberFromRequest(req, memberNo);
+		HttpSession session = req.getSession();
+		session.setAttribute("member", m);
+		int result = dao.memberUpdate(conn, m);
+		JsonObject ob = new JsonObject();
+		if(result==1) ob.addProperty("result", "success");
+		else ob.addProperty("result", "fail");
+		JdbcUtil.close(conn);
+		return new Gson().toJson(ob);
+	}
+
 	
 }

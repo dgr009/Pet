@@ -66,7 +66,7 @@ public interface Sql {
 	//32. 개인회원 호텔예약내역 확인
 	public String allReserveHotel="select * from reserve_hotel where member_no=?";
 	//33. 회원 정보수정
-	public String updateMember="update member set member_name=?,member_address=?,member_phone=?,member_mail=? where member_no=?";
+	public String updateMember="update member set member_name=?,member_pwd=?,member_address=?,member_phone=?,member_mail=?,member_gender=? where member_no=?";
 	//34. 회원 비밀번호 수정
 	public String updateMemberPwd="update member set member_pwd=? where member_no=?";
 	//35. 회원 아이디 찾기
