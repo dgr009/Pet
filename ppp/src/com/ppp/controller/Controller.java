@@ -4,6 +4,8 @@ import java.sql.Connection;
 
 import javax.servlet.http.*;
 
+import org.apache.catalina.Server;
+
 import com.ppp.di.*;
 import com.ppp.service.*;
 import com.ppp.util.*;
@@ -213,7 +215,28 @@ public class Controller {
 		mav.setRedirect();
 		return mav;
 	}
-	// 회원 쿠폰수 검색
+/////////////////////////////////////////////////////////////
+	// 회원리스트 검색(폼)
+	//@RequestMapping(value = "/admin/memberlist", method = "GET")
+	//public static ModelAndView memberList(HttpServletRequest req) {
+	//	Service service = (Service) req.getServletContext().getAttribute("service");
+	// mav = new ModelAndView();
+	//	mav.setView("/admin/memberlist.jsp");
+	@RequestMapping(value ="/admin/memberlist", method="GET")
+	public static ModelAndView memberList(HttpServletRequest req){
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/admin/memberlist.jsp");
+		return mav;
+	}
+	// 회원 리스트 검색
+	//@RequestMapping(value = "/admin/memberlist", method="AJAX")
+	//public static ModelAndView memberListEnd(HttpServletRequest req){
+	//	Service service = (Service) req.getServletContext().getAttribute("service");
+	//	ModelAndView mav = new ModelAndView();
+	//	mav.addObject("result", service.m(req));
+	//	return mav;
+
 
 }
 

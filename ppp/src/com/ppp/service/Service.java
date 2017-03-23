@@ -91,5 +91,15 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
-
+	
+	////////////////////////////////////////////////////////////
+	//일반회원 전체 리스트
+	//public ArrayList<Member> memberList(HttpServletRequest req){
+	//	Connection conn = JdbcUtil.getConnection();
+	//	ArrayList<Member> list = new ArrayList<>();
+	//	((Map<String, Object>) list).put("member_id", req.getParameter("member_id"));
+	//	JsonObject ob = new JsonObject();
+	//	JdbcUtil.close(conn);
+	//	return new Gson().toJson(ob);
+	
 }

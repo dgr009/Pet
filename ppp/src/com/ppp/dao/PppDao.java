@@ -254,7 +254,7 @@ public class PppDao {
 	}
 
 	// 회원정보 조회
-	public ArrayList<Member> selectAllMember(Connection conn) {
+	public ArrayList<Member> selectAllMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Member> list = new ArrayList<Member>();
