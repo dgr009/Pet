@@ -54,11 +54,11 @@ public class Controller {
 		} else {
 			System.out.println("로그인 성공");
 			HttpSession session = req.getSession();
-			/*String go = (String) session.getAttribute("destination");
+			String go = (String) session.getAttribute("destination");
 			System.out.println("go:" + go);
 			session.removeAttribute("destination");
-			if (go == null)*/
-			String go = "/ppp/member/membermain";
+			if (go == null)
+			go = "/ppp/member/membermain";
 			session.setAttribute("member", member);
 			mav.setView(go);
 			mav.setRedirect();
@@ -164,11 +164,20 @@ public class Controller {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.memberUpdate(req));
-		mav.setView("/ppp/members/MemberHome.jsp");
+		mav.setView("/ppp/member/membermain");
 		mav.setRedirect();
 		return mav;
 	}
 
+	// 일반회원 로그인테스트
+		@RequestMapping(value = "/member/membertest", method = "GET")
+		public static ModelAndView memberTest(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.setView("/ppp/member/membermain");
+			mav.setRedirect();
+			return mav;
+		}
 	//
 
 	//////////////////////////

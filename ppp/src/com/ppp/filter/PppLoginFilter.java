@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 
 import com.ppp.vo.*;
 
-@WebFilter("/*")
+@WebFilter({"/admin/*", "/member/*"})
 public class PppLoginFilter implements Filter {
 	// 로그인 없이 접근할 수 있는 경로를 지정
 	private ArrayList<String> whiteList = new ArrayList<>();
@@ -17,8 +17,6 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/member/membermain");
     	whiteList.add("/ppp/member/memberidsearch");
     	whiteList.add("/ppp/member/memberpwdsearch");
-    	whiteList.add("/ppp/members/MemberHome.html");
-    	whiteList.add("/ppp/members/MemberHomeTest.html");
     	whiteList.add("/ppp/admins/adminindex.jsp");
     	whiteList.add("/ppp/admins/adminindex2.jsp");
     	whiteList.add("/ppp/member/login");
@@ -33,6 +31,7 @@ public class PppLoginFilter implements Filter {
 	public void destroy() {
 	}
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
 		HttpSession session = req.getSession();

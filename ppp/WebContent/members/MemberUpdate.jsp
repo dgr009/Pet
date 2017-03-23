@@ -22,13 +22,13 @@
 					<td>번호</td><td><input type='hidden' value='<%=member.getMemberNo() %>' id='member_no' name='member_no'><%=member.getMemberNo() %></td></tr><tr>
 					
 					<td>아이디</td><td><input type='hidden' value='<%=member.getMemberId() %>' id='member_id' name='member_id'><%=member.getMemberId() %></td></tr><tr>
-					<td>비밀번호</td><td><input type="password" id="member_pwd1" name='member_pwd'></td></tr><tr>
-					<td>비밀번호확인</td><td><input type="password" id="member_pwd2"></td></tr><tr>
-					<td>주소</td><td><input type='text' value='<%=member.getMemberAddress() %>' id='member_address' name='member_address'></td></tr><tr>
-					<td>이름</td><td><input type='text' value='<%=member.getMemberName() %>' id='member_name' name='member_name'></td></tr><tr>
-					<td>연락처</td><td><input type='text' value='<%=member.getMemberPhone() %>' id='member_phone' name='member_phone'></td></tr><tr>
-					<td>이메일</td><td><input type='text' value='<%=member.getMemberMail() %>' id='member_mail' name='member_mail'></td></tr><tr>
-					<td>성별</td><td><input type='text' value='<%=member.getMemberGender() %>' id='member_gender' name='member_gender'></td></tr><tr>
+					<td>비밀번호</td><td><input type="password" style="background-color: yellow;" id="member_pwd1" name='member_pwd'></td></tr><tr>
+					<td>비밀번호확인</td><td><input type="password"  style="background-color: yellow;"  id="member_pwd2"></td></tr><tr>
+					<td>주소</td><td><input type='text'  style="background-color: yellow;" value='<%=member.getMemberAddress() %>' id='member_address' name='member_address'></td></tr><tr>
+					<td>이름</td><td><input type='text'  style="background-color: yellow;" value='<%=member.getMemberName() %>' id='member_name' name='member_name'></td></tr><tr>
+					<td>연락처</td><td><input type='text'  style="background-color: yellow;" value='<%=member.getMemberPhone() %>' id='member_phone' name='member_phone'></td></tr><tr>
+					<td>이메일</td><td><input type='text'  style="background-color: yellow;" value='<%=member.getMemberMail() %>' id='member_mail' name='member_mail'></td></tr><tr>
+					<td>성별</td><td><input type='text'  style="background-color: yellow;" value='<%=member.getMemberGender() %>' id='member_gender' name='member_gender'></td></tr><tr>
 					<td>쿠폰</td><td><input type='hidden' value='<%=member.getMemberCoupon() %>' id='member_coupon' name='member_coupon'><%=member.getMemberCoupon() %></td></tr>
 					<input type='hidden' value='<%=member.getAdminNo() %>' id='member_adminno' name='member_adminno'>
 					<input type='hidden' value='<%=member.getMemberActive() %>' id='member_active' name='member_active'>

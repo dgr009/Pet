@@ -69,7 +69,7 @@
 		<input type="button" value="정보 수정" onclick="location.href = '/ppp/member/memberupdate'" />
 		<input type="button" value="동물 추가" onclick="location.href = '/ppp/member/animalinsert'" />
 		<input type="button" value="동물 수정" onclick="location.href = '/ppp/member/animalupdate'" />
-		<input type="button" value="홈으로" onclick="location.href = '/ppp/members/MemberHome2.html'" />
+		<input type="button" value="홈으로" onclick="location.href = '/ppp/member/membermain'" />
 	</div>
 </body>
 </html>
