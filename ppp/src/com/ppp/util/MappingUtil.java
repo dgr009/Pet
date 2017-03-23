@@ -1,6 +1,7 @@
 package com.ppp.util;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.*;
 
@@ -52,5 +53,18 @@ public class MappingUtil {
 		a.setAdminMail(req.getParameter("admin_mail"));
 
 		return a;
+	}
+	
+	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
+		Message m = new Message();
+		java.util.Date d = new java.util.Date();
+	    java.sql.Date date = new java.sql.Date(d.getTime());  
+		m.setAdminNo(adminNo);
+		m.setMessageNo(messageNo);
+		m.setMessageTitle(req.getParameter("message_title"));
+		m.setMessageContent(req.getParameter("message_content"));
+		m.setMessageDate(date);
+		m.setMemberNo(Integer.parseInt(req.getParameter("memeber_no")));
+		return m;
 	}
 }

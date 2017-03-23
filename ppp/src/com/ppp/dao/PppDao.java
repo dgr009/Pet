@@ -1922,7 +1922,22 @@ public class PppDao {
 			JdbcUtil.close(pstmt, null);
 		} return -1;
 	}
-
+	// 마지막 쪽지번호 조회
+	public int selectMessageNoMax(Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.messageNoMax);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				return rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
 }
 
 

@@ -79,7 +79,7 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
-
+	//일반회원 비밀번호 찾기
 	public String memberPwdSearch(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
@@ -90,8 +90,6 @@ public class Service {
 		ob.addProperty("result", dao.memberPwdCheck(conn, member));
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
-
 	}
 
-	
 }

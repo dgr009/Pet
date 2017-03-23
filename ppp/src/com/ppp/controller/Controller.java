@@ -1,5 +1,7 @@
 package com.ppp.controller;
 
+import java.sql.Connection;
+
 import javax.servlet.http.*;
 
 import com.ppp.di.*;
@@ -128,8 +130,18 @@ public class Controller {
 		return mav;
 	}
 	
-	
-	//////////////////////////
+	// 회원 홈페이지로 이동
+		@RequestMapping(value = "/member/memberhome", method = "GET")
+		public static ModelAndView memberHome(HttpServletRequest req) {
+			ModelAndView mav = new ModelAndView();
+			HttpSession session = req.getSession();
+			mav.setView("/ppp/members/memberindex2.jsp");
+			mav.setRedirect();
+			return mav;
+		}
+		
+		
+	//////////////////////////////////////////////////////////////////
 	// 관리자 등록(추가)폼
 	@RequestMapping(value = "/admin/adminregister", method = "GET")
 	public static ModelAndView adminRegisterStart(HttpServletRequest req) {
@@ -190,15 +202,7 @@ public class Controller {
 		return mav;
 	}
 
-	// 회원 홈페이지로 이동
-	@RequestMapping(value = "/member/memberhome", method = "GET")
-	public static ModelAndView memberHome(HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView();
-		HttpSession session = req.getSession();
-		mav.setView("/ppp/members/memberindex2.jsp");
-		mav.setRedirect();
-		return mav;
-	}
+	
 
 	// 관리자 홈페이지로 이동
 	@RequestMapping(value = "/admin/adminhome", method = "GET")
@@ -209,4 +213,7 @@ public class Controller {
 		mav.setRedirect();
 		return mav;
 	}
+	// 회원 쿠폰수 검색
+
 }
+
