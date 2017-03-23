@@ -18,6 +18,7 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/member/memberidsearch");
     	whiteList.add("/ppp/member/memberpwdsearch");
     	whiteList.add("/ppp/members/MemberHome.html");
+    	whiteList.add("/ppp/members/MemberHomeTest.html");
     	whiteList.add("/ppp/admins/adminindex.jsp");
     	whiteList.add("/ppp/admins/adminindex2.jsp");
     	whiteList.add("/ppp/member/login");
