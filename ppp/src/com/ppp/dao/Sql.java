@@ -102,11 +102,11 @@ public interface Sql {
 	//50. 예약된 방 확인
 	public String rserveHotel="select * from reserve_hotel where hotel_no=? order by reserve_hotel_date des";
 	//51. 지역별 병원 검색
-	public String findAreaHospital="select hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_address,hospital_phone from hospital where hospital_address like '%?%'";
+	public String findAreaHospital="select hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_address,hospital_phone from hospital where hospital_address like %?%";
 	//52. 지역별 미용실 검색
 	public String findAreaBeauty="select beauty_no,beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_address,beauty_phone from beauty where beauty_address like %?%";
 	//53. 지역별 호텔 검색
-	public String findAreaHotel="select hotel_no,hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_address,hotel_phone from hotel where hotel_address like '%?%";
+	public String findAreaHotel="select hotel_no,hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_address,hotel_phone from hotel where hotel_address like %?%";
 	//54. 리뷰순 병원 검색
 	public String findReviewCntHospital="select h.hospital_name,h.hospital_address,h.hospital_phone,h.hospital_mail from hospital h,hospital_review r where h.hospital_no=r.hospital_no order by r.hospital_review_cnt desc";
 	//55. 리뷰순 미용실 검색
@@ -132,7 +132,7 @@ public interface Sql {
 	//65. 날짜별 호텔 예약내역 확인
 	public String findDateReserveHotel="select * from reserve_hotel where hotel_no=? and reserve_hotel_date=?";
 	//66. 자유게시판 수정
-	public String updateFreeBoard="update free_board set free_board_title='?', free_board_content='?' where member_no=?";
+	public String updateFreeBoard="update free_board set free_board_title=?, free_board_content=? where member_no=?";
 	//67. 자유게시판 최신순으로 보기
 	public String findDateFreeBoard="select * from free_board order by free_board_date desc";
 	//68. 아이디로 작성한 글 찾기
@@ -144,9 +144,9 @@ public interface Sql {
 	//71. 관리자 보낸 쪽지함 보기
 	public String allAdminMessage="select * from message where admin_no=?;";
 	//72. 문의게시판 수정
-	public String updateInquireBoard="update inquire_board set inquire_board_content='?' where admin_no=?";
+	public String updateInquireBoard="update inquire_board set inquire_board_content=? where admin_no=?";
 	//73. 제목으로 문의게시판 글 검색
-	public String findTitleInquireBoard="select * from inquire_board where inquire_board_title like '%?%'";
+	public String findTitleInquireBoard="select * from inquire_board where inquire_board_title like %?%";
 	//74. 문의게시판 글 삭제
 	public String deleteInquireBoard="delete inquire_board where member_no=? and inquire_board_no=?";
 	//75. 병원별 리뷰 보기
@@ -162,9 +162,9 @@ public interface Sql {
 	//80. 호텔 방 보기
 	public String allRoom="select r.room_no,r.room_kind,r.room_price,h.hotel_name from hotel h, room r where h.hotel_no=r.hotel_no and h.hotel_no=?";
 	//81. 수의사 프로필 수정
-	public String updateVet="update vet set vet_name='?', vet_introduce='?' where vet_no=? and hospital_no=?";
+	public String updateVet="update vet set vet_name=?, vet_introduce=? where vet_no=? and hospital_no=?";
 	//82. 미용사 프로필 수정
-	public String updateBeautician="update beautician set beautician_name='?', beautician_introduce='?' where beautician_no=? and beauty_no=?";
+	public String updateBeautician="update beautician set beautician_name=?, beautician_introduce=? where beautician_no=? and beauty_no=?";
 	//83. 수의사 프로필 삭제
 	public String deleteVet="delete vet where vet_no=? and hospital_no=?";
 	//84. 미용사 프로필 삭제
@@ -172,9 +172,9 @@ public interface Sql {
 	//85. 동물 리스트 보기
 	public String allAnimal="select a.animal_name,a.animal_kind,a.animal_weight from animal a, member b where a.member_no=b.member_no and b.member_no=?";
 	//86. 병원 예약시간대 수정
-	public String updateReserveHospitalTime="update reserve_hospital_time set hospital_time_kind='?' where  reserve_hospital_time_no=? and hospital_no=?";
+	public String updateReserveHospitalTime="update reserve_hospital_time set hospital_time_kind=? where  reserve_hospital_time_no=? and hospital_no=?";
 	//87. 미용실 예약시간대 수정
-	public String updateReserveBeautyTime="update reserve_beauty_time set beauty_time_kind='?' where reserve_beauty_time_no=? and beauty_no=?";
+	public String updateReserveBeautyTime="update reserve_beauty_time set beauty_time_kind=? where reserve_beauty_time_no=? and beauty_no=?";
 	//88. 병원 예약시간대 삭제
 	public String deleteReserveHospitalTime="delete reserve_hospital_time where reserve_hospital_time_no=? and hospital_no=?";
 	//89. 미용실 예약시간대 수정
@@ -266,12 +266,14 @@ public interface Sql {
 	// 호텔리뷰 수정
 	public String updateHotelReview="update hotel_review set hotel_review_epilogue=? where hotel_review_no=? and member_no=?";
 	// 제목으로 자유게시판 글 검색
-	public String findTitleFreeBoard="select * from free_board where free_board_title like '%?%' ";
+	public String findTitleFreeBoard="select * from free_board where free_board_title like %?% ";
 	// 문의게시판 리스트 보기
 	public String findAllInquireBoard="select * from inquire_board";
 	// 문의게시판 댓글 수정
 	public String updateInquireBoardComment="update inquire_board_comment set inquire_board_comment_content=? where admin_no=?";
 	// 쪽지 삭제
 	public String deleteMessage="delete message where member_no=?";
+	// 쪽지 마지막 번호 조회
+	public String messageNoMax="select max(message_no)+1 from message";
 
 }
