@@ -14,7 +14,7 @@ public class PppLoginFilter implements Filter {
 	// 로그인 없이 접근할 수 있는 경로를 지정
 	private ArrayList<String> whiteList = new ArrayList<>();
     public PppLoginFilter() {
-    	
+    	whiteList.add("/ppp/member/membermain");
     	whiteList.add("/ppp/member/memberidsearch");
     	whiteList.add("/ppp/member/memberpwdsearch");
     	whiteList.add("/ppp/members/MemberHome.html");
@@ -28,7 +28,7 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/admin/adminlogin");
     	whiteList.add("/ppp/admins/adminLogin.jsp");
     	whiteList.add("/ppp/members/login.jsp");
-    	
+    	whiteList.add("/ppp/index.html");
     }
 	public void destroy() {
 	}

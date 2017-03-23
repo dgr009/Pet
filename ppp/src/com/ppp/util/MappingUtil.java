@@ -34,10 +34,15 @@ public class MappingUtil {
 		m.setMemberPhone(req.getParameter("member_phone"));
 		m.setMemberName(req.getParameter("member_name"));
 		m.setMemberMail(req.getParameter("member_mail"));
-		m.setMemberCoupon(0);
-		m.setMemberActive(1);
-		m.setMemberActiveDate(null);
-		m.setAdminNo(1);
+		m.setMemberCoupon(Integer.parseInt(req.getParameter("member_coupon")));
+		m.setMemberActive(Integer.parseInt(req.getParameter("member_active")));
+		java.sql.Date date = null;
+		if(Integer.parseInt(req.getParameter("member_active"))==2){
+			java.util.Date d = new java.util.Date();
+			date = new java.sql.Date(d.getTime());
+		}
+		m.setMemberActiveDate(date);
+		m.setAdminNo(Integer.parseInt(req.getParameter("member_adminno")));
 
 		return m;
 	}
