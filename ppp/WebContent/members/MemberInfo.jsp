@@ -67,6 +67,18 @@
 					<td></td>
 					<td></td>
 				</tr>
+				<% for(Animal list:animallist){ %>
+					<tr id='no<%=list.getAnimalNo()%>'>
+					<td><input type='hidden' name='animal_no' value='<%=list.getAnimalNo()%>'/><%=list.getAnimalNo() %></td>
+					<td><%=list.getAnimalName() %></td>
+					<td><%=list.getAnimalGender() %></td>
+					<td><%=list.getAnimalKind() %></td>
+					<td><%=list.getAnimalBreed() %></td>
+					<td><%=list.getAnlmalWeigth() %></td>
+					<td><input type="button" value="삭제" id='delete'></td>
+					<td></td>
+					</tr>
+				<%} %>
 			</tbody>
 		</table>
 		<input type="button" value="정보 수정" onclick="location.href = '/ppp/member/memberupdate'" />

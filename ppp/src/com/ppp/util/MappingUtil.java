@@ -58,4 +58,17 @@ public class MappingUtil {
 
 		return a;
 	}
+
+	public static Animal getAnimalFromRequest(HttpServletRequest req, int animalNo, int memberNo) {
+		Animal a = new Animal();
+		a.setMemberNo(memberNo);
+		a.setAnimalNo(animalNo);
+		a.setAnimalBreed(req.getParameter("animal_breed"));
+		a.setAnimalGender(req.getParameter("animal_gender"));
+		a.setAnimalKind(req.getParameter("animal_kind"));
+		a.setAnimalName(req.getParameter("animal_name"));
+		a.setAnlmalWeigth(Float.parseFloat(req.getParameter("animal_weight")));
+		
+		return a;
+	}
 }

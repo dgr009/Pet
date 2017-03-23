@@ -74,7 +74,7 @@ public interface Sql {
 	//36. 회원 비밀번호 찾기
 	public String findMemberPwd="select member_pwd from member where member_mail=? and member_name=? and member_id=?";
 	//37. 반려동물 수정
-	public String updateAnimal="update animal set ANIMAL_NAME=?, ANIMAL_GENDER=?, ANIMAL_WEIGHT=? where member_no=? and animal_no=?";
+	public String updateAnimal="update animal set ANIMAL_NAME=?,animal_kind=?, ANIMAL_GENDER=?,animal_breed=?, ANIMAL_WEIGHT=? where member_no=? and animal_no=?";
 	//38. 반려동물 삭제
 	public String deleteAnimal="delete from animal where member_no=? and animal_no=?";
 	//39. 병원 정보 수정
@@ -170,7 +170,7 @@ public interface Sql {
 	//84. 미용사 프로필 삭제
 	public String deleteBeautician="delete beautician where beautician_no=? and beauty_no=?";
 	//85. 동물 리스트 보기
-	public String allAnimal="select a.animal_name,a.animal_kind,a.animal_weight from animal a, member b where a.member_no=b.member_no and b.member_no=?";
+	public String allAnimal="select a.member_no,a.animal_no,a.animal_name,a.animal_kind,a.animal_gender,a.animal_breed,a.animal_weight from animal a, member b where a.member_no=b.member_no and b.member_no=?";
 	//86. 병원 예약시간대 수정
 	public String updateReserveHospitalTime="update reserve_hospital_time set hospital_time_kind='?' where  reserve_hospital_time_no=? and hospital_no=?";
 	//87. 미용실 예약시간대 수정
@@ -259,4 +259,6 @@ public interface Sql {
 	public String hotelIdCheck="select count(*) from hotel where hotel_id=?";
 	// 호텔회원 사업자 등록번호 중복확인
 	public String hotelOrnerNoCheck="select count(*) from hotel where hotel_orner_no";
+	// 애완동물 마지막 번호 찾기
+	public String animalMaxNo = "select max(animal_no)+1 from animal where member_no=?";
 }

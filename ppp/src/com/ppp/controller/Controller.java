@@ -48,7 +48,7 @@ public class Controller {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		Member member = service.memberLogin(req);
-		//ArrayList<Animal> animallist = service.animalSelect(req);
+		ArrayList<Animal> animallist = service.animalSelectLogin(req);
 		if (member.getMemberId() == null) {
 			System.out.println("아이디나 비밀번호 확인필요");
 			mav.setView("/ppp/member/membermain");
@@ -60,9 +60,10 @@ public class Controller {
 			System.out.println("go:" + go);
 			session.removeAttribute("destination");
 			if (go == null)
-			go = "/ppp/member/membermain";
+				go = "/ppp/member/membermain";
 			session.setAttribute("member", member);
-			
+			session.setAttribute("animallist", animallist);
+
 			mav.setView(go);
 			mav.setRedirect();
 		}
@@ -163,23 +164,63 @@ public class Controller {
 	}
 
 	// 일반회원 로그인테스트
-		@RequestMapping(value = "/member/membertest", method = "GET")
-		public static ModelAndView memberTest(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.setView("/ppp/member/membermain");
-			mav.setRedirect();
-			return mav;
-		}
+	@RequestMapping(value = "/member/membertest", method = "GET")
+	public static ModelAndView memberTest(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+		return mav;
+	}
+
+	// 일반회원 동물 추가(폼으로)
+	@RequestMapping(value = "/member/animalinsert", method = "GET")
+	public static ModelAndView animalInsertStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/members/AnimalInsert.jsp");
+		mav.setRedirect();
+		return mav;
+	}
+
 	// 일반회원 동물 추가
-		@RequestMapping(value = "/member/animalinsert", method = "GET")
-		public static ModelAndView animalInsert(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.setView("/ppp/members/Animalinsert.jsp");
-			mav.setRedirect();
-			return mav;
-		}
+	@RequestMapping(value = "/member/animalinsert", method = "POST")
+	public static ModelAndView animalInsertEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		String result = service.animalInsert(req);
+		ArrayList<Animal> animallist = service.animalSelect(req);
+		session.setAttribute("animallist", animallist);
+		mav.setView("/ppp/member/membermain");
+		mav.addObject("result", result);
+		mav.setRedirect();
+		return mav;
+	}
+
+	// 일반회원 동물 수정(변경)(폼으로)
+	@RequestMapping(value = "/member/animalupdate", method = "GET")
+	public static ModelAndView animalUpdateStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/members/AnimalUpdate.jsp");
+		mav.setRedirect();
+		return mav;
+	}
+
+	// 일반회원 동물 수정
+	@RequestMapping(value = "/member/animalupdate", method = "POST")
+	public static ModelAndView animalUpdateEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		mav.addObject("result", service.animalUpdate(req));
+		ArrayList<Animal> animallist = service.animalSelect(req);
+		session.setAttribute("animallist", animallist);
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+		return mav;
+	}
 
 	//////////////////////////
 	// 관리자 등록(추가)폼

@@ -19,6 +19,7 @@ public class PppDao {
 				return rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return 1;
 		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
@@ -29,7 +30,7 @@ public class PppDao {
 	public int memberInsert(Connection conn, Member mem) {
 		PreparedStatement pstmt = null;
 		try {
-
+			
 			pstmt = conn.prepareStatement(Sql.insertMember);
 			pstmt.setInt(1, mem.getMemberNo());
 			pstmt.setString(2, mem.getMemberAddress());
@@ -1349,6 +1350,113 @@ public class PppDao {
 		} finally {
 			JdbcUtil.close(pstmt, null);
 		}
+		return 0;
+	}
+
+	//애완동물 리스트 보기
+	public ArrayList<Animal> animalList(Connection conn, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Animal> animalList = new ArrayList<>();
+		/*a.member_no,a.animal_no,a.animal_name,a.animal_kind,a.animal_gender,a.animal_breed,a.animal_weight*/
+		try {
+			pstmt = conn.prepareStatement(Sql.allAnimal);
+			pstmt.setInt(1, memberNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				Animal a = new Animal();
+				a.setMemberNo(rs.getInt(1));
+				a.setAnimalNo(rs.getInt(2));
+				a.setAnimalName(rs.getString(3));
+				a.setAnimalKind(rs.getString(4));
+				a.setAnimalGender(rs.getString(5));
+				a.setAnimalBreed(rs.getString(6));
+				a.setAnlmalWeigth(rs.getFloat(7));
+				
+				animalList.add(a);
+			}
+			return animalList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+
+	//애완 동물 마지막 번호 찾기
+	public int animalMaxNo(Connection conn, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.animalMaxNo);
+			pstmt.setInt(1, memberNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return 1;
+	}
+
+	//애완 동물 추가하기
+	public int animalInsert(Connection conn, Animal a) {
+		PreparedStatement pstmt = null;
+		//member_no,animal_no,animal_name,animal_kind,animal_gender,animal_breed,animal_weight
+		try {
+			pstmt = conn.prepareStatement(Sql.insertAnimal);
+			pstmt.setInt(1, a.getMemberNo());
+			pstmt.setInt(2, a.getAnimalNo());
+			pstmt.setString(3, a.getAnimalName());
+			pstmt.setString(4, a.getAnimalKind());
+			pstmt.setString(5, a.getAnimalGender());
+			pstmt.setString(6, a.getAnimalBreed());
+			pstmt.setFloat(7, a.getAnlmalWeigth());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		}
+		
+		
+		return 0;
+	}
+
+	//애완 동물 변경하기
+	public int animalUpdate(Connection conn, Animal a) {
+		PreparedStatement pstmt = null;
+		//"update animal set ANIMAL_NAME=?,animal_kind=?, ANIMAL_GENDER=?,animal_breed=?, ANIMAL_WEIGHT=? where member_no=? and animal_no=?";
+		try {
+			pstmt = conn.prepareStatement(Sql.updateAnimal);
+			pstmt.setString(1, a.getAnimalName());
+			pstmt.setString(2, a.getAnimalKind());
+			pstmt.setString(3, a.getAnimalGender());
+			pstmt.setString(4, a.getAnimalBreed());
+			pstmt.setFloat(5, a.getAnlmalWeigth());
+			pstmt.setInt(6, a.getMemberNo());
+			pstmt.setInt(7, a.getAnimalNo());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		}
+		
+		
 		return 0;
 	}
 

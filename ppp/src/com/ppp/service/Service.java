@@ -109,22 +109,63 @@ public class Service {
 		return new Gson().toJson(ob);
 	}
 
-	public ArrayList<Animal> animalSelect(HttpServletRequest req) {
+	//로그인시 애완 동물 리스트 불러오기
+	public ArrayList<Animal> animalSelectLogin(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
 		member.put("member_id", req.getParameter("member_id"));
 		member.put("member_pwd", req.getParameter("member_pwd"));
-		Member m = null;
-		m = dao.memberLogin(conn, member);
+		Member m = dao.memberLogin(conn, member);
 		
-		if(m == null)
-			return null;
-		
-		ArrayList<Animal> result = null; 
-		result = dao.animalList(conn,m.getMemberNo()); 
-	
+		ArrayList<Animal> result = dao.animalList(conn,m.getMemberNo()); 
 		JdbcUtil.close(conn);
 		return result;
+	}
+
+	//애완 동물 추가하기
+	public String animalInsert(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member)session.getAttribute("member");
+		int memberNo = m.getMemberNo();
+		int animalNo = dao.animalMaxNo(conn,memberNo);
+		Animal a = MappingUtil.getAnimalFromRequest(req,animalNo,memberNo);
+		int result = dao.animalInsert(conn,a);
+		JsonObject ob = new JsonObject();
+		if(result==1) ob.addProperty("result", "success");
+		else ob.addProperty("result", "fail");
+		JdbcUtil.close(conn);
+
+		return new Gson().toJson(ob);
+	}
+	
+	//개인정보 애완 동물 리스트 불러오기
+	public ArrayList<Animal> animalSelect(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member)session.getAttribute("member");
+		
+		ArrayList<Animal> result = dao.animalList(conn,m.getMemberNo()); 
+		JdbcUtil.close(conn);
+		return result;
+	}
+
+	//일반회원 애완동물 수정(변경) 하기
+	public Object animalUpdate(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member)session.getAttribute("member");
+		int memberNo = m.getMemberNo();
+		int animalNo = Integer.parseInt(req.getParameter("animal_no"));
+		Animal a = MappingUtil.getAnimalFromRequest(req, animalNo, memberNo);
+		int result = dao.animalUpdate(conn,a);
+		JsonObject ob = new JsonObject();
+		if(result==1) ob.addProperty("result", "success");
+		else ob.addProperty("result", "fail");
+		JdbcUtil.close(conn);
+
+		return new Gson().toJson(ob);
+		
 	}
 
 	
