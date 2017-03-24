@@ -27,13 +27,17 @@ $(document).ready(function() {
 		var animalBreed = $("<td></td>").html(a.animalBreed);
 		var animalWeight = $("<td></td>").html(a.animalWeight);
 		
-		var a = $("<a></a>").prop("href", "animalupdate?animal_no="+a.animalNo).html('수정');
-		var tda = $("<td></td>").append(a);
+		var up = $("<a></a>").prop("href", "animalupdate?animal_no="+a.animalNo).html('수정');
+		var tdup = $("<td></td>").append(up);
+		var del = $("<a class='delete'></a>").prop("href", "animaldelete?animal_no="+a.animalNo).html('삭제');
+		var tddel = $("<td></td>").append(del);
 		// var ename = $("<td></td>").append(a);
 		//var ename = "<td empno='" + e.empno + "'>" + e.ename + "</td>";
-		var tr = $("<tr></tr>").append(animalNo).append(animalName).append(animalKind).append(animalGender).append(animalBreed).append(animalWeight).append(tda);
+		var tr = $("<tr></tr>").append(animalNo).append(animalName).append(animalKind).append(animalGender).append(animalBreed).append(animalWeight).append(tdup).append(tddel);
 		$(".animal_list tbody").append(tr);
 	});
+	
+	
 });
 	
 </script>

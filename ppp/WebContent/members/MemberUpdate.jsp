@@ -33,20 +33,6 @@
 					<input type='hidden' value='<%=member.getAdminNo() %>' id='member_adminno' name='member_adminno'>
 					<input type='hidden' value='<%=member.getMemberActive() %>' id='member_active' name='member_active'>
 				
-			
-				<tr><td colspan="2">---------------------------------</td></tr>
-				<tr>
-					<td colspan="2">애완동물</td>
-				</tr>
-				<tr>
-					<td>번호</td></tr><tr>
-					<td>이름</td></tr><tr>
-					<td>성별</td></tr><tr>
-					<td>종류</td></tr><tr>
-					<td>품종</td></tr><tr>
-					<td>무게</td>
-				</tr>
-		
 		</table>
 		<input type="submit" value="수정 완료" />
 		<input type="button" value="홈으로" onclick="location.href = '/ppp/member/membermain2'" />

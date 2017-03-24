@@ -67,7 +67,7 @@ public class MappingUtil {
 		a.setAnimalGender(req.getParameter("animal_gender"));
 		a.setAnimalKind(req.getParameter("animal_kind"));
 		a.setAnimalName(req.getParameter("animal_name"));
-		a.setAnimalWeigth(Float.parseFloat(req.getParameter("animal_weight")));
+		a.setAnimalWeight(Float.parseFloat(req.getParameter("animal_weight")));
 		
 		return a;
 	}
