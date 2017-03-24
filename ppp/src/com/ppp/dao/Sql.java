@@ -275,5 +275,31 @@ public interface Sql {
 	public String deleteMessage="delete message where member_no=?";
 	// 쪽지 마지막 번호 조회
 	public String messageNoMax="select max(message_no)+1 from message";
-
+	// 회원리스트 페이징
+	public String selectCountMember = "select count(*) from Member";
+	// 비활성화 된 회원 페이징
+	public String inactiveMemberList = "select * from(select * from (select rownum rnum, t.*from (select member_no,member_id, member_phone, member_mail, member_address, member_active_date from member where member_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum>=?";
+	// 비활성화 된 병원 페이징
+	public String inactiveHospitalList="select * from(select * from (select rownum rnum, t.*from (select hospital_id, hospital_phone, hospital_mail, hospital_address,hospital_orner_name, hospital_orner_no from hospital where hospital_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum?";
+	// 비활성화 된 미용실 페이징
+	public String inactiveBeautyList="select * from(select * from (select rownum rnum, t.*from (select hospital_id, hospital_phone, hospital_mail, hospital_address,hospital_orner_name, hospital_orner_no from hospital where hospital_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum>=?";
+	// 비활성화 된 호텔 페이징
+	public String inactiveHotelList="select * from(select * from (select rownum rnum, t.*from (select hospital_id, hospital_phone, hospital_mail, hospital_address,hospital_orner_name, hospital_orner_no from hospital where hospital_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum>=?";
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

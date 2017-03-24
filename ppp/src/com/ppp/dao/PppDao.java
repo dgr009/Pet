@@ -1826,7 +1826,7 @@ public class PppDao {
 			pstmt.setString(4, a.getAnimalKind());
 			pstmt.setString(5, a.getAnimalGender());
 			pstmt.setString(6, a.getAnimalBreed());
-			pstmt.setFloat(7, a.getAnlmalWeigth());
+			pstmt.setFloat(7, a.getAnimalWeigth());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1898,7 +1898,7 @@ public class PppDao {
 			pstmt = conn.prepareStatement(Sql.updateAnimal);
 			pstmt.setString(1, a.getAnimalName());
 			pstmt.setString(2, a.getAnimalGender());
-			pstmt.setFloat(3, a.getAnlmalWeigth());
+			pstmt.setFloat(3, a.getAnimalWeigth());
 			pstmt.setInt(4, a.getMemberNo());
 			pstmt.setInt(5, a.getAnimalNo());
 			return pstmt.executeUpdate();
@@ -1961,8 +1961,143 @@ public class PppDao {
 		}
 		return 0;
 	}
+	// 전체회원 리스트
+
+	public int selectCountMember(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.selectCountMember);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
 
 	
+	
+	// 비활성화된 회원 페이징
+	public ArrayList<Member> selectByPaging(Connection conn, int startId, int endId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Member> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.inactiveMemberList);  // 여기부터
+			pstmt.setInt(1, endId);
+			pstmt.setInt(2, startId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Member m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setMemberPhone(rs.getString("member_phone"));
+				m.setMemberMail(rs.getString("member_mail"));
+				m.setMemberActiveDate(rs.getDate("member_active_date"));
+				list.add(m);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+	
+	// 비활성화 된 병원 페이징
+	public ArrayList<Hospital> selectByPagingHospital(Connection conn, int startId, int endId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hospital> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.inactiveHospitalList);  // 여기부터
+			pstmt.setInt(1, endId);
+			pstmt.setInt(2, startId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Hospital h = new Hospital();
+				h.setHospitalNo(rs.getInt("hospital_no"));
+				h.setHospitalName(rs.getString("hospital_name"));
+				h.setHospitalPhone(rs.getString("hospital_phone"));
+				h.setHospitalMail(rs.getString("hospital_mail"));
+				h.setHospitalOrnerName(rs.getString("hospital_orner_name"));
+				h.setHospitalOrnerNo(rs.getString("hospital_orner_no"));
+				h.setHospitalActiveDate(rs.getDate("hospital_active_date"));
+				list.add(h);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+	// 비활성화 된 미용실 페이징
+	public ArrayList<Beauty> selectByPagingBeauty(Connection conn, int startId, int endId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Beauty> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.inactiveBeautyList);  // 여기부터
+			pstmt.setInt(1, endId);
+			pstmt.setInt(2, startId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Beauty b = new Beauty();
+				b.setBeautyNo(rs.getInt("beauty_no"));
+				b.setBeautyName(rs.getString("beauty_name"));
+				b.setBeautyPhone(rs.getString("beauty_phone"));
+				b.setBeautyMail(rs.getString("beauty_mail"));
+				b.setBeautyOrnerName(rs.getString("beauty_orner_name"));
+				b.setBeautyOrnerNo(rs.getString("beauty_orner_no"));
+				b.setBeautyActiveDate(rs.getDate("beauty_active_date"));
+				list.add(b);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+	
+	// 비활성화 된 호텔 페이징
+	public ArrayList<Hotel> selectByPagingHotel(Connection conn, int startId, int endId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hotel> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.inactiveHotelList);  // 여기부터
+			pstmt.setInt(1, endId);
+			pstmt.setInt(2, startId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Hotel h = new Hotel();
+				h.setHotelNo(rs.getInt("hotel_no"));
+				h.setHotelName(rs.getString("hotel_name"));
+				h.setHotelPhone(rs.getString("hotel_phone"));
+				h.setHotelMail(rs.getString("hotel_mail"));
+				h.setHotelOrnerName(rs.getString("hotel_orner_name"));
+				h.setHotelOrnerNo(rs.getString("hotel_orner_no"));
+				h.setHotelActiveDate(rs.getDate("hotel_active_date"));
+				list.add(h);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
 }
 
 

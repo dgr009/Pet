@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 
 import com.google.gson.*;
 import com.ppp.dao.*;
+import com.ppp.di.RequestMapping;
 import com.ppp.util.*;
 import com.ppp.vo.*;
 
@@ -91,19 +92,6 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
-
-	
-	////////////////////////////////////////////////////////////
-	//일반회원 전체 리스트
-	//public ArrayList<Member> memberList(HttpServletRequest req){
-	//	Connection conn = JdbcUtil.getConnection();
-	//	ArrayList<Member> list = new ArrayList<>();
-	//	((Map<String, Object>) list).put("member_id", req.getParameter("member_id"));
-	//	JsonObject ob = new JsonObject();
-	//	JdbcUtil.close(conn);
-	//	return new Gson().toJson(ob);
-
-
 	//일반회원 정보수정
 	public String memberUpdate(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
@@ -118,6 +106,18 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
-
-	
+	//////////////////////////////////////////////
+	//비활성화 된 회원 검색
+	public String inactiveMember(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int pageNo = Integer.parseInt(req.getParameter("pageNo"));
+		int numberOfArticle = dao.selectCountMember(conn);
+		Pagination pagination = PagingUtil.setPageMaker(pageNo, numberOfArticle);
+		ArrayList<Member> list = dao.selectByPaging(conn, pagination.getStartArticle(), pagination.getEndArticle());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("list", list);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(map);
+	}
 }

@@ -261,26 +261,15 @@ public class Controller {
 		return mav;
 	}
 /////////////////////////////////////////////////////////////
-	// 회원리스트 검색(폼)
-	//@RequestMapping(value = "/admin/memberlist", method = "GET")
-	//public static ModelAndView memberList(HttpServletRequest req) {
-	//	Service service = (Service) req.getServletContext().getAttribute("service");
-	// mav = new ModelAndView();
-	//	mav.setView("/admin/memberlist.jsp");
-	@RequestMapping(value ="/admin/memberlist", method="GET")
-	public static ModelAndView memberList(HttpServletRequest req){
-		Service service = (Service) req.getServletContext().getAttribute("service");
+	// 비활성화 된 회원 검색
+	@RequestMapping(value="/admin/memberdeactiviysearch", method="GET")
+	public static ModelAndView list(HttpServletRequest req) {
+		Service service = (Service)req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/admin/memberlist.jsp");
+		mav.addObject("result", service.inactiveMember(req));
+		mav.setView("/admin/list.jsp");
 		return mav;
 	}
-	// 회원 리스트 검색
-	//@RequestMapping(value = "/admin/memberlist", method="AJAX")
-	//public static ModelAndView memberListEnd(HttpServletRequest req){
-	//	Service service = (Service) req.getServletContext().getAttribute("service");
-	//	ModelAndView mav = new ModelAndView();
-	//	mav.addObject("result", service.m(req));
-	//	return mav;
 
 
 }
