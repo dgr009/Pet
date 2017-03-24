@@ -1,11 +1,13 @@
 package com.ppp.controller;
 
 import java.sql.Connection;
+import java.util.*;
 
 import javax.servlet.http.*;
 
 import org.apache.catalina.Server;
 
+import com.google.gson.*;
 import com.ppp.di.*;
 import com.ppp.service.*;
 import com.ppp.util.*;
@@ -13,12 +15,12 @@ import com.ppp.vo.*;
 
 public class Controller {
 	// 일반회원 등록(추가)폼
-	@RequestMapping(value = "/member/memberregister", method = "GET")
+	/*@RequestMapping(value = "/member/memberregister", method = "GET")
 	public static ModelAndView memberRegisterStart(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/members/memberResistration.html");
 		return mav;
-	}
+	}*/
 
 	// 일반회원 등록(추가)
 	@RequestMapping(value = "/member/memberregister", method = "POST")
@@ -49,21 +51,18 @@ public class Controller {
 	public static ModelAndView memberLoginEnd(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		Member member = service.memberLogin(req);
-
-		if (member.getMemberId() == null) {
-			System.out.println("아이디나 비밀번호 확인필요");
+		if (service.memberLogin(req) == null) {
+			//로그인실패
 			mav.setView("/ppp/member/membermain");
 			mav.setRedirect();
 		} else {
-			System.out.println("로그인 성공");
+			//로그인성공
 			HttpSession session = req.getSession();
-			/*String go = (String) session.getAttribute("destination");
+			String go = (String) session.getAttribute("destination");
 			System.out.println("go:" + go);
 			session.removeAttribute("destination");
-			if (go == null)*/
-			String go = "/ppp/member/membermain";
-			session.setAttribute("member", member);
+			if (go == null)
+				go = "/ppp/member/membermain";
 			mav.setView(go);
 			mav.setRedirect();
 		}
@@ -74,13 +73,11 @@ public class Controller {
 	@RequestMapping(value = "/member/memberlogout", method = "GET")
 	public static ModelAndView memberIdCheck(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
+		service.memberLogout(req);
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/ppp/member/membermain");
 		mav.setRedirect();
-
-		HttpSession session = req.getSession();
-		session.removeAttribute("member");
-
+		
 		return mav;
 	}
 
@@ -165,28 +162,79 @@ public class Controller {
 		return mav;
 	}
 
-	// 일반회원 로그인후 메인으로
-	/*@RequestMapping(value = "/member/membermain2", method = "GET")
-	public static ModelAndView memberMainAfterLogin(HttpServletRequest req) {
-		Service service = (Service) req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
-		mav.setView("/members/MemberHome.jsp");
-
-		return mav;
-	}*/
-
 	// 일반회원 정보 수정
 	@RequestMapping(value = "/member/memberupdate", method = "POST")
 	public static ModelAndView memberUpdateEnd(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.memberUpdate(req));
-		mav.setView("/ppp/members/MemberHome.jsp");
+		mav.setView("/ppp/member/membermain");
 		mav.setRedirect();
 		return mav;
 	}
 
-	//
+	// 일반회원 로그인테스트
+	@RequestMapping(value = "/member/membertest", method = "GET")
+	public static ModelAndView memberTest(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+		return mav;
+	}
+
+	// 일반회원 동물 추가(폼으로)
+	@RequestMapping(value = "/member/animalinsert", method = "GET")
+	public static ModelAndView animalInsertStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/members/AnimalInsert.jsp");
+		mav.setRedirect();
+		return mav;
+	}
+
+	// 일반회원 동물 추가
+	@RequestMapping(value = "/member/animalinsert", method = "POST")
+	public static ModelAndView animalInsertEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		String result = service.animalInsert(req);
+		ArrayList<Animal> animallist = service.animalSelect(req);
+		session.setAttribute("animallist", animallist);
+		session.setAttribute("animallistgson", new Gson().toJson(animallist));
+		//System.out.println("session : " + session.getAttribute("animallistgson"));
+		mav.setView("/ppp/member/membermain");
+		mav.addObject("result", result);
+		mav.setRedirect();
+		return mav;
+	}
+
+	// 일반회원 동물 수정(변경)(폼으로)
+	@RequestMapping(value = "/member/animalupdate", method = "GET")
+	public static ModelAndView animalUpdateStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.animalView(req));
+		mav.setView("/members/AnimalUpdate.jsp");
+		
+		return mav;
+	}
+
+	// 일반회원 동물 수정
+	@RequestMapping(value = "/member/animalupdate", method = "POST")
+	public static ModelAndView animalUpdateEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		mav.addObject("result", service.animalUpdate(req));
+		ArrayList<Animal> animallist = service.animalSelect(req);
+		session.setAttribute("animallist", animallist);
+		session.setAttribute("animallistgson", new Gson().toJson(animallist));
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+		return mav;
+	}
 
 	//////////////////////////
 	// 관리자 등록(추가)폼

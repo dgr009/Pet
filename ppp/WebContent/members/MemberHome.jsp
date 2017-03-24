@@ -142,11 +142,15 @@ body {
 						</div>
 						<div class="form-group">
 							<label for="usr">Gender:</label><br> <label
-								class="checkbox-inline"><input type="checkbox" value="M">남자</label>
-							<label class="checkbox-inline"><input type="checkbox"
+								class="checkbox-inline"><input type="checkbox" value="M" name='member_gender'>남자</label>
+							<label class="checkbox-inline"><input type="checkbox" name='member_gender'
 								value="F">여자</label>
 						</div>
-
+						<div>
+							<input type='hidden' value='0' name='member_coupon'/>
+							<input type='hidden' value='1' name='member_active'/>
+							<input type='hidden' value='1' name='member_adminno'/>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-default">가입하기</button>
