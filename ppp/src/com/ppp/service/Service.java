@@ -35,11 +35,23 @@ public class Service {
 		HashMap<String, String> member = new HashMap<>();
 		member.put("member_id", req.getParameter("member_id"));
 		member.put("member_pwd", req.getParameter("member_pwd"));
-		Member result = null; 
-		result = dao.memberLogin(conn,member); 
-	
-		JdbcUtil.close(conn);
-		return result;
+		Member result = dao.memberLogin(conn,member); 
+		HttpSession session = req.getSession();
+		ArrayList<Animal> animallist = animalSelectLogin(req);
+		if(result.getMemberId()==null){
+			System.out.println("아이디나 비밀번호 확인필요");
+			session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
+			JdbcUtil.close(conn);
+			return null;
+		} else {
+			System.out.println("로그인 성공");
+			session.removeAttribute("logincheck");
+			session.setAttribute("member", result);
+			session.setAttribute("animallist", animallist);
+			session.setAttribute("animallistgson", new Gson().toJson(animallist));
+			JdbcUtil.close(conn);
+			return result;
+		}
 	}
 	
 	//관리자 추가
@@ -149,9 +161,19 @@ public class Service {
 		JdbcUtil.close(conn);
 		return result;
 	}
+	//개인정보 애완 동물 리스트 불러오기 지손(gson)
+		public String animalSelectGson(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Member m = (Member)session.getAttribute("member");
+			
+			ArrayList<Animal> result = dao.animalList(conn,m.getMemberNo()); 
+			JdbcUtil.close(conn);
+			return new Gson().toJson(result);
+		}
 
 	//일반회원 애완동물 수정(변경) 하기
-	public Object animalUpdate(HttpServletRequest req) {
+	public String animalUpdate(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
 		Member m = (Member)session.getAttribute("member");
@@ -166,6 +188,26 @@ public class Service {
 
 		return new Gson().toJson(ob);
 		
+	}
+
+	//애완 동물 정보 가져오기
+	public String animalView(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member)session.getAttribute("member");
+		int memberNo = m.getMemberNo();
+		int animalNo = Integer.parseInt(req.getParameter("animal_no"));
+		Animal a = dao.animalView(conn,memberNo,animalNo);
+		return new Gson().toJson(a);
+	}
+
+	//일반회원 로그아웃
+	public void memberLogout(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.removeAttribute("member");
+		session.removeAttribute("animallist");
+		session.removeAttribute("animallistgson");
+		session.removeAttribute("logincheck");
 	}
 
 	

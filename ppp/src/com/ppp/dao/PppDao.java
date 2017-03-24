@@ -1372,7 +1372,7 @@ public class PppDao {
 				a.setAnimalKind(rs.getString(4));
 				a.setAnimalGender(rs.getString(5));
 				a.setAnimalBreed(rs.getString(6));
-				a.setAnlmalWeigth(rs.getFloat(7));
+				a.setAnimalWeigth(rs.getFloat(7));
 				
 				animalList.add(a);
 			}
@@ -1420,7 +1420,7 @@ public class PppDao {
 			pstmt.setString(4, a.getAnimalKind());
 			pstmt.setString(5, a.getAnimalGender());
 			pstmt.setString(6, a.getAnimalBreed());
-			pstmt.setFloat(7, a.getAnlmalWeigth());
+			pstmt.setFloat(7, a.getAnimalWeigth());
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -1444,7 +1444,7 @@ public class PppDao {
 			pstmt.setString(2, a.getAnimalKind());
 			pstmt.setString(3, a.getAnimalGender());
 			pstmt.setString(4, a.getAnimalBreed());
-			pstmt.setFloat(5, a.getAnlmalWeigth());
+			pstmt.setFloat(5, a.getAnimalWeigth());
 			pstmt.setInt(6, a.getMemberNo());
 			pstmt.setInt(7, a.getAnimalNo());
 			
@@ -1458,6 +1458,35 @@ public class PppDao {
 		
 		
 		return 0;
+	}
+
+	public Animal animalView(Connection conn, int memberNo, int animalNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Animal a = new Animal();
+		try {
+			pstmt = conn.prepareStatement(Sql.animalView);
+			pstmt.setInt(1, animalNo);
+			pstmt.setInt(2, memberNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				a.setAnimalNo(rs.getInt("animal_no"));
+				a.setAnimalName(rs.getString("animal_name"));
+				a.setAnimalKind(rs.getString("animal_kind"));
+				a.setAnimalGender(rs.getString("animal_gender"));
+				a.setAnimalBreed(rs.getString("animal_breed"));
+				a.setAnimalWeigth(rs.getFloat("animal_weight"));
+				
+				return a;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return a;
 	}
 
 	

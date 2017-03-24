@@ -261,4 +261,5 @@ public interface Sql {
 	public String hotelOrnerNoCheck="select count(*) from hotel where hotel_orner_no";
 	// 애완동물 마지막 번호 찾기
 	public String animalMaxNo = "select max(animal_no)+1 from animal where member_no=?";
+	public String animalView = "select animal_no,animal_name,animal_kind,animal_gender,animal_breed,animal_weight from animal a,member m where a.member_no=m.member_no and a.animal_no=? and a.member_no=? ";
 }
