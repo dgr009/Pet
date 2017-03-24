@@ -1980,7 +1980,58 @@ public class PppDao {
 		return -1;
 	}
 
+	// 병원회원 전체 리스트
 	
+	public int selectCountHospital(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.selectCountHospital);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+	// 미용실회원 전체 리스트
+	public int selectCountBeauty(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.selectCountBeauty);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+	// 호텔회원 전체리스트
+	public int selectCountHotel(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.selectCountHotel);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
 	
 	// 비활성화된 회원 페이징
 	public ArrayList<Member> selectByPaging(Connection conn, int startId, int endId) {

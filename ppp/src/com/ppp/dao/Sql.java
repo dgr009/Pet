@@ -276,7 +276,13 @@ public interface Sql {
 	// 쪽지 마지막 번호 조회
 	public String messageNoMax="select max(message_no)+1 from message";
 	// 회원리스트 페이징
-	public String selectCountMember = "select count(*) from Member";
+	public String selectCountMember = "select count(*) from member";
+	// 병원리스트 페이징
+	public String selectCountHospital="select count(*) from hospital";
+	// 미용실리스트 페이징
+	public String selectCountBeauty="select count(*) from beauty";
+	// 호텔리스트 페이징
+	public String selectCountHotel="select count(*) from hotel";
 	// 비활성화 된 회원 페이징
 	public String inactiveMemberList = "select * from(select * from (select rownum rnum, t.*from (select member_no,member_id, member_phone, member_mail, member_address, member_active_date from member where member_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum>=?";
 	// 비활성화 된 병원 페이징

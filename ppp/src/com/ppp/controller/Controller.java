@@ -267,10 +267,38 @@ public class Controller {
 		Service service = (Service)req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.inactiveMember(req));
-		mav.setView("/admin/list.jsp");
+		mav.setView("/ppp/admins/list.jsp");
 		return mav;
 	}
-
-
+	
+	// 비활성화 된 병원회원 검색
+	@RequestMapping(value="/admin/hospitaldeactiviysearch", method="GET")
+	public static ModelAndView hospitalList(HttpServletRequest req){
+		Service service = (Service)req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.inactiveHospital(req));
+		mav.setView("/ppp/admins/hospitalList.jsp");
+		return mav;
+	}
+	
+	// 비활성화 된 미용실회원 검색
+	@RequestMapping(value="/admin/beautydeactiviysearch", method="GET")
+	public static ModelAndView beautyList(HttpServletRequest req){
+		Service service = (Service)req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.inactiveBeauty(req));
+		mav.setView("/ppp/admins/beautyList.jsp");
+		return mav;
+	}
+	
+	// 비활성화 된 호텔회원 검색
+	@RequestMapping(value="/admin/hoteldeactiviysearch", method="GET")
+	public static ModelAndView hotelList(HttpServletRequest req){
+		Service service = (Service)req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.inactiveHotel(req));
+		mav.setView("/ppp/admins/hotelList.jsp");
+		return mav;
+	}
 }
 
