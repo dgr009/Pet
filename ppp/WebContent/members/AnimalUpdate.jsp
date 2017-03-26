@@ -13,6 +13,7 @@
 <title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 <!-- 
 <script type="text/javascript">
 var a = request.getAttribute("result")
@@ -46,18 +47,26 @@ $(".list tbody").append(tr);
 			</thead>
 			<tbody>
 				<tr>
-					<td><input type='hidden' value='<%=a.getAnimalNo()%>' name="animal_no"><%=a.getAnimalNo()%></td>
-					<td><input type="text" value='<%=a.getAnimalName()%>' name="animal_name"></td>
-					<td><input type="text" value='<%=a.getAnimalGender()%>' name="animal_gender"></td>
-					<td><input type="text" value='<%=a.getAnimalKind()%>' name="animal_kind"></td>
-					<td><input type="text" value='<%=a.getAnimalBreed()%>' name="animal_breed"></td>
-					<td><input type="text" value='<%=a.getAnimalWeigth()%>' name="animal_weight"></td>
+					<td><input type='hidden' value='<%=a.getAnimalNo()%>'
+						name="animal_no"><%=a.getAnimalNo()%></td>
+					<td><input type="text" value='<%=a.getAnimalName()%>'
+						name="animal_name"></td>
+					<td><input type="text" value='<%=a.getAnimalGender()%>'
+						name="animal_gender"></td>
+					<td><input type="text" value='<%=a.getAnimalKind()%>'
+						name="animal_kind"></td>
+					<td><input type="text" value='<%=a.getAnimalBreed()%>'
+						name="animal_breed"></td>
+					<td><input type="text" value='<%=a.getAnimalWeight()%>'
+						name="animal_weight"></td>
 				</tr>
+
 			</tbody>
 		</table>
+		<input type='button' onclick='location.href="/ppp/member/membermain"'
+			value='취소'> 
+			<input type="submit" value="수정">
 	</form>
-	<input type='button' onclick='location.href="/ppp/member/membermain"'
-		value='취소'>
 
 </body>
 </html>

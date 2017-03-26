@@ -7,7 +7,7 @@ public class Animal {
 	String animalKind;
 	String animalGender;
 	String animalBreed;
-	float animalWeigth;
+	float animalWeight;
 	public int getMemberNo() {
 		return memberNo;
 	}
@@ -44,11 +44,11 @@ public class Animal {
 	public void setAnimalBreed(String animalBreed) {
 		this.animalBreed = animalBreed;
 	}
-	public float getAnimalWeigth() {
-		return animalWeigth;
+	public float getAnimalWeight() {
+		return animalWeight;
 	}
-	public void setAnimalWeigth(float animalWeigth) {
-		this.animalWeigth = animalWeigth;
+	public void setAnimalWeight(float animalWeight) {
+		this.animalWeight = animalWeight;
 	}
 	
 }

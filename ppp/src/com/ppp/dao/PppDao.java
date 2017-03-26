@@ -1827,7 +1827,7 @@ public class PppDao {
 			pstmt.setString(4, a.getAnimalKind());
 			pstmt.setString(5, a.getAnimalGender());
 			pstmt.setString(6, a.getAnimalBreed());
-			pstmt.setFloat(7, a.getAnimalWeigth());
+			pstmt.setFloat(7, a.getAnimalWeight());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1899,7 +1899,7 @@ public class PppDao {
 			pstmt = conn.prepareStatement(Sql.updateAnimal);
 			pstmt.setString(1, a.getAnimalName());
 			pstmt.setString(2, a.getAnimalGender());
-			pstmt.setFloat(3, a.getAnimalWeigth());
+			pstmt.setFloat(3, a.getAnimalWeight());
 			pstmt.setInt(4, a.getMemberNo());
 			pstmt.setInt(5, a.getAnimalNo());
 			return pstmt.executeUpdate();
@@ -2001,7 +2001,7 @@ public class PppDao {
 				a.setAnimalKind(rs.getString(4));
 				a.setAnimalGender(rs.getString(5));
 				a.setAnimalBreed(rs.getString(6));
-				a.setAnimalWeigth(rs.getFloat(7));
+				a.setAnimalWeight(rs.getFloat(7));
 				
 				animalList.add(a);
 			}
@@ -2049,7 +2049,7 @@ public class PppDao {
 			pstmt.setString(4, a.getAnimalKind());
 			pstmt.setString(5, a.getAnimalGender());
 			pstmt.setString(6, a.getAnimalBreed());
-			pstmt.setFloat(7, a.getAnimalWeigth());
+			pstmt.setFloat(7, a.getAnimalWeight());
 			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -2073,7 +2073,7 @@ public class PppDao {
 			pstmt.setString(2, a.getAnimalKind());
 			pstmt.setString(3, a.getAnimalGender());
 			pstmt.setString(4, a.getAnimalBreed());
-			pstmt.setFloat(5, a.getAnimalWeigth());
+			pstmt.setFloat(5, a.getAnimalWeight());
 			pstmt.setInt(6, a.getMemberNo());
 			pstmt.setInt(7, a.getAnimalNo());
 			
@@ -2105,7 +2105,7 @@ public class PppDao {
 				a.setAnimalKind(rs.getString("animal_kind"));
 				a.setAnimalGender(rs.getString("animal_gender"));
 				a.setAnimalBreed(rs.getString("animal_breed"));
-				a.setAnimalWeigth(rs.getFloat("animal_weight"));
+				a.setAnimalWeight(rs.getFloat("animal_weight"));
 				
 				return a;
 			}
@@ -2285,6 +2285,24 @@ public class PppDao {
 			JdbcUtil.close(pstmt, rs);
 		}
 		return null;
+	}
+	// 애완 동물 삭제하기
+	public int animalDelete(Connection conn, int memberNo, int animalNo) {
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = conn.prepareStatement(Sql.deleteAnimal);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, animalNo);
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		}
+		return 0;	
 	}
 }
 

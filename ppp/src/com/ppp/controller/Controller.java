@@ -198,14 +198,8 @@ public class Controller {
 	public static ModelAndView animalInsertEnd(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		HttpSession session = req.getSession();
-		String result = service.animalInsert(req);
-		ArrayList<Animal> animallist = service.animalSelect(req);
-		session.setAttribute("animallist", animallist);
-		session.setAttribute("animallistgson", new Gson().toJson(animallist));
-		//System.out.println("session : " + session.getAttribute("animallistgson"));
 		mav.setView("/ppp/member/membermain");
-		mav.addObject("result", result);
+		mav.addObject("result", service.animalInsert(req));
 		mav.setRedirect();
 		return mav;
 	}
@@ -226,15 +220,23 @@ public class Controller {
 	public static ModelAndView animalUpdateEnd(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		HttpSession session = req.getSession();
 		mav.addObject("result", service.animalUpdate(req));
-		ArrayList<Animal> animallist = service.animalSelect(req);
-		session.setAttribute("animallist", animallist);
-		session.setAttribute("animallistgson", new Gson().toJson(animallist));
 		mav.setView("/ppp/member/membermain");
 		mav.setRedirect();
+	
 		return mav;
 	}
+	
+	// 일반회원 동물 삭제(폼으로)
+		@RequestMapping(value = "/member/animaldelete", method = "GET")
+		public static ModelAndView animalDeleteStart(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("result", service.animalDelete(req));
+			mav.setView("/ppp/member/membermain");
+			mav.setRedirect();
+			return mav;
+		}
 
 	//////////////////////////
 	// 관리자 등록(추가)폼
