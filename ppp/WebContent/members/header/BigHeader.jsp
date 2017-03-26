@@ -9,6 +9,12 @@
 <body>
 <% if(session.getAttribute("member")!=null){ %>
 	<%@ include file="yesheader.jsp" %>
+	<%} else if(session.getAttribute("hotel")!=null){ %>
+	<%@ include file="hotelheader.jsp" %>
+	<%} else if(session.getAttribute("hospital")!=null){ %>
+	<%@ include file="hospitalheader.jsp" %>
+	<%} else if(session.getAttribute("beauty")!=null){ %>
+	<%@ include file="beautyheader.jsp" %>
 	<%} else{ %>
 	<%@ include file="noheader.jsp" %>
 	<%} %>

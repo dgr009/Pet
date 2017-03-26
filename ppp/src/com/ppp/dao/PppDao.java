@@ -4,6 +4,8 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+import javax.naming.spi.DirStateFactory.*;
+
 import com.ppp.util.*;
 import com.ppp.vo.*;
 
@@ -1506,6 +1508,156 @@ public class PppDao {
 			JdbcUtil.close(pstmt, null);
 		}
 		return 0;	
+	}
+
+	
+	/////////////////////////////////////
+	// 호텔 DAO
+	
+	//호텔 마지막 번호 찾기
+	public int selectHotelNoMax(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.hotelNoMax);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				return rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 1;
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+
+	//호텔 회원 등록(추가)
+	public int hotelInsert(Connection conn, Hotel h) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertHotel);
+			pstmt.setInt(1, h.getHotelNo());
+			pstmt.setString(2, h.getHotelName());
+			pstmt.setString(3, h.getHotelOrnerName());
+			pstmt.setString(4, h.getHotelOrnerNo());
+			pstmt.setString(5, h.getHotelMail());
+			pstmt.setString(6, h.getHotelPhone());
+			pstmt.setString(7, h.getHotelAddress());
+			pstmt.setString(8, h.getHotelId());
+			pstmt.setString(9, h.getHotelPwd());
+			pstmt.setString(10, h.getHotelPhoto());
+			pstmt.setInt(11, h.getAdminNo());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		}
+		return 0;
+	}
+
+	//호텔 로그인
+	public Hotel hotelLogin(Connection conn, HashMap<String, String> user) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Hotel h = new Hotel();
+		try {
+		/*select
+		 *  hotel_no,
+		 *  hotel_name,
+		 *  hotel_orner_name,
+		 *  hotel_orner_no,
+		 *  hotel_mail,
+		 *  hotel_phone,
+		 *  hotel_address,
+		 *  hotel_id,
+		 *  hotel_pwd,
+		 *  hotel_photo,
+		 *  hotel_active,
+		 *  admin_no 
+		 *  from hotel where hotel_id=? and hotel_pwd=?";
+		 * 
+		 * */
+			pstmt = conn.prepareStatement(Sql.HotelLogin);
+			pstmt.setString(1, user.get("user_id"));
+			pstmt.setString(2, user.get("user_pwd"));
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				h.setHotelNo(rs.getInt("hotel_no"));
+				h.setHotelName(rs.getString("hotel_name"));
+				h.setHotelOrnerName(rs.getString("hotel_orner_name"));
+				h.setHotelOrnerNo(rs.getString("hotel_orner_no"));
+				h.setHotelMail(rs.getString("hotel_mail"));
+				h.setHotelPhone(rs.getString("hotel_phone"));
+				h.setHotelAddress(rs.getString("hotel_address"));
+				h.setHotelId(rs.getString("hotel_id"));
+				h.setHotelPwd(rs.getString("hotel_pwd"));
+				h.setHotelPhoto(rs.getString("hotel_photo"));
+				h.setHotelActive(rs.getInt("hotel_active"));
+				h.setAdminNo(rs.getInt("admin_no"));
+			}
+			return h;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+
+		return null;
+	}
+
+	//일반회원 받은 메세지 보기
+	public ArrayList<MemberMessage> receiveMessageList(Connection conn, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<MemberMessage> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.selectMemberMessage);
+			pstmt.setInt(1, memberNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				MemberMessage msg = new MemberMessage();
+				msg.setMemberNo(memberNo);
+				msg.setMemberMessageNo(rs.getInt("member_message_no"));
+				msg.setMemberMessageTitle(rs.getString("member_message_title"));
+				msg.setMemberMessageContent(rs.getString("member_message_content"));
+				msg.setMemberMessageDate(rs.getDate("member_message_date"));
+	
+				list.add(msg);
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+
+	//일반회원 메세지(쪽지) 삭제
+	public void messageDelete(Connection conn, int messageNo) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.deleteMessage);
+			pstmt.setInt(1, messageNo);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		}
+		
+		
 	}
 }
 

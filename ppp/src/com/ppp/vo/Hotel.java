@@ -14,7 +14,7 @@ public class Hotel {
 	String hotelPhone;
 	String hotelPhoto;
 	int hotelActive;
-	Date hotelActiceDate;
+	Date hotelActiveDate;
 	int adminNo;
 	public int getHotelNo() {
 		return hotelNo;
@@ -82,11 +82,11 @@ public class Hotel {
 	public void setHotelActive(int hotelActive) {
 		this.hotelActive = hotelActive;
 	}
-	public Date getHotelActiceDate() {
-		return hotelActiceDate;
+	public Date getHotelActiveDate() {
+		return hotelActiveDate;
 	}
-	public void setHotelActiceDate(Date hotelActiceDate) {
-		this.hotelActiceDate = hotelActiceDate;
+	public void setHotelActiveDate(Date hotelActiveDate) {
+		this.hotelActiveDate = hotelActiveDate;
 	}
 	public int getAdminNo() {
 		return adminNo;

@@ -11,7 +11,7 @@ import com.ppp.dao.*;
 import com.ppp.di.*;
 import com.ppp.service.*;
 
-@WebServlet({"/ppp/*","/member/*","/admin/*", "/hotel/*", "/hospital/*", "/beauty/*" })
+@WebServlet({"/ppp/*","/member/*","/admin/*", "/hotel/*", "/hospital/*", "/beauty/*","/board/*" })
 public class DispatcherServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {

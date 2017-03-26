@@ -71,4 +71,27 @@ public class MappingUtil {
 		
 		return a;
 	}
+
+	public static Hotel getHotelFromRequest(HttpServletRequest req, int hotelNo) {
+		Hotel h = new Hotel();
+		h.setHotelNo(hotelNo);
+		h.setHotelId(req.getParameter("hotel_id"));
+		h.setHotelPwd(req.getParameter("hotel_pwd"));
+		h.setHotelName(req.getParameter("hotel_name"));
+		h.setHotelAddress(req.getParameter("hotel_address"));
+		h.setHotelOrnerName(req.getParameter("hotel_orner_name"));
+		h.setHotelOrnerNo(req.getParameter("hotel_orner_no"));
+		h.setHotelMail(req.getParameter("hotel_mail"));
+		h.setHotelPhone(req.getParameter("hotel_phone"));
+		h.setHotelPhoto(req.getParameter("hotel_photo"));
+		h.setHotelActive(Integer.parseInt(req.getParameter("hotel_active")));
+		java.sql.Date date = null;
+		if(Integer.parseInt(req.getParameter("hotel_active"))==2){
+			java.util.Date d = new java.util.Date();
+			date = new java.sql.Date(d.getTime());
+		}
+		h.setHotelActiveDate(date);
+		h.setAdminNo(Integer.parseInt(req.getParameter("hotel_adminno")));
+		return h;
+	}
 }

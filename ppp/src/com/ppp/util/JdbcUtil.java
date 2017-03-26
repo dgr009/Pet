@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class JdbcUtil {
 	private static final String driverName = "net.sf.log4jdbc.DriverSpy";
-	private static final String url = "jdbc:log4jdbc:oracle:thin:@192.168.0.183:1521:XE";
+	private static final String url = "jdbc:log4jdbc:oracle:thin:@localhost:1521:XE";
 	private static final String id = "petpapa";
 	private static final String password = "1111";
 	public static Connection getConnection() {

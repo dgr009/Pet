@@ -220,9 +220,9 @@ public interface Sql {
 	//109. 반려동물 추가
 	public String insertAnimal="insert into animal(member_no,animal_no,animal_name,animal_kind,animal_gender,animal_breed,animal_weight) values(?,?,?,?,?,?,?)";
 	//110. 관리자 쪽지 추가
-	public String insertMessage="insert into message(message_no,message_title,message_content,message_date,admin_no,member_no) values(?,?,?,?,?,?)";
+	public String insertMessage="insert into member_message(member_message_no,member_message_title,member_message_content,member_message_date,member_no) values(?,?,?,?,?)";
 	//111. 회원 쪽지 검색
-	public String insertMemberMessage="select m.message_no,m.message_title,m.message_content,m.message_date ,b.member_id from message m, member b where m.member_no=b.member_no and  b.member_no=?";
+	public String selectMemberMessage="select m.member_message_no,m.member_message_title,m.member_message_content,m.member_message_date ,b.member_id from member_message m, member b where m.member_no=b.member_no and  b.member_no=?";
 	//112. 수의사 추가
 	public String insertVet="insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,?,?,?)";
 	//113. 미용사 추가
@@ -261,5 +261,10 @@ public interface Sql {
 	public String hotelOrnerNoCheck="select count(*) from hotel where hotel_orner_no";
 	// 애완동물 마지막 번호 찾기
 	public String animalMaxNo = "select max(animal_no)+1 from animal where member_no=?";
+	//애완동물 리스트 보기
 	public String animalView = "select animal_no,animal_name,animal_kind,animal_gender,animal_breed,animal_weight from animal a,member m where a.member_no=m.member_no and a.animal_no=? and a.member_no=? ";
+	//호텔회원 로그인
+	public String HotelLogin = "select hotel_no,hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_phone,hotel_address,hotel_id,hotel_pwd,hotel_photo,hotel_active,admin_no from hotel where hotel_id=? and hotel_pwd=?";
+	//일반회원 메세지(쪽지) 삭제
+	public String deleteMessage = "delete from member_message where member_message_no=?";
 }
