@@ -310,6 +310,23 @@ public class Controller {
 
 		return mav;
 	}
+	// 호텔회원 아이디찾기 (폼)
+	@RequestMapping(value ="/member/hotelidsearch", method="GET")
+	public static ModelAndView hotelIdSearchStart(HttpServletRequest req){
+		Service s =(Service) req.getServletContext().getAttribute("s");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/member/hotelIdSearch.jsp");
+		return mav;
+	}
+	// 호텔회원 아이디 찾기
+	@RequestMapping(value="/member/hotelidsearch", method="AJAX")
+	public static ModelAndView hotelIdSearchEnd(HttpServletRequest req){
+		Service s = (Service) req.getServletContext().getAttribute("s");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", s.hotelIdSearch(req));
+		return mav;
+	}
+
 
 	/////////////////////////////////
 	/////////////////////////////////
