@@ -350,5 +350,7 @@ public class Controller {
 		mav.setView("/ppp/admins/hotelList.jsp");
 		return mav;
 	}
+	
+	
 }
 
