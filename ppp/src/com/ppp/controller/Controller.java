@@ -529,6 +529,24 @@ public class Controller {
 		return mav;
 	}
 	
-	
+	// 쪽지
+	@RequestMapping(value = "/admin/messagesend", method = "POST")
+	public static ModelAndView messageSend(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/admin/adminmain");
+		mav.addObject("result", service.messageSend(req));
+		mav.setRedirect();
+		return mav;
+	}
+	// 메인으로가기
+		@RequestMapping(value = "/admin/adminmain", method = "GET")
+		public static ModelAndView adminMain(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.setView("/ppp/admins/adminindex2.jsp");
+			mav.setRedirect();
+			return mav;
+		}
 }
 

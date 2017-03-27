@@ -63,6 +63,7 @@ public class MappingUtil {
 		return a;
 	}
 	
+	// 메세지 가져오기
 	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
 		Message m = new Message();
 		java.util.Date d = new java.util.Date();
@@ -72,7 +73,7 @@ public class MappingUtil {
 		m.setMessageTitle(req.getParameter("message_title"));
 		m.setMessageContent(req.getParameter("message_content"));
 		m.setMessageDate(date);
-		m.setMemberNo(Integer.parseInt(req.getParameter("memeber_no")));
+		m.setMemberNo(Integer.parseInt(req.getParameter("member_no")));
 		return m;
 	}
 
@@ -160,5 +161,18 @@ public class MappingUtil {
 		b.setBeautyActiveDate(date);
 		b.setAdminNo(Integer.parseInt(req.getParameter("beauty_adminno")));
 		return b;
+	}
+	
+	// 쪽지 
+	public static Message getMessageFromRequest(HttpServletRequest req, int messageNo){
+		java.util.Date d = new java.util.Date();
+	     java.sql.Date date = new java.sql.Date(d.getTime());
+		Message m = new Message();
+		m.setMessageNo(messageNo);
+		m.setMemberNo(Integer.parseInt(req.getParameter("member_no")));
+		m.setMessageTitle(req.getParameter("message_title"));
+		m.setMessageContent(req.getParameter("message_content"));
+		m.setMessageDate(date);
+		return m;
 	}
 }

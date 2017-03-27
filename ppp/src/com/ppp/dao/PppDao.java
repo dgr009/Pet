@@ -229,13 +229,13 @@ public class PppDao {
 	public int insertMessage(Connection conn, Message m) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement(Sql.insertMessage);
+			pstmt = conn.prepareStatement(Sql.messageSend);
 			pstmt.setInt(1, m.getMessageNo());
 			pstmt.setString(2, m.getMessageTitle());
 			pstmt.setString(3, m.getMessageContent());
 			pstmt.setDate(4, m.getMessageDate());
-			pstmt.setInt(5, m.getAdminNo());
-			pstmt.setInt(6, m.getMemberNo());
+			pstmt.setInt(6, m.getAdminNo());
+			pstmt.setInt(5, m.getMemberNo());
 
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -1852,12 +1852,39 @@ public class PppDao {
 	// 쪽지 찾기 기본
 	public Message basicMessage(ResultSet rs) throws SQLException{
 		Message m = new Message();
-		m.setMemberNo(rs.getInt("memberNo"));
-		m.setMessageTitle(rs.getString("messageTitle"));
-		m.setMessageContent(rs.getString("messageContent"));
-		m.setMessageDate(rs.getDate("messageDate"));
+		m.setMessageNo(rs.getInt("message_no"));
+		m.setMessageTitle(rs.getString("message_title"));
+		m.setMessageContent(rs.getString("message_content"));
+		m.setMessageDate(rs.getDate("message_date"));
+		m.setAdminNo(rs.getInt("admin_no"));
+		m.setMemberNo(rs.getInt("member_no"));
+		
 		return m;
 	}
+	
+	// &쪽지 리스트
+	public ArrayList<Message> allMessage(Connection conn, Message m){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Message> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.adminMessageSend);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicMessage(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	
+		
+	}
+	
+	
 	// 쪽지 찾기
 	public ArrayList<Message> findAllMessage(Connection conn, Message m){
 		PreparedStatement pstmt =null;

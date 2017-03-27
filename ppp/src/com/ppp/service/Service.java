@@ -76,7 +76,7 @@ public class Service {
 		admin.put("member_pwd", req.getParameter("admin_pwd"));
 		int result = 0; 
 		result = dao.adminLogin(conn,admin); 
-	
+		
 		JdbcUtil.close(conn);
 		return result;
 	}
@@ -170,6 +170,40 @@ public class Service {
 		map.put("list", list);
 		JdbcUtil.close(conn);
 		return new Gson().toJson(map);
+	}
+	
+	// 메세지 추가
+	public String messageSend(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Admin a = (Admin)session.getAttribute("admin");
+		int messageNo = dao.selectMessageNoMax(conn);
+		int adminNo =a.getAdminNo();
+		Message m = MappingUtil.getSendMessge(req, adminNo, messageNo);
+		int result = dao.insertMessage(conn, m);
+		JsonObject ob = new JsonObject();
+		if(result==1) ob.addProperty("result", "success");
+		else ob.addProperty("result", "fail");
+		JdbcUtil.close(conn);
+		if(result==1){
+			ob.addProperty("result", "success");
+			ArrayList<Message> messagelist = messageSelect(req);
+			session.setAttribute("messagelist", messagelist);
+			session.setAttribute("messagelistgson", new Gson().toJson(messagelist));
+		}
+		else ob.addProperty("result", "fail");
+		JdbcUtil.close(conn);
+
+		return new Gson().toJson(ob);
+	}
+	public ArrayList<Message> messageSelect(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Message m = (Message)session.getAttribute("message");
+		
+		ArrayList<Message> result = dao.allMessage(conn, m); 
+		JdbcUtil.close(conn);
+		return result;
 	}
 
 	//로그인시 애완 동물 리스트 불러오기

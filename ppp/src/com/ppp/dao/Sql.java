@@ -221,10 +221,19 @@ public interface Sql {
 	public String insertInquireBoardComment = "insert into inquire_board_comment(inquire_board_no,inquire_board_comment_no,admin_id,inquire_board_comment_content,inquire_board_comment_date,admin_no) values(?,?,?,?,?,?)";
 	// 109. 반려동물 추가
 	public String insertAnimal = "insert into animal(member_no,animal_no,animal_name,animal_kind,animal_gender,animal_breed,animal_weight) values(?,?,?,?,?,?,?)";
+	
+	
 	// 110. 관리자 쪽지 추가
 	public String insertMessage = "insert into member_message(member_message_no,member_message_title,member_message_content,member_message_date,member_no) values(?,?,?,?,?)";
 	// 111. 회원 쪽지 검색
 	public String selectMemberMessage = "select m.member_message_no,m.member_message_title,m.member_message_content,m.member_message_date ,b.member_id from member_message m, member b where m.member_no=b.member_no and  b.member_no=?";
+	
+	// &관리자 쪽지 보내기
+	public String messageSend = "insert into message(message_no,message_title,message_content,message_date,member_no,admin_no) values(?,?,?,?,?,?)";
+	// &관리자 보낸 쪽지함 
+	public String adminMessageSend="select * from message";
+	
+	
 	// 112. 수의사 추가
 	public String insertVet = "insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,?,?,?)";
 	// 113. 미용사 추가
