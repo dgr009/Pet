@@ -12,8 +12,8 @@
 		$('#go').on('click',function(){
 			$.ajax({
 				type:'POST',
-				url:'/ppp/member/hotelidsearch',
-				data: {hotel_mail:$("#hotel_mail").val(),hotel_orner_no:$("#hotel_orner_no").val()},
+				url:'/ppp/beauty/beautyidsearch',
+				data: {beauty_mail:$("#beauty_mail").val(),beauty_orner_no:$("#beauty_orner_no").val()},
 				success:function(response){
 					if(response.result === undefined){
 						$('#target').html('정보와 일치하는 아이디가 없습니다.').css('border','1px solid red').css('color','red');

@@ -390,6 +390,18 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
+	//호텔회원 비밀번호 찾기
+	public String hotelPwdSearch(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> hotel = new HashMap<>();
+		hotel.put("hotel_mail", req.getParameter("hotel_mail"));
+		hotel.put("hotel_orner_no", req.getParameter("hotel_orner_no"));
+		hotel.put("hotel_id", req.getParameter("hotel_id"));
+		JsonObject ob = new JsonObject();
+		ob.addProperty("result", dao.findHotelPwd(conn, hotel));
+		JdbcUtil.close(conn);
+		return new Gson().toJson(ob);
+	}
 	
 	//일반 회원 받은 메세지(쪽지) 리스트
 	public String receiveBoard(HttpServletRequest req) {
@@ -455,6 +467,32 @@ public class Service {
 			session.removeAttribute("logincheck");
 			
 		}
+		
+		//미용실 회원 아이디찾기
+		public String beautyIdSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String, String> beauty = new HashMap<>();
+			beauty.put("beauty_mail", req.getParameter("beauty_mail"));
+			beauty.put("beauty_orner_no", req.getParameter("beauty_orner_no"));
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", dao.findbeautyId(conn, beauty));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(ob);
+		}
+		
+		//미용실 회원 비밀번호 찾기
+		public String beautyPwdSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String, String> beauty = new HashMap<>();
+			beauty.put("beauty_mail", req.getParameter("beauty_mail"));
+			beauty.put("beauty_orner_no", req.getParameter("beauty_orner_no"));
+			beauty.put("beauty_id", req.getParameter("beauty_id"));
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", dao.findbeautyPwd(conn, beauty));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(ob);
+		}
+
 		//////////////////
 		//병원 회원 등록(추가)
 		public String hospitalCreateEnd(HttpServletRequest req) {
@@ -497,7 +535,31 @@ public class Service {
 			session.removeAttribute("logincheck");
 			
 		}
+		//병원회원 아이디 찾기
+		public String hospitalIdSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String, String> hospital = new HashMap<>();
+			hospital.put("hospital_mail", req.getParameter("hospital_mail"));
+			hospital.put("hospital_orner_on", req.getParameter("hospital_orner_on"));
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", dao.findHospitalId(conn, hospital));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(ob);
+		}
 		
+		//병원회원 비밀번호 찾기
+		public String hospitalPwdSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String , String> hospital = new HashMap<>();
+			hospital.put("hospital_mail", req.getParameter("hospital_mail"));
+			hospital.put("hospital_orner_no", req.getParameter("hospital_orner_no"));
+			hospital.put("hospital_id", req.getParameter("hospital_id"));
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", dao.findHospitalPwd(conn, hospital));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(ob);
+		}
+	
 		
 
 		public String hotelAreaSearch(HttpServletRequest req) {

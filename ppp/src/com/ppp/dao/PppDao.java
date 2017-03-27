@@ -891,7 +891,7 @@ public class PppDao {
 	}
 
 	// 병원회원 비밀번호 찾기
-	public String findHospitalPwd(Connection conn, String hospitalMail, HashMap<String,String> hospital) {
+	public String findHospitalPwd(Connection conn, HashMap<String,String> hospital) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
