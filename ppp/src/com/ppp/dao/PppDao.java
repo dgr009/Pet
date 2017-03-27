@@ -2497,22 +2497,22 @@ public class PppDao {
 	}
 
 	// 일반회원 받은 메세지 보기
-	public ArrayList<MemberMessage> receiveMessageList(Connection conn, int memberNo) {
+	public ArrayList<Message> receiveMessageList(Connection conn, int memberNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<MemberMessage> list = new ArrayList<>();
+		ArrayList<Message> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(Sql.selectMemberMessage);
 			pstmt.setInt(1, memberNo);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				MemberMessage msg = new MemberMessage();
+				Message msg = new Message();
 				msg.setMemberNo(memberNo);
-				msg.setMemberMessageNo(rs.getInt("member_message_no"));
-				msg.setMemberMessageTitle(rs.getString("member_message_title"));
-				msg.setMemberMessageContent(rs.getString("member_message_content"));
-				msg.setMemberMessageDate(rs.getDate("member_message_date"));
+				msg.setMessageNo(rs.getInt("message_no"));
+				msg.setMessageTitle(rs.getString("message_title"));
+				msg.setMessageContent(rs.getString("message_content"));
+				msg.setMessageDate(rs.getDate("message_date"));
 
 				list.add(msg);
 			}
@@ -2527,12 +2527,13 @@ public class PppDao {
 	}
 
 	// 일반회원 메세지(쪽지) 삭제
-	public void messageDelete(Connection conn, int messageNo) {
+	public void messageDelete(Connection conn, int messageNo, int memberNo) {
 		PreparedStatement pstmt = null;
 
 		try {
 			pstmt = conn.prepareStatement(Sql.deleteMessage);
 			pstmt.setInt(1, messageNo);
+			pstmt.setInt(2, memberNo);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

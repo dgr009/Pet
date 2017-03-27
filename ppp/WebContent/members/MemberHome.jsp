@@ -13,21 +13,82 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-		function login_check() {
-			var login_form = document.getElementById('login_form');
-			var user_id = document.getElementById('usr_id');
-			var user_pwd = document.getElementById('usr_pwd');
-			if (login_form.user[0].checked == true) {
-				login_form.action = "/ppp/member/login";
-			} else if (login_form.user[1].checked == true) {
-				login_form.action = "/ppp/hotel/login";
-			} else if (login_form.user[2].checked == true) {
-				login_form.action = "/ppp/hospital/login";
-			} else if (login_form.user[3].checked == true) {
-				login_form.action = "/ppp/beauty/login";
-			}
-			login_form.submit();
+	function login_check() {
+		var login_form = document.getElementById('login_form');
+		var user_id = document.getElementById('usr_id');
+		var user_pwd = document.getElementById('usr_pwd');
+		if (login_form.user[0].checked == true) {	
+			login_form.action = "/ppp/member/login";
+		} else if (login_form.user[1].checked == true) {
+			login_form.action = "/ppp/hotel/login";
+		} else if (login_form.user[2].checked == true) {
+			login_form.action = "/ppp/hospital/login";
+		} else if (login_form.user[3].checked == true) {
+			login_form.action = "/ppp/beauty/login";
 		}
+		login_form.submit();
+	}
+	
+	function register_check() {
+		var register_form = document.getElementById('orner_register_form');
+		/*var oner_id = document.getElementById('orner_id');
+		var oner_pwd = document.getElementById('orner_pwd');
+		var oner_name = document.getElementById('orner_name');
+		var oner_no = document.getElementById('orner_no');
+		var oner_phone = document.getElementById('orner_phone');
+		var oner_address = document.getElementById('orner_address');
+		var oner_mail = document.getElementById('orner_mail');
+		var oner_active = document.getElementById('orner_active');
+		var oner_adminno = document.getElementById('orner_adminno');
+		var oner_photo = document.getElementById('orner_photo');
+		var business_name = document.getElementById('business_name');*/
+		
+		if (register_form.user[0].checked == true) {
+			register_form.action = "/ppp/hotel/hotelregister";
+		} else if (register_form.user[1].checked == true) {
+			register_form.action = "/ppp/hospital/hospitalregister";
+		} else if (register_form.user[2].checked == true) {
+			register_form.action = "/ppp/beauty/beautyregister";
+		}
+		register_form.submit();
+	}
+	
+	var InputImage = (function loadImageFile() {
+		if (window.FileReader) {
+			var ImagePre;
+			var ImgReader = new window.FileReader();
+			var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
+
+			ImgReader.onload = function(Event) {
+				if (!ImagePre) {
+					var newPreview = document.getElementById("imagePreview");
+					ImagePre = new Image();
+					ImagePre.style.width = "400px";
+					ImagePre.style.height = "400px";
+					newPreview.appendChild(ImagePre);
+				}
+				ImagePre.src = Event.target.result;
+
+			};
+
+			return function() {
+
+				var img = document.getElementById("image").files;
+
+				if (!fileType.test(img[0].type)) {
+					alert("이미지 파일을 업로드 하세요");
+					return;
+				}
+
+				ImgReader.readAsDataURL(img[0]);
+			}
+
+		}
+
+		document.getElementById("imagePreview").src = document
+				.getElementById("image").value;
+
+	})();
 </script>
 
 <style>
@@ -79,9 +140,10 @@ body {
 </style>
 </head>
 <body>
+	<!-- 헤더 -->
 	<%@ include file="header/BigHeader.jsp"%>
 
-	<!-- 로그인 -->
+	<!-- 로그인 폼 -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
@@ -119,7 +181,8 @@ body {
 						<button type="button"
 							onclick="location.href = '/ppp/member/memberpwdsearch'"
 							class="btn btn-default">비밀번호 찾기</button>
-						<input type="button" class="btn btn-default" onclick="login_check()" value="Login">
+						<input type="button" class="btn btn-default"
+							onclick="login_check()" value="Login">
 					</div>
 
 				</form>
@@ -128,67 +191,14 @@ body {
 		</div>
 	</div>
 
+	<!-- 회원가입 개인기업 선택 폼 -->
+	<%@ include file="SelectRegister.jsp" %>
 
-	<!-- 회원가입 -->
-	<div class="modal fade" id="myModall" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Modal Header</h4>
-				</div>
-				<form action="/ppp/member/memberregister" method="post">
-					<div class="modal-body">
-
-						<div class="form-group">
-							<label for="usr">Name:</label> <input type="text"
-								class="form-control" id="usr" name='member_name'>
-						</div>
-						<div class="form-group">
-							<label for="usr">I D:</label> <input type="text"
-								class="form-control" id="usr" name='member_id'>
-						</div>
-						<div class="form-group">
-							<label for="pwd">Password:</label> <input type="password"
-								class="form-control" id="pwd" name='member_pwd'>
-						</div>
-						<div class="form-group">
-							<label for="pwd">PasswordCheck:</label> <input type="password"
-								class="form-control" id="pwd">
-						</div>
-						<div class="form-group">
-							<label for="usr">phone:</label> <input type="text"
-								class="form-control" id="usr" name='member_phone'>
-						</div>
-						<div class="form-group">
-							<label for="usr">mail:</label> <input type="text"
-								class="form-control" id="usr" name='member_mail'>
-						</div>
-						<div class="form-group">
-							<label for="usr">address:</label> <input type="text"
-								class="form-control" id="usr" name='member_address'>
-						</div>
-						<div class="form-group">
-							<label for="usr">Gender:</label><br> <label
-								class="checkbox-inline"><input type="checkbox" value="M"
-								name='member_gender'>남자</label> <label class="checkbox-inline"><input
-								type="checkbox" name='member_gender' value="F">여자</label>
-						</div>
-						<div>
-							<input type='hidden' value='0' name='member_coupon' /> <input
-								type='hidden' value='1' name='member_active' /> <input
-								type='hidden' value='1' name='member_adminno' />
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-default">가입하기</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
+	<!-- 개인 회원가입 -->
+	<%@ include file="MemberRegister.jsp" %>
+	<!-- 기업 회원가입 -->
+	<%@ include file="OrnerRegister.jsp" %>
+	
 	<div id="section1" class="container-fluid">
 		<h1>메인</h1>
 		<p>Try to scroll this section and look at the navigation bar while

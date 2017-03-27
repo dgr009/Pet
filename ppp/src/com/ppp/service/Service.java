@@ -1,9 +1,14 @@
 package com.ppp.service;
 
+import java.io.*;
 import java.sql.*;
 import java.util.*;
 
 import javax.servlet.http.*;
+
+import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload.disk.*;
+import org.apache.commons.fileupload.servlet.*;
 
 import com.google.gson.*;
 import com.ppp.dao.*;
@@ -336,12 +341,9 @@ public class Service {
 		Connection conn = JdbcUtil.getConnection();
 		int hotelNo = dao.selectHotelNoMax(conn);
 		Hotel hotel = MappingUtil.getHotelFromRequest(req, hotelNo);
-		int result = dao.hotelInsert(conn, hotel);
-		JsonObject ob = new JsonObject();
-		if(result==1) ob.addProperty("result", "success");
-		else ob.addProperty("result", "fail");
+		dao.hotelInsert(conn, hotel);
 		JdbcUtil.close(conn);
-		return new Gson().toJson(ob);
+		return new Gson().toJson(hotel);
 	}
 
 	//호텔 로그인
@@ -381,7 +383,7 @@ public class Service {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
 		Member m = (Member)session.getAttribute("member");
-		ArrayList<MemberMessage> list = dao.receiveMessageList(conn,m.getMemberNo());
+		ArrayList<Message> list = dao.receiveMessageList(conn,m.getMemberNo());
 		JdbcUtil.close(conn);
 		return new Gson().toJson(list);
 		
@@ -392,8 +394,8 @@ public class Service {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
 		Member m = (Member)session.getAttribute("member");
-		dao.messageDelete(conn,Integer.parseInt(req.getParameter("message_no")));
-		ArrayList<MemberMessage> list = dao.receiveMessageList(conn,m.getMemberNo());
+		dao.messageDelete(conn,Integer.parseInt(req.getParameter("message_no")),m.getMemberNo());
+		ArrayList<Message> list = dao.receiveMessageList(conn,m.getMemberNo());
 		JdbcUtil.close(conn);
 		return new Gson().toJson(list);
 

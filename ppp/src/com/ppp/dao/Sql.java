@@ -226,7 +226,6 @@ public interface Sql {
 	// 110. 관리자 쪽지 추가
 	public String insertMessage = "insert into member_message(member_message_no,member_message_title,member_message_content,member_message_date,member_no) values(?,?,?,?,?)";
 	// 111. 회원 쪽지 검색
-	public String selectMemberMessage = "select m.member_message_no,m.member_message_title,m.member_message_content,m.member_message_date ,b.member_id from member_message m, member b where m.member_no=b.member_no and  b.member_no=?";
 	
 	// &관리자 쪽지 보내기
 	public String messageSend = "insert into message(message_no,message_title,message_content,message_date,member_no,admin_no) values(?,?,?,?,?,?)";
@@ -234,6 +233,7 @@ public interface Sql {
 	public String adminMessageSend="select * from message";
 	
 	
+	public String selectMemberMessage = "select m.message_no,m.message_title,m.message_content,m.message_date from message m, member b where m.member_no=b.member_no and  b.member_no=?";
 	// 112. 수의사 추가
 	public String insertVet = "insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,?,?,?)";
 	// 113. 미용사 추가
@@ -282,8 +282,6 @@ public interface Sql {
 	public String findAllInquireBoard="select * from inquire_board";
 	// 문의게시판 댓글 수정
 	public String updateInquireBoardComment="update inquire_board_comment set inquire_board_comment_content=? where admin_no=?";
-	// 쪽지 삭제
-	public String deleteMessage="delete message where member_no=?";
 	// 쪽지 마지막 번호 조회
 	public String messageNoMax="select max(message_no)+1 from message";
 	// 회원리스트 페이징
@@ -309,6 +307,8 @@ public interface Sql {
 	public String animalView = "select animal_no,animal_name,animal_kind,animal_gender,animal_breed,animal_weight from animal a,member m where a.member_no=m.member_no and a.animal_no=? and a.member_no=? ";
 	// 호텔회원 로그인
 	public String HotelLogin = "select hotel_no,hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_phone,hotel_address,hotel_id,hotel_pwd,hotel_photo,hotel_active,admin_no from hotel where hotel_id=? and hotel_pwd=?";
+	// 일반회원 메세지(쪽지) 삭제
+	public String deleteMessage = "delete from message where message_no=? and member_no=?";
 	// 병원회원 로그인
 	public String HospitalLogin = "select hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_phone,hospital_address,hospital_id,hospital_pwd,hospital_photo,hospital_active,admin_no from hospital where hospital_id=? and hospital_pwd=?";
 	// 미용회원 로그인
