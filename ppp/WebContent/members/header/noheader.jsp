@@ -31,8 +31,8 @@
 							</ul>
 						<li><a href="#section2">게시판</a></li>
 						<li><a href="#section3">고객센터</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#myModall"><span
-								class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#myModalle"><span
+								class="glyphicon glyphicon-user"></span>Sign Up</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#myModal"><span
 								class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					</ul>

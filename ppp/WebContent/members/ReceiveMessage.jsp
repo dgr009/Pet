@@ -12,12 +12,12 @@
 $(document).ready(function() {
 	var list = <%=request.getAttribute("result")%>
 	$.each(list, function(index, l) {
-		var msgNo = $("<td></td>").html(l.memberMessageNo);
-		var msgTitle = $("<td></td>").html(l.memberMessageTitle);
-		var msgContent = $("<td></td>").html(l.memberMessageContent);
-		var msgDate = $("<td></td>").html(l.memberMessageDate);
+		var msgNo = $("<td></td>").html(l.messageNo);
+		var msgTitle = $("<td></td>").html(l.messageTitle);
+		var msgContent = $("<td></td>").html(l.messageContent);
+		var msgDate = $("<td></td>").html(l.messageDate);
 	
-		var del = $("<a class='delete'></a>").prop("href", "receivemessagedelete?message_no="+l.memberMessageNo).html('삭제');
+		var del = $("<a class='delete'></a>").prop("href", "receivemessagedelete?message_no="+l.messageNo).html('삭제');
 		var tddel = $("<td></td>").append(del);
 		// var ename = $("<td></td>").append(a);
 		//var ename = "<td empno='" + e.empno + "'>" + e.ename + "</td>";
