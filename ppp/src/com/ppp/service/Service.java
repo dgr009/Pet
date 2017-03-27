@@ -395,7 +395,7 @@ public class Service {
 	public String receiveBoard(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
-		Member m = (Member)session.getAttribute("member");
+		Member m = (Member)session.getAttribute("member");	
 		ArrayList<Message> list = dao.receiveMessageList(conn,m.getMemberNo());
 		JdbcUtil.close(conn);
 		return new Gson().toJson(list);
@@ -419,7 +419,7 @@ public class Service {
 			Connection conn = JdbcUtil.getConnection();
 			int beautyNo = dao.selectBeautyNoMax(conn);
 			Beauty beauty = MappingUtil.getBeautyFromRequest(req, beautyNo);
-			int result = dao.beautyInsert(conn, beauty);
+			dao.beautyInsert(conn, beauty);
 			JdbcUtil.close(conn);
 			return new Gson().toJson(beauty);
 		}
@@ -461,7 +461,7 @@ public class Service {
 			Connection conn = JdbcUtil.getConnection();
 			int hospitalNo = dao.selectHospitalNoMax(conn);
 			Hospital hospital = MappingUtil.getHospitalFromRequest(req, hospitalNo);
-			int result = dao.hospitalInsert(conn, hospital);
+			dao.hospitalInsert(conn, hospital);
 			JdbcUtil.close(conn);
 			return new Gson().toJson(hospital);
 		}
@@ -499,5 +499,12 @@ public class Service {
 		}
 		
 		
+
+		public String hotelAreaSearch(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Hotel> list = dao.selectHotelByArea(conn, req.getParameter("area"));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
 	
 }

@@ -541,6 +541,7 @@ public class PppDao {
 		h.setHotelMail(rs.getString("hotelMail"));
 		h.setHotelAddress(rs.getString("hotelAddress"));
 		h.setHotelPhone(rs.getString("hotelPhone"));
+		h.setHotelPhoto(rs.getString("hotel_photo"));
 		return h;
 	}
 
@@ -1279,17 +1280,26 @@ public class PppDao {
 	}
 
 	// 지역별 호텔 조회
-	public ArrayList<Hotel> selectHotelByArea(Connection conn, Hotel h) {
+	public ArrayList<Hotel> selectHotelByArea(Connection conn,String area) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Hotel> list = new ArrayList<>();
+		if(area==null)
+			area="";
 		try {
 			pstmt = conn.prepareStatement(Sql.findAreaHotel);
+			pstmt.setString(1, "%"+area+"%");
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				list.add(basicHotel(rs));
-				return list;
+				Hotel h = new Hotel();
+				h.setHotelName(rs.getString("hotel_name"));
+				h.setHotelMail(rs.getString("hotel_mail"));
+				h.setHotelAddress(rs.getString("hotel_address"));
+				h.setHotelPhone(rs.getString("hotel_phone"));
+				h.setHotelPhoto(rs.getString("hotel_photo"));
+				list.add(h);
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

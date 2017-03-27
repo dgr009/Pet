@@ -327,7 +327,17 @@ public class Controller {
 		return mav;
 	}
 
+	
+	//호텔 지역으로 검색(리스트)
+	@RequestMapping(value = "/hotel/hotelareasearch", method = "GET")
+	public static ModelAndView hotelAreaSearch(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.hotelAreaSearch(req));
+		mav.setView("/hotels/HotelAreaSearch.jsp");
 
+		return mav;
+	}
 	/////////////////////////////////
 	/////////////////////////////////
 	/////////////////////////////////
