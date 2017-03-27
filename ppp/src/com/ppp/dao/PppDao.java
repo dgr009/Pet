@@ -1373,7 +1373,7 @@ public class PppDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = conn.prepareStatement(Sql.findBeautyId);
+			pstmt = conn.prepareStatement(Sql.findHotelId);
 			pstmt.setString(1, hotel.get("hotel_mail"));
 			pstmt.setString(2, hotel.get("hotel_orner_no"));
 			rs = pstmt.executeQuery();

@@ -332,7 +332,7 @@ public class Controller {
 	public static ModelAndView hotelPwdSearchStart(HttpServletRequest req){
 		Service s = (Service)req.getServletContext().getAttribute("s");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/hotel/hotelPwdSearch.jsp");
+		mav.setView("/ppp/hotels/hotelPwdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
@@ -412,9 +412,9 @@ public class Controller {
 	// 미용실회원 아이디찾기 (폼)
 	@RequestMapping(value="/beauty/beautyidsearch", method="GET")
 	public static ModelAndView beautyIdSearchStart(HttpServletRequest req){
-		Service s = (Service) req.getServletContext().getAttribute("s");
+		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/beauty/beautyIdSearch.jsp");
+		mav.setView("/ppp/beauties/beautyIdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
@@ -427,16 +427,16 @@ public class Controller {
 		return mav;
 	}
 	//미용실회원 비밀번호 찾기 (폼)
-	@RequestMapping(value="/beauty/beautyidsearch", method="GET")
+	@RequestMapping(value="/beauty/beautypwdsearch", method="GET")
 	public static ModelAndView beautyPwdSearchStart(HttpServletRequest req){
 		Service s = (Service) req.getServletContext().getAttribute("s");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/beauty/beautyPwdSearch.jsp");
+		mav.setView("/ppp/beauties/beautyPwdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
 	//미용실회원 비밀번호 찾기
-	@RequestMapping(value="beauty/beautyidsearch", method="AJAX")
+	@RequestMapping(value="beauty/beautypwdsearch", method="AJAX")
 	public static ModelAndView beautyPwdSearchEnd(HttpServletRequest req){
 		Service s = (Service) req.getServletContext().getAttribute("s");
 		ModelAndView mav= new ModelAndView();
@@ -499,7 +499,7 @@ public class Controller {
 	public static ModelAndView hospitalIdSearchStart(HttpServletRequest req){
 		Service s = (Service) req.getServletContext().getAttribute("s");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/hospital/hospitalIdSearch.jsp");
+		mav.setView("/ppp/hospitals/hospitalIdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
@@ -516,7 +516,7 @@ public class Controller {
 	public static ModelAndView hospitalPwdSearchStart(HttpServletRequest req){
 		Service s = (Service) req.getServletContext().getAttribute("s");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/hospital/hospitalPwdSearch.jsp");
+		mav.setView("/ppp/hospitals/hospitalPwdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
