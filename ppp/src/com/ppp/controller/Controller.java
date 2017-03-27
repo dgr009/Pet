@@ -12,12 +12,12 @@ import com.ppp.vo.*;
 
 public class Controller {
 	// 일반회원 등록(추가)폼
-	/*@RequestMapping(value = "/member/memberregister", method = "GET")
-	public static ModelAndView memberRegisterStart(HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView();
-		mav.setView("/members/memberResistration.html");
-		return mav;
-	}*/
+	/*
+	 * @RequestMapping(value = "/member/memberregister", method = "GET") public
+	 * static ModelAndView memberRegisterStart(HttpServletRequest req) {
+	 * ModelAndView mav = new ModelAndView();
+	 * mav.setView("/members/memberResistration.html"); return mav; }
+	 */
 
 	// 일반회원 등록(추가)
 	@RequestMapping(value = "/member/memberregister", method = "POST")
@@ -49,11 +49,11 @@ public class Controller {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		if (service.memberLogin(req) == null) {
-			//로그인실패
+			// 로그인실패
 			mav.setView("/ppp/member/membermain");
 			mav.setRedirect();
 		} else {
-			//로그인성공
+			// 로그인성공
 			HttpSession session = req.getSession();
 			String go = (String) session.getAttribute("destination");
 			System.out.println("go:" + go);
@@ -74,7 +74,7 @@ public class Controller {
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/ppp/member/membermain");
 		mav.setRedirect();
-		
+
 		return mav;
 	}
 
@@ -195,7 +195,7 @@ public class Controller {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.animalView(req));
 		mav.setView("/members/AnimalUpdate.jsp");
-		
+
 		return mav;
 	}
 
@@ -207,100 +207,200 @@ public class Controller {
 		mav.addObject("result", service.animalUpdate(req));
 		mav.setView("/ppp/member/membermain");
 		mav.setRedirect();
-	
+
 		return mav;
 	}
-	
+
 	// 일반회원 동물 삭제(폼으로)
-		@RequestMapping(value = "/member/animaldelete", method = "GET")
-		public static ModelAndView animalDeleteStart(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("result", service.animalDelete(req));
-			mav.setView("/ppp/member/membermain");
-			mav.setRedirect();
-			return mav;
-		}
+	@RequestMapping(value = "/member/animaldelete", method = "GET")
+	public static ModelAndView animalDeleteStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.animalDelete(req));
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+		return mav;
+	}
 
 	// 일반회원 받은 메세지 보기
-		@RequestMapping(value = "/board/receivemessage", method = "GET")
-		public static ModelAndView receiveMessageStart(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("result", service.receiveBoard(req));
-			mav.setView("/members/ReceiveMessage.jsp");
-			
-			return mav;
-		}
-		
-	// 일반회원 받은 메세지 삭제
-		@RequestMapping(value = "/board/receivemessagedelete", method = "GET")
-		public static ModelAndView receiveMessageDelete(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("result", service.messageDelete(req));
-			mav.setView("/members/ReceiveMessage.jsp");
-			
-			return mav;
-		}
-/////////////////////////////////
-/////////////////////////////////
-/////////////////////////////////
-	//호텔 컨트롤러
-		
-	//호텔 회원 등록
-		@RequestMapping(value = "/hotel/hotelregister", method = "POST")
-		public static ModelAndView hotelRegisterEnd(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("result", service.hotelCreateEnd(req));
-			mav.setView("/ppp/member/membermain");
-			mav.setRedirect();
+	@RequestMapping(value = "/board/receivemessage", method = "GET")
+	public static ModelAndView receiveMessageStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.receiveBoard(req));
+		mav.setView("/members/ReceiveMessage.jsp");
 
-			return mav;
-		}
-	
-	//호텔 회원 로그인
-		@RequestMapping(value = "/hotel/login", method = "POST")
-		public static ModelAndView hotelLoginEnd(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			if (service.hotelLogin(req) == null) {
-				//로그인실패
-				mav.setView("/ppp/member/membermain");
-				mav.setRedirect();
-			} else {
-				//로그인성공
-				HttpSession session = req.getSession();
-				String go = (String) session.getAttribute("destination");
-				System.out.println("go:" + go);
-				session.removeAttribute("destination");
-				if (go == null)
-					go = "/ppp/member/membermain";
-				mav.setView(go);
-				mav.setRedirect();
-			}
-			return mav;
-		}
-		
-		// 호텔회원 로그아웃
-		@RequestMapping(value = "/hotel/hotellogout", method = "GET")
-		public static ModelAndView hotelLogout(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			service.hotelLogout(req);
-			ModelAndView mav = new ModelAndView();
+		return mav;
+	}
+
+	// 일반회원 받은 메세지 삭제
+	@RequestMapping(value = "/board/receivemessagedelete", method = "GET")
+	public static ModelAndView receiveMessageDelete(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.messageDelete(req));
+		mav.setView("/members/ReceiveMessage.jsp");
+
+		return mav;
+	}
+	/////////////////////////////////
+	/////////////////////////////////
+	/////////////////////////////////
+	// 호텔 컨트롤러
+
+	// 호텔 회원 등록
+	@RequestMapping(value = "/hotel/hotelregister", method = "POST")
+	public static ModelAndView hotelRegisterEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.hotelCreateEnd(req));
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+
+		return mav;
+	}
+
+	// 호텔 회원 로그인
+	@RequestMapping(value = "/hotel/login", method = "POST")
+	public static ModelAndView hotelLoginEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		if (service.hotelLogin(req) == null) {
+			// 로그인실패
 			mav.setView("/ppp/member/membermain");
 			mav.setRedirect();
-			
-			return mav;
+		} else {
+			// 로그인성공
+			HttpSession session = req.getSession();
+			String go = (String) session.getAttribute("destination");
+			System.out.println("go:" + go);
+			session.removeAttribute("destination");
+			if (go == null)
+				go = "/ppp/member/membermain";
+			mav.setView(go);
+			mav.setRedirect();
 		}
-		
-		
-		
+		return mav;
+	}
+
+	// 호텔회원 로그아웃
+	@RequestMapping(value = "/hotel/hotellogout", method = "GET")
+	public static ModelAndView hotelLogout(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		service.hotelLogout(req);
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+
+		return mav;
+	}
+
+	/////////////////////////////////
+	/////////////////////////////////
+	/////////////////////////////////
+	// 미용 컨트롤러
+
+	// 미용 회원 등록
+	@RequestMapping(value = "/beauty/beautyregister", method = "POST")
+	public static ModelAndView beautyRegisterEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.beautyCreateEnd(req));
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+
+		return mav;
+	}
+
+	// 미용 회원 로그인
+	@RequestMapping(value = "/beauty/login", method = "POST")
+	public static ModelAndView beautyLoginEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		if (service.beautyLogin(req) == null) {
+			// 로그인실패
+			mav.setView("/ppp/member/membermain");
+			mav.setRedirect();
+		} else {
+			// 로그인성공
+			HttpSession session = req.getSession();
+			String go = (String) session.getAttribute("destination");
+			System.out.println("go:" + go);
+			session.removeAttribute("destination");
+			if (go == null)
+				go = "/ppp/member/membermain";
+			mav.setView(go);
+			mav.setRedirect();
+		}
+		return mav;
+	}
+
+	// 미용회원 로그아웃
+	@RequestMapping(value = "/beauty/beautylogout", method = "GET")
+	public static ModelAndView beautyLogout(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		service.beautyLogout(req);
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+
+		return mav;
+	}
+
+	/////////////////////////////////
+	/////////////////////////////////
+	/////////////////////////////////
+	// 병원 컨트롤러
+	// 병원 회원 등록
+	@RequestMapping(value = "/hospital/hospitalregister", method = "POST")
+	public static ModelAndView hospitalRegisterEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.hospitalCreateEnd(req));
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+
+		return mav;
+	}
+
+	// 병원 회원 로그인
+	@RequestMapping(value = "/hospital/login", method = "POST")
+	public static ModelAndView hospitalLoginEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		if (service.hospitalLogin(req) == null) {
+			// 로그인실패
+			mav.setView("/ppp/member/membermain");
+			mav.setRedirect();
+		} else {
+			// 로그인성공
+			HttpSession session = req.getSession();
+			String go = (String) session.getAttribute("destination");
+			System.out.println("go:" + go);
+			session.removeAttribute("destination");
+			if (go == null)
+				go = "/ppp/member/membermain";
+			mav.setView(go);
+			mav.setRedirect();
+		}
+		return mav;
+	}
+
+	// 병원 회원 로그아웃
+	@RequestMapping(value = "/hospital/hospitallogout", method = "GET")
+	public static ModelAndView hospitalLogout(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		service.hospitalLogout(req);
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+
+		return mav;
+	}
+
 	//////////////////////////
-	//관리자 컨트롤러
-		
-		
+	// 관리자 컨트롤러
+
 	// 관리자 등록(추가)폼
 	@RequestMapping(value = "/admin/adminregister", method = "GET")
 	public static ModelAndView adminRegisterStart(HttpServletRequest req) {

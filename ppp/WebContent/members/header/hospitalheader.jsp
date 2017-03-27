@@ -29,8 +29,8 @@
                      </ul>
                      <li><a href="#section2">게시판</a></li>
                      <li><a href="#section3">고객센터</a></li>
-                  <li><a href="/ppp/member/memberinfo" data-toggle="modal" data-target="#myModall" ><span class="glyphicon glyphicon-user"></span> My Page</a></li>
-                  <li><a href="/ppp/member/memberlogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                  <li><a href="/ppp/hospital/hospitalinfo" data-toggle="modal" data-target="#myModall" ><span class="glyphicon glyphicon-user"></span> My Page</a></li>
+                  <li><a href="/ppp/hospital/hospitallogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                </ul>
             </div>
          </div>

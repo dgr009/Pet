@@ -27,6 +27,12 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/admins/adminLogin.jsp");
     	whiteList.add("/ppp/members/login.jsp");
     	whiteList.add("/ppp/index.html");
+    	whiteList.add("/ppp/hospital/login");
+    	whiteList.add("/ppp/hotel/login");
+    	whiteList.add("/ppp/beauty/login");
+    	whiteList.add("/ppp/hospital/hospitallogout");
+    	whiteList.add("/ppp/hotel/hotellogout");
+    	whiteList.add("/ppp/beauty/beautylogout");
     }
 	public void destroy() {
 	}
