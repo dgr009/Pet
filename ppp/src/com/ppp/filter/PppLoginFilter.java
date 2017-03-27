@@ -8,9 +8,8 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import com.ppp.vo.*;
-
 //@WebFilter("/*")
-@WebFilter({"/admin/*", "/member/*"})
+@WebFilter({"/admin/*", "/member/*","/hotel/*","/hospital/*","/beauty/*","/board/*"})
 public class PppLoginFilter implements Filter {
 	// 로그인 없이 접근할 수 있는 경로를 지정
 	private ArrayList<String> whiteList = new ArrayList<>();
@@ -29,6 +28,12 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/admins/adminLogin.jsp");
     	whiteList.add("/ppp/members/login.jsp");
     	whiteList.add("/ppp/index.html");
+    	whiteList.add("/ppp/hospital/login");
+    	whiteList.add("/ppp/hotel/login");
+    	whiteList.add("/ppp/beauty/login");
+    	whiteList.add("/ppp/hospital/hospitallogout");
+    	whiteList.add("/ppp/hotel/hotellogout");
+    	whiteList.add("/ppp/beauty/beautylogout");
     }
 	public void destroy() {
 	}

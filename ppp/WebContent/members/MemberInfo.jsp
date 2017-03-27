@@ -100,6 +100,7 @@ $(document).ready(function() {
 		</table>
 		<input type="button" value="정보 수정" onclick="location.href = '/ppp/member/memberupdate'" />
 		<input type="button" value="동물 추가" onclick="location.href = '/ppp/member/animalinsert'" />
+		<input type="button" value="받은 쪽지함" onclick="location.href = '/ppp/board/receivemessage'" /> 
 		<input type="button" value="홈으로" onclick="location.href = '/ppp/member/membermain'" />
 	</div>
 </body>

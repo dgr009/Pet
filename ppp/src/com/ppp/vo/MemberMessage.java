@@ -3,10 +3,11 @@ package com.ppp.vo;
 import java.sql.Date;
 
 public class MemberMessage {
-	 int memberMessageNo;
-	 String memberMessageTitle;
-	 String memberMessageContent;
-	 Date memberMessageDate;
+	 private int memberMessageNo;
+	 private String memberMessageTitle;
+	 private String memberMessageContent;
+	 private Date memberMessageDate;
+	 private int memberNo;
 	public int getMemberMessageNo() {
 		return memberMessageNo;
 	}
@@ -31,5 +32,13 @@ public class MemberMessage {
 	public void setMemberMessageDate(Date memberMessageDate) {
 		this.memberMessageDate = memberMessageDate;
 	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	
+	
 	 
 }

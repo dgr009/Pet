@@ -293,5 +293,160 @@ public class Service {
 		}
 		return new Gson().toJson(ob);
 	}
+
+	///////////////////////////////////////
+	//호텔 서비스
+
+	//호텔 회원 등록(추가)
+	public String hotelCreateEnd(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int hotelNo = dao.selectHotelNoMax(conn);
+		Hotel hotel = MappingUtil.getHotelFromRequest(req, hotelNo);
+		int result = dao.hotelInsert(conn, hotel);
+		JsonObject ob = new JsonObject();
+		if(result==1) ob.addProperty("result", "success");
+		else ob.addProperty("result", "fail");
+		JdbcUtil.close(conn);
+		return new Gson().toJson(ob);
+	}
+
+	//호텔 로그인
+	public Object hotelLogin(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> user = new HashMap<>();
+		user.put("user_id", req.getParameter("member_id"));
+		user.put("user_pwd", req.getParameter("member_pwd"));
+		Hotel result = dao.hotelLogin(conn,user); 
+		HttpSession session = req.getSession();
+		
+		if(result.getHotelId()==null){
+			System.out.println("아이디나 비밀번호 확인필요");
+			session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
+			JdbcUtil.close(conn);
+			return null;
+		} else {
+			System.out.println("로그인 성공");
+			session.removeAttribute("logincheck");
+			session.setAttribute("hotel", result);
+			JdbcUtil.close(conn);
+			return result;
+		}
+	}
+
+	
+	//호텔회원 로그아웃
+	public void hotelLogout(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.removeAttribute("hotel");
+		session.removeAttribute("logincheck");
+		
+	}
+
+	//일반 회원 받은 메세지(쪽지) 리스트
+	public String receiveBoard(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member)session.getAttribute("member");
+		ArrayList<MemberMessage> list = dao.receiveMessageList(conn,m.getMemberNo());
+		JdbcUtil.close(conn);
+		return new Gson().toJson(list);
+		
+	}
+
+	//일반 회원 메세지(쪽지) 삭제
+	public String messageDelete(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member)session.getAttribute("member");
+		dao.messageDelete(conn,Integer.parseInt(req.getParameter("message_no")));
+		ArrayList<MemberMessage> list = dao.receiveMessageList(conn,m.getMemberNo());
+		JdbcUtil.close(conn);
+		return new Gson().toJson(list);
+
+	}
+/////////////
+	//미용 회원 등록(추가)
+		public String beautyCreateEnd(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			int beautyNo = dao.selectBeautyNoMax(conn);
+			Beauty beauty = MappingUtil.getBeautyFromRequest(req, beautyNo);
+			int result = dao.beautyInsert(conn, beauty);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(beauty);
+		}
+
+		//미용 로그인
+		public Object beautyLogin(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String, String> user = new HashMap<>();
+			user.put("user_id", req.getParameter("member_id"));
+			user.put("user_pwd", req.getParameter("member_pwd"));
+			Beauty result = dao.beautyLogin(conn,user); 
+			HttpSession session = req.getSession();
+			
+			if(result.getBeautyId()==null){
+				System.out.println("아이디나 비밀번호 확인필요");
+				session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
+				JdbcUtil.close(conn);
+				return null;
+			} else {
+				System.out.println("로그인 성공");
+				session.removeAttribute("logincheck");
+				session.setAttribute("beauty", result);
+				JdbcUtil.close(conn);
+				return result;
+			}
+		}
+
+		
+		//미용회원 로그아웃
+		public void beautyLogout(HttpServletRequest req) {
+			HttpSession session = req.getSession();
+			session.removeAttribute("beauty");
+			session.removeAttribute("logincheck");
+			
+		}
+		//////////////////
+		//병원 회원 등록(추가)
+		public String hospitalCreateEnd(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			int hospitalNo = dao.selectHospitalNoMax(conn);
+			Hospital hospital = MappingUtil.getHospitalFromRequest(req, hospitalNo);
+			int result = dao.hospitalInsert(conn, hospital);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(hospital);
+		}
+
+		//병원 로그인
+		public Object hospitalLogin(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String, String> user = new HashMap<>();
+			user.put("user_id", req.getParameter("member_id"));
+			user.put("user_pwd", req.getParameter("member_pwd"));
+			Hospital result = dao.hospitalLogin(conn,user); 
+			HttpSession session = req.getSession();
+			
+			if(result.getHospitalId()==null){
+				System.out.println("아이디나 비밀번호 확인필요");
+				session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
+				JdbcUtil.close(conn);
+				return null;
+			} else {
+				System.out.println("로그인 성공");
+				session.removeAttribute("logincheck");
+				session.setAttribute("hospital", result);
+				JdbcUtil.close(conn);
+				return result;
+			}
+		}
+
+		
+		//병원회원 로그아웃
+		public void hospitalLogout(HttpServletRequest req) {
+			HttpSession session = req.getSession();
+			session.removeAttribute("hospital");
+			session.removeAttribute("logincheck");
+			
+		}
 	
 }
