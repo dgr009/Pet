@@ -2,7 +2,10 @@ package com.ppp.util;
 
 import java.io.*;
 import java.sql.*;
+
 import java.util.*;
+
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.*;
 
@@ -268,5 +271,20 @@ public class MappingUtil {
 			e.printStackTrace();
 		}
 		return b;
+	}
+	
+	//메세지 보내기
+	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
+		Message m = new Message();
+		java.util.Date d = new java.util.Date();
+	    java.sql.Date date = new java.sql.Date(d.getTime());  
+		m.setAdminNo(adminNo);
+		m.setMessageNo(messageNo);
+		m.setMessageTitle(req.getParameter("message_title"));
+		m.setMessageContent(req.getParameter("message_content"));
+		m.setMessageDate(date);
+		m.setMemberNo(Integer.parseInt(req.getParameter("memeber_no")));
+		return m;
+
 	}
 }

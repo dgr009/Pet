@@ -4,8 +4,6 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
-import javax.naming.spi.DirStateFactory.*;
-
 import com.ppp.util.*;
 import com.ppp.vo.*;
 
@@ -1899,4 +1897,564 @@ public class PppDao {
 
 		return null;
 	}
+
+	// 병원 수의사 추가
+	public int insertVet(Connection conn, Vet v){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertVet);
+			pstmt.setInt(1, v.getVetNo());
+			pstmt.setString(2, v.getVetName());
+			pstmt.setString(3, v.getVetIntroduce());
+			pstmt.setInt(4, v.getHospitalNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 병원 수의사 수정
+	public int updateVet(Connection conn, Vet v){
+		PreparedStatement pstmt= null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateVet);
+			pstmt.setString(1, v.getVetName());
+			pstmt.setString(2, v.getVetIntroduce());
+			pstmt.setInt(3, v.getVetNo());
+			pstmt.setInt(4, v.getHospitalNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 병원 수의사 삭제
+	public int deleteVet(Connection conn , int vetNo, int hospitalNo){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.deleteVet);
+			pstmt.setInt(1, vetNo);
+			pstmt.setInt(2, hospitalNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 미용실 미용사 추가
+	public int insertBeautician(Connection conn, Beautician b){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertBeautician);
+			pstmt.setInt(1, b.getBeauticianNo());
+			pstmt.setString(2, b.getBeauticianName());
+			pstmt.setString(3, b.getBeauticianIntriduce());
+			pstmt.setInt(4, b.getBeautyNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 미용실 미용사 수정
+	public int updateBeautician(Connection conn, Beautician b){
+		PreparedStatement pstmt= null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateBeautician);
+			pstmt.setString(1, b.getBeauticianName());
+			pstmt.setString(2, b.getBeauticianIntriduce());
+			pstmt.setInt(3, b.getBeauticianNo());
+			pstmt.setInt(4, b.getBeautyNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+		
+	}
+	// 미용실 미용사 삭제
+	public int deleteBeautician(Connection conn, int beauticianNo, int beautyNo){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.deleteBeautician);
+			pstmt.setInt(1, beauticianNo);
+			pstmt.setInt(2, beautyNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 병원리뷰 작성
+	public int insertHospitalReview(Connection conn, HospitalReview hr){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertHospitalReview);
+			pstmt.setInt(1, hr.getHospitalReviewNo());
+			pstmt.setFloat(2, hr.getHospitalReviewScore());
+			pstmt.setString(3, hr.getHospitalReviewEpilogue());
+			pstmt.setInt(4, hr.getHospitalNo());
+			pstmt.setInt(5, hr.getMemberNo());
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 병원리뷰 수정
+	public int updateHospitalReview(Connection conn, HospitalReview hr){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt =conn.prepareStatement(Sql.updateHospitalReview);
+			pstmt.setString(1, hr.getHospitalReviewEpilogue());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		}
+		return -1;
+	}
+	// 미용실리뷰 수정
+	public int updateBeautyReview(Connection conn, BeautyReview br){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateBeautyReview);
+			pstmt.setString(1, br.getBeautyReviewEpilouge());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 호텔리뷰 수정
+	public int updateHotelReview(Connection conn, HotelReview hr){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateHotelReview);
+			pstmt.setString(1, hr.getHotelReviewEpilogue());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 자유게시판 글작성
+	public int insertFreeBoard(Connection conn, FreeBoard fb){
+		PreparedStatement pstmt =null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertFreeBoard);
+			pstmt.setInt(1, fb.getFreeBoardNo());
+			pstmt.setString(2, fb.getFreeBoardTitle());
+			pstmt.setInt(3, fb.getFreeBoardCount());
+			pstmt.setInt(4, fb.getFreeBoardCommentCount());
+			pstmt.setString(5, fb.getFreeBoardContent());
+			pstmt.setDate(6, fb.getFreeBoardDate());
+			pstmt.setString(7, fb.getMemberId());
+			pstmt.setInt(8, fb.getMemberNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 자유게시판 글수정
+	public int updateFreeBoard(Connection conn, FreeBoard fb){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt=conn.prepareStatement(Sql.updateFreeBoard);
+			pstmt.setString(1, fb.getFreeBoardTitle());
+			pstmt.setString(2, fb.getFreeBoardContent());
+			pstmt.setInt(3, fb.getMemberNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 자유게시판 글삭제
+	public int deleteFreeBoard(Connection conn, int freeBoardNo, int memberNo){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt=conn.prepareStatement(Sql.deleteFreeBoard);
+			pstmt.setInt(1, freeBoardNo);
+			pstmt.setInt(2, memberNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 자유게시판 검색 기본
+	public FreeBoard basicFreeBoard(ResultSet rs) throws SQLException{
+		FreeBoard fb = new FreeBoard();
+		fb.setFreeBoardNo(rs.getInt("freeBoardNo"));
+		fb.setFreeBoardTitle(rs.getString("freeBoardTitle"));
+		fb.setFreeBoardContent(rs.getString("freeBoardContent"));
+		fb.setFreeBoardDate(rs.getDate("freeBoardDate"));
+		fb.setFreeBoardCount(rs.getInt("freeBoardCount"));	
+		fb.setMemberId(rs.getString("memberId"));
+		return fb;
+	}
+	// 아이디로 게시글 찾기
+	public ArrayList<FreeBoard> findFreeBoardById(Connection conn, String memberId){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<FreeBoard> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findIdFreeBoard);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicFreeBoard(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} 
+		return null;
+	}
+	// 제목으로 게시글 찾기
+	public ArrayList<FreeBoard> findFreeBoardbyTitle(Connection conn, String freeBoardTitle){
+		PreparedStatement pstmt =null;
+		ResultSet rs = null;
+		ArrayList<FreeBoard> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findTitleFreeBoard);
+			pstmt.setString(1, freeBoardTitle);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicFreeBoard(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 최신순으로 글보기
+	public ArrayList<FreeBoard> findFreeBoardByDate(Connection conn, Date freeBoardDate){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<FreeBoard> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findDateFreeBoard);
+			pstmt.setDate(1, freeBoardDate);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicFreeBoard(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 자유게시판 댓글 작성
+	public int insertFreeBoardComment(Connection conn, FreeBoardComment	fbc){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertFreeBoardComment);
+			pstmt.setInt(1, fbc.getFreeBoardNo());
+			pstmt.setInt(2, fbc.getFreeBoardCommentNo());
+			pstmt.setString(3, fbc.getMemberId());
+			pstmt.setString(4, fbc.getFreeBoardCommentContent());
+			pstmt.setDate(5, fbc.getFreeBoardCommentDate());
+			pstmt.setInt(6, fbc.getMemberNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 자유게시판 댓글 수정
+	public int updateFreeBoardComment(Connection conn, FreeBoardComment fbc){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateFreeBoardComment);
+			pstmt.setString(1, fbc.getFreeBoardCommentContent());
+			pstmt.setInt(2, fbc.getMemberNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 자유게시판 댓글 삭제
+	public int deleteFreeBoardComment(Connection conn, int memberNo, int freeBoardCommentNo){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.deleteFreeBoardComment);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, freeBoardCommentNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 문의게시판 글작성
+	public int insertInquireBoard(Connection conn, InquireBoard ib){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertInquireBoard);
+			pstmt.setInt(1, ib.getInquireBoardNo());
+			pstmt.setString(2, ib.getMemberId());
+			pstmt.setString(3, ib.getInquireBoardTitle());
+			pstmt.setString(4, ib.getInquireBoardContent());
+			pstmt.setDate(5, ib.getInquireBoardDate());
+			pstmt.setInt(6, ib.getInuqireBoardCommentCount());
+			pstmt.setInt(7, ib.getMemberNo());
+			pstmt.setInt(8, ib.getAdminNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 문의게시판 글수정
+	public int updateInquireBoard(Connection conn, InquireBoard ib){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateInquireBoard);
+			pstmt.setString(1, ib.getInquireBoardContent());
+			pstmt.setInt(2, ib.getAdminNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+		
+	}
+	// 문의게시판 글삭제
+	public int deletetInquireBoard(Connection conn, int memberNo, int inquireBoardNo){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.deleteInquireBoard);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, inquireBoardNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 문의게시판 검색 기본
+	public InquireBoard basicInquireBoard(ResultSet rs) throws SQLException{
+		InquireBoard ib = new InquireBoard();
+		ib.setInquireBoardNo(rs.getInt("inquireBoardNo"));
+		ib.setMemberId(rs.getString("memberId"));
+		ib.setInquireBoardTitle(rs.getString("inquireBoardTitel"));
+		ib.setInquireBoardContent(rs.getString("inquireBoardContent"));
+		ib.setInquireBoardDate(rs.getDate("inquireBoardDate"));
+		return ib;
+		
+	}
+	// 제목으로 문의 게시글 찾기
+	public ArrayList<InquireBoard> findInquireBoardByTitle(Connection conn, InquireBoard ib){
+		PreparedStatement pstmt = null;
+		ResultSet rs= null;
+		ArrayList<InquireBoard> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findTitleInquireBoard);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicInquireBoard(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 문의게시판 리스트 보기
+	public ArrayList<InquireBoard> findAllInquireBoard(Connection conn, InquireBoard ib){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<InquireBoard> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findAllInquireBoard);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicInquireBoard(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 문의게시판 댓글 작성
+	public int insertInquireBoardComment(Connection conn, InquireBoardComment ibc){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt =conn.prepareStatement(Sql.insertInquireBoardComment);
+			pstmt.setInt(1, ibc.getInquireBoardNo());
+			pstmt.setInt(2, ibc.getInquireBoardCommentNo());
+			pstmt.setString(3, ibc.getAdminId());
+			pstmt.setString(4, ibc.getInquireBoardCommentCotent());
+			pstmt.setDate(5, ibc.getInquireBoardCommentDate());
+			pstmt.setInt(6, ibc.getAdminNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 문의게시판 댓글 수정
+	public int updateInquireBoardComment(Connection conn, InquireBoardComment ibc){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateInquireBoardComment);
+			pstmt.setString(1, ibc.getInquireBoardCommentCotent());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 쪽지 찾기 기본
+	public Message basicMessage(ResultSet rs) throws SQLException{
+		Message m = new Message();
+		m.setMemberNo(rs.getInt("memberNo"));
+		m.setMessageTitle(rs.getString("messageTitle"));
+		m.setMessageContent(rs.getString("messageContent"));
+		m.setMessageDate(rs.getDate("messageDate"));
+		return m;
+	}
+	// 쪽지 찾기
+	public ArrayList<Message> findAllMessage(Connection conn, Message m){
+		PreparedStatement pstmt =null;
+		ResultSet rs =null;
+		ArrayList<Message> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.findMessage);
+			pstmt.setInt(1, m.getMemberNo());
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicMessage(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 쪽지 삭제
+	public int deleteMessage(Connection conn, int memberNo){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.deleteMessage);
+			pstmt.setInt(1, memberNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		}  return -1;
+	}
+	
+	// 개인회원 병원예약내역 조회
+	public ArrayList<HospitalReserve> findHospitalReserve(Connection conn, HospitalReserve hr){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<HospitalReserve> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.allReserveHospital);
+			pstmt.setInt(1, hr.getMemberNo());
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHospitalReserve(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 개인회원 미용실예약 내역 조회
+	public ArrayList<BeautyReserve> findBeautyReserve(Connection conn, BeautyReserve br){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<BeautyReserve> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.allReserveBeauty);
+			pstmt.setInt(1, br.getMemberNo());
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicBeautyReserve(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	// 개인회원 호텔예약 내역 조회
+	public ArrayList<HotelReserve> findHotelReserve(Connection conn, HotelReserve hr){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<HotelReserve> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.allReserveHotel);
+			pstmt.setInt(1, hr.getMemberNo());
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicHotelReserve(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	}
+	
+	// 마지막 쪽지번호 조회
+	public int selectMessageNoMax(Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.messageNoMax);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				return rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+
 }

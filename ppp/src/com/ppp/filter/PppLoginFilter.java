@@ -9,12 +9,20 @@ import javax.servlet.http.*;
 
 import com.ppp.vo.*;
 
+<<<<<<< HEAD
 @WebFilter({"/admin/*", "/member/*","/hotel/*","/hospital/*","/beauty/*","/board/*"})
+=======
+//@WebFilter("/*")
+>>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 public class PppLoginFilter implements Filter {
 	// 로그인 없이 접근할 수 있는 경로를 지정
 	private ArrayList<String> whiteList = new ArrayList<>();
     public PppLoginFilter() {
+<<<<<<< HEAD
     	whiteList.add("/ppp/member/membermain");
+=======
+    	//whiteList.add("/ppp/message/send.html");
+>>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
     	whiteList.add("/ppp/member/memberidsearch");
     	whiteList.add("/ppp/member/memberpwdsearch");
     	whiteList.add("/ppp/admins/adminindex.jsp");

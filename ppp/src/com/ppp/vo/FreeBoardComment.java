@@ -8,6 +8,7 @@ public class FreeBoardComment {
 	String memberId;
 	String freeBoardCommentContent;
 	Date freeBoardCommentDate;
+	int memberNo;
 	public int getFreeBoardNo() {
 		return freeBoardNo;
 	}
@@ -38,5 +39,12 @@ public class FreeBoardComment {
 	public void setFreeBoardCommentDate(Date freeBoardCommentDate) {
 		this.freeBoardCommentDate = freeBoardCommentDate;
 	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	
 	
 }

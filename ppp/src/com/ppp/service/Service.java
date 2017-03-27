@@ -96,7 +96,10 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 	//일반회원 비밀번호 찾기
 	public String memberPwdSearch(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
@@ -108,9 +111,9 @@ public class Service {
 		ob.addProperty("result", dao.memberPwdCheck(conn, member));
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
-
 	}
 
+<<<<<<< HEAD
 	//일반회원 정보수정
 	public String memberUpdate(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
@@ -408,4 +411,6 @@ public class Service {
 			return new Gson().toJson(list);
 		}
 	
+=======
+>>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 }

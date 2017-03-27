@@ -1,10 +1,7 @@
 package com.ppp.controller;
 
-import java.util.*;
-
 import javax.servlet.http.*;
 
-import com.google.gson.*;
 import com.ppp.di.*;
 import com.ppp.service.*;
 import com.ppp.util.*;
@@ -471,15 +468,7 @@ public class Controller {
 		return mav;
 	}
 
-	// 회원 홈페이지로 이동
-	@RequestMapping(value = "/member/memberhome", method = "GET")
-	public static ModelAndView memberHome(HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView();
-		HttpSession session = req.getSession();
-		mav.setView("/ppp/members/memberindex2.jsp");
-		mav.setRedirect();
-		return mav;
-	}
+	
 
 	// 관리자 홈페이지로 이동
 	@RequestMapping(value = "/admin/adminhome", method = "GET")
@@ -490,4 +479,7 @@ public class Controller {
 		mav.setRedirect();
 		return mav;
 	}
+	// 회원 쿠폰수 검색
+
 }
+
