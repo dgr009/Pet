@@ -1292,6 +1292,7 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Hotel h = new Hotel();
+				h.setHotelNo(rs.getInt("hotel_no"));
 				h.setHotelName(rs.getString("hotel_name"));
 				h.setHotelMail(rs.getString("hotel_mail"));
 				h.setHotelAddress(rs.getString("hotel_address"));

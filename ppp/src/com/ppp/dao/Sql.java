@@ -106,7 +106,7 @@ public interface Sql {
 	// 52. 지역별 미용실 검색
 	public String findAreaBeauty = "select beauty_no,beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_address,beauty_phone from beauty where beauty_address like %?%";
 	// 53. 지역별 호텔 검색
-	public String findAreaHotel = "select hotel_name,hotel_mail,hotel_address,hotel_phone,hotel_photo from hotel where hotel_address like ? and hotel_active=1";
+	public String findAreaHotel = "select hotel_no,hotel_name,hotel_mail,hotel_address,hotel_phone,hotel_photo from hotel where hotel_address like ? and hotel_active=1";
 	// 54. 리뷰순 병원 검색
 	public String findReviewCntHospital = "select h.hospital_name,h.hospital_address,h.hospital_phone,h.hospital_mail from hospital h,hospital_review r where h.hospital_no=r.hospital_no order by r.hospital_review_cnt desc";
 	// 55. 리뷰순 미용실 검색

@@ -12,8 +12,13 @@
 
 $(document).ready(function() {
 	var areaHotelList = <%=request.getAttribute("result")%>
+	// 이름, 메일, 연락처, 위치 //사진
 	$.each(areaHotelList, function(index, h) {
-		$(".hotel_list tbody").append("<tr><td><img src='<%=h.hotelPhoto%>'></td></tr>");
+		var hotelMail = $("<tr><td></td></tr>").html(h.hotelMail);
+		var hotelPhone = $("<tr><td></td></tr>").html(h.hotelPhone);
+		var hotelAddress = $("<tr><td></td></tr>").html(h.hotelAddress);
+		var hotelEmp = $("<tr><td></td></tr>").html();
+		$(".hotel_list tbody").append("<tr><td rowspan='5' width='200px'><a href='/ppp/hotel/hotelview?hotel_no="+h.hotelNo+"'><img src='../hotels/hotelimg//"+h.hotelPhoto +"' width='200px' height='200px'></a></td><td>"+h.hotelName+"</td></tr>").append(hotelMail).append(hotelPhone).append(hotelAddress).append(hotelEmp);
 	});
 	
 	
@@ -25,14 +30,14 @@ $(document).ready(function() {
 	지역 검색 : <input type="text" name="area"><button>검색</button>
 </form>
 </div>
-<table class="hotel_list" border="1" width="500px">
+<table class="hotel_list"  width="700px">
 		
 			<thead>		
 				<tr>
-					<th colspan="2">호텔 리스트</th>
+					<th>호텔 리스트</th>
 				</tr>
 			</thead>
-			<tbody >
+			<tbody>
 				
 			</tbody>
 		</table>
