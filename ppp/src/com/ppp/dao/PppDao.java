@@ -1281,27 +1281,37 @@ public class PppDao {
 	public ArrayList<Hotel> selectHotelByArea(Connection conn,String area) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs2 = null;
 		ArrayList<Hotel> list = new ArrayList<>();
+		float avgScore = 0;
 		if(area==null)
 			area="";
 		try {
 			pstmt = conn.prepareStatement(Sql.findAreaHotel);
 			pstmt.setString(1, "%"+area+"%");
+			pstmt2 = conn.prepareStatement(Sql.hotelAvgScore);
+			pstmt2.setString(1, "%"+area+"%");
+			rs2 = pstmt2.executeQuery();
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Hotel h = new Hotel();
+				if(rs2.next())
+					avgScore = rs2.getFloat(1);
 				h.setHotelNo(rs.getInt("hotel_no"));
 				h.setHotelName(rs.getString("hotel_name"));
 				h.setHotelMail(rs.getString("hotel_mail"));
 				h.setHotelAddress(rs.getString("hotel_address"));
 				h.setHotelPhone(rs.getString("hotel_phone"));
 				h.setHotelPhoto(rs.getString("hotel_photo"));
+				h.setHotelScore(avgScore);
 				list.add(h);
 			}
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+
 			JdbcUtil.close(pstmt, rs);
 		}
 		return null;
@@ -1951,7 +1961,7 @@ public class PppDao {
 			pstmt = conn.prepareStatement(Sql.insertBeautician);
 			pstmt.setInt(1, b.getBeauticianNo());
 			pstmt.setString(2, b.getBeauticianName());
-			pstmt.setString(3, b.getBeauticianIntriduce());
+			pstmt.setString(3, b.getBeauticianIntroduce());
 			pstmt.setInt(4, b.getBeautyNo());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -1966,7 +1976,7 @@ public class PppDao {
 		try {
 			pstmt = conn.prepareStatement(Sql.updateBeautician);
 			pstmt.setString(1, b.getBeauticianName());
-			pstmt.setString(2, b.getBeauticianIntriduce());
+			pstmt.setString(2, b.getBeauticianIntroduce());
 			pstmt.setInt(3, b.getBeauticianNo());
 			pstmt.setInt(4, b.getBeautyNo());
 			return pstmt.executeUpdate();
@@ -2455,6 +2465,73 @@ public class PppDao {
 			JdbcUtil.close(pstmt, rs);
 		}
 		return -1;
+	}
+
+	// 호텔 상세 보기
+	public Hotel hotelView(Connection conn, int hotelNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Hotel h = new Hotel();
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.allHotelNo);
+			pstmt.setInt(1, hotelNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				h.setHotelNo(hotelNo);
+				h.setHotelOrnerName(rs.getString("hotel_orner_name"));
+				h.setHotelOrnerNo(rs.getString("hotel_orner_no"));
+				h.setHotelName(rs.getString("hotel_name"));
+				h.setHotelMail(rs.getString("hotel_mail"));
+				h.setHotelPhone(rs.getString("hotel_phone"));
+				h.setHotelAddress(rs.getString("hotel_address"));
+				h.setHotelPhoto(rs.getString("hotel_photo"));
+				
+			}
+			
+			return h;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		
+		
+		return null;
+	}
+
+	// 방 상세보기
+	public ArrayList<Room> roomAllView(Connection conn, int hotelNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Room> rList = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.allRoom);
+			pstmt.setInt(1, hotelNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				Room r = new Room();
+				r.setHotelNo(hotelNo);
+				r.setRoomKind(rs.getString("room_kind"));
+				r.setRoomNo(rs.getInt("room_no"));
+				r.setRoomPrice(rs.getInt("room_price"));
+				rList.add(r);
+			}
+			
+			return rList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		
+		
+		return null;
 	}
 
 }

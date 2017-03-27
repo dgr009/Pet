@@ -17,8 +17,8 @@ $(document).ready(function() {
 		var hotelMail = $("<tr><td></td></tr>").html(h.hotelMail);
 		var hotelPhone = $("<tr><td></td></tr>").html(h.hotelPhone);
 		var hotelAddress = $("<tr><td></td></tr>").html(h.hotelAddress);
-		var hotelEmp = $("<tr><td></td></tr>").html();
-		$(".hotel_list tbody").append("<tr><td rowspan='5' width='200px'><a href='/ppp/hotel/hotelview?hotel_no="+h.hotelNo+"'><img src='../hotels/hotelimg//"+h.hotelPhoto +"' width='200px' height='200px'></a></td><td>"+h.hotelName+"</td></tr>").append(hotelMail).append(hotelPhone).append(hotelAddress).append(hotelEmp);
+		var hotelScore = $("<tr><td></td></tr>").html(h.hotelScore);
+		$(".hotel_list tbody").append("<tr><td rowspan='5' width='200px'><a href='/ppp/hotel/hotelview?hotel_no="+h.hotelNo+"'><img src='../hotels/hotelimg//"+h.hotelPhoto +"' width='200px' height='200px'></a></td><td>"+h.hotelName+"</td></tr>").append(hotelMail).append(hotelPhone).append(hotelAddress).append(hotelScore);
 	});
 	
 	

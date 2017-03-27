@@ -302,6 +302,20 @@ public class Controller {
 
 		return mav;
 	}
+	
+	//호텔 상세보기
+	@RequestMapping(value = "/hotel/hotelview", method = "GET")
+	public static ModelAndView hotelView(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hotel", service.hotelView(req));
+		mav.addObject("room", service.roomView(req));
+		mav.setView("/hotels/HotelView.jsp");
+
+		return mav;
+	}
+	
+	
 	/////////////////////////////////
 	/////////////////////////////////
 	/////////////////////////////////

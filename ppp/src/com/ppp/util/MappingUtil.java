@@ -126,6 +126,8 @@ public class MappingUtil {
 						h.setHotelActiveDate(date);
 					}else if(item.getFieldName().equals("orner_adminno")){
 						h.setAdminNo(Integer.parseInt(item.getString("UTF-8")));
+					}else if(item.getFieldName().equals("score")){
+						h.setHotelScore(Integer.parseInt(item.getString("UTF-8")));
 					}
 				}else{
 					String fileName = item.getName();

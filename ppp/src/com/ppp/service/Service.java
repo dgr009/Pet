@@ -17,33 +17,36 @@ import com.ppp.vo.*;
 
 public class Service {
 	private PppDao dao;
+
 	public Service(PppDao dao) {
 		this.dao = dao;
 	}
-	
-	//일반회원 등록
+
+	// 일반회원 등록
 	public String memberCreateEnd(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		int memberNo = dao.selectMemberNoMax(conn);
 		Member member = MappingUtil.getMemberFromRequest(req, memberNo);
 		int result = dao.memberInsert(conn, member);
 		JsonObject ob = new JsonObject();
-		if(result==1) ob.addProperty("result", "success");
-		else ob.addProperty("result", "fail");
+		if (result == 1)
+			ob.addProperty("result", "success");
+		else
+			ob.addProperty("result", "fail");
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
 
-	//일반회원 로그인
+	// 일반회원 로그인
 	public Member memberLogin(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
 		member.put("member_id", req.getParameter("member_id"));
 		member.put("member_pwd", req.getParameter("member_pwd"));
-		Member result = dao.memberLogin(conn,member); 
+		Member result = dao.memberLogin(conn, member);
 		HttpSession session = req.getSession();
 		ArrayList<Animal> animallist = animalSelectLogin(req);
-		if(result.getMemberId()==null){
+		if (result.getMemberId() == null) {
 			System.out.println("아이디나 비밀번호 확인필요");
 			session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
 			JdbcUtil.close(conn);
@@ -58,34 +61,36 @@ public class Service {
 			return result;
 		}
 	}
-	
-	//관리자 추가
+
+	// 관리자 추가
 	public String adminCreateEnd(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		int adminNo = dao.selectAdminNoMax(conn);
 		Admin admin = MappingUtil.getAdminFromRequest(req, adminNo);
 		int result = dao.insertAdmin(conn, admin);
 		JsonObject ob = new JsonObject();
-		if(result==1) ob.addProperty("result", "success");
-		else ob.addProperty("result", "fail");
+		if (result == 1)
+			ob.addProperty("result", "success");
+		else
+			ob.addProperty("result", "fail");
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
 
-	//관리자 로그인
+	// 관리자 로그인
 	public int adminLogin(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> admin = new HashMap<>();
 		admin.put("member_id", req.getParameter("admin_id"));
 		admin.put("member_pwd", req.getParameter("admin_pwd"));
-		int result = 0; 
-		result = dao.adminLogin(conn,admin); 
-	
+		int result = 0;
+		result = dao.adminLogin(conn, admin);
+
 		JdbcUtil.close(conn);
 		return result;
 	}
 
-	//일반회원 아이디찾기
+	// 일반회원 아이디찾기
 	public String memberIdSearch(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
@@ -96,11 +101,8 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
-	//일반회원 비밀번호 찾기
+	// 일반회원 비밀번호 찾기
 	public String memberPwdSearch(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
@@ -113,8 +115,7 @@ public class Service {
 		return new Gson().toJson(ob);
 	}
 
-<<<<<<< HEAD
-	//일반회원 정보수정
+	// 일반회원 정보수정
 	public String memberUpdate(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		int memberNo = Integer.parseInt(req.getParameter("member_no"));
@@ -123,104 +124,107 @@ public class Service {
 		session.setAttribute("member", m);
 		int result = dao.memberUpdate(conn, m);
 		JsonObject ob = new JsonObject();
-		if(result==1) ob.addProperty("result", "success");
-		else ob.addProperty("result", "fail");
+		if (result == 1)
+			ob.addProperty("result", "success");
+		else
+			ob.addProperty("result", "fail");
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
 
-	//로그인시 애완 동물 리스트 불러오기
+	// 로그인시 애완 동물 리스트 불러오기
 	public ArrayList<Animal> animalSelectLogin(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
 		member.put("member_id", req.getParameter("member_id"));
 		member.put("member_pwd", req.getParameter("member_pwd"));
 		Member m = dao.memberLogin(conn, member);
-		
-		ArrayList<Animal> result = dao.animalList(conn,m.getMemberNo()); 
+
+		ArrayList<Animal> result = dao.animalList(conn, m.getMemberNo());
 		JdbcUtil.close(conn);
 		return result;
 	}
 
-	//애완 동물 추가하기
+	// 애완 동물 추가하기
 	public String animalInsert(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
-		Member m = (Member)session.getAttribute("member");
+		Member m = (Member) session.getAttribute("member");
 		int memberNo = m.getMemberNo();
-		int animalNo = dao.animalMaxNo(conn,memberNo);
-		Animal a = MappingUtil.getAnimalFromRequest(req,animalNo,memberNo);
-		int result = dao.animalInsert(conn,a);
+		int animalNo = dao.animalMaxNo(conn, memberNo);
+		Animal a = MappingUtil.getAnimalFromRequest(req, animalNo, memberNo);
+		int result = dao.animalInsert(conn, a);
 		JsonObject ob = new JsonObject();
-		if(result==1){
+		if (result == 1) {
 			ob.addProperty("result", "success");
 			ArrayList<Animal> animallist = animalSelect(req);
 			session.setAttribute("animallist", animallist);
 			session.setAttribute("animallistgson", new Gson().toJson(animallist));
-		}
-		else ob.addProperty("result", "fail");
+		} else
+			ob.addProperty("result", "fail");
 		JdbcUtil.close(conn);
 
 		return new Gson().toJson(ob);
 	}
-	
-	//개인정보 애완 동물 리스트 불러오기
+
+	// 개인정보 애완 동물 리스트 불러오기
 	public ArrayList<Animal> animalSelect(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
-		Member m = (Member)session.getAttribute("member");
-		
-		ArrayList<Animal> result = dao.animalList(conn,m.getMemberNo()); 
+		Member m = (Member) session.getAttribute("member");
+
+		ArrayList<Animal> result = dao.animalList(conn, m.getMemberNo());
 		JdbcUtil.close(conn);
 		return result;
 	}
-	//개인정보 애완 동물 리스트 불러오기 지손(gson)
-		public String animalSelectGson(HttpServletRequest req) {
-			Connection conn = JdbcUtil.getConnection();
-			HttpSession session = req.getSession();
-			Member m = (Member)session.getAttribute("member");
-			
-			ArrayList<Animal> result = dao.animalList(conn,m.getMemberNo()); 
-			JdbcUtil.close(conn);
-			return new Gson().toJson(result);
-		}
 
-	//일반회원 애완동물 수정(변경) 하기
+	// 개인정보 애완 동물 리스트 불러오기 지손(gson)
+	public String animalSelectGson(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member) session.getAttribute("member");
+
+		ArrayList<Animal> result = dao.animalList(conn, m.getMemberNo());
+		JdbcUtil.close(conn);
+		return new Gson().toJson(result);
+	}
+
+	// 일반회원 애완동물 수정(변경) 하기
 	public String animalUpdate(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
-		Member m = (Member)session.getAttribute("member");
+		Member m = (Member) session.getAttribute("member");
 		int memberNo = m.getMemberNo();
 		int animalNo = Integer.parseInt(req.getParameter("animal_no"));
 		Animal a = MappingUtil.getAnimalFromRequest(req, animalNo, memberNo);
-		int result = dao.animalUpdate(conn,a);
+		int result = dao.animalUpdate(conn, a);
 		JsonObject ob = new JsonObject();
-		if(result==1){
+		if (result == 1) {
 			ob.addProperty("result", "success");
 			ArrayList<Animal> animallist = animalSelect(req);
 			session.setAttribute("animallist", animallist);
 			session.setAttribute("animallistgson", new Gson().toJson(animallist));
-		}
-		else ob.addProperty("result", "fail");
-		
+		} else
+			ob.addProperty("result", "fail");
+
 		JdbcUtil.close(conn);
 
 		return new Gson().toJson(ob);
-		
+
 	}
 
-	//애완 동물 정보 가져오기
+	// 애완 동물 정보 가져오기
 	public Animal animalView(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
-		Member m = (Member)session.getAttribute("member");
+		Member m = (Member) session.getAttribute("member");
 		int memberNo = m.getMemberNo();
 		int animalNo = Integer.parseInt(req.getParameter("animal_no"));
-		Animal a = dao.animalView(conn,memberNo,animalNo);
+		Animal a = dao.animalView(conn, memberNo, animalNo);
 		return a;
 	}
 
-	//일반회원 로그아웃
+	// 일반회원 로그아웃
 	public void memberLogout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		session.removeAttribute("member");
@@ -229,33 +233,54 @@ public class Service {
 		session.removeAttribute("logincheck");
 	}
 
-	
-	//일반회원 애완동물 삭제
+	// 일반회원 애완동물 삭제
 	public String animalDelete(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
-		Member m = (Member)session.getAttribute("member");
+		Member m = (Member) session.getAttribute("member");
 		int memberNo = m.getMemberNo();
 		int animalNo = Integer.parseInt(req.getParameter("animal_no"));
-		int result = dao.animalDelete(conn,memberNo,animalNo);
+		int result = dao.animalDelete(conn, memberNo, animalNo);
 		JsonObject ob = new JsonObject();
 		ob.addProperty("result", result);
-		if(result==1){
+		if (result == 1) {
 			System.out.println("삭제성공");
 			ArrayList<Animal> animallist = animalSelect(req);
 			session.setAttribute("animallist", animallist);
 			session.setAttribute("animallistgson", new Gson().toJson(animallist));
-		}else{
-		
+		} else {
+
 		}
-		
+
 		return new Gson().toJson(ob);
 	}
 
-	///////////////////////////////////////
-	//호텔 서비스
+	// 일반 회원 받은 메세지(쪽지) 리스트
+	public String receiveBoard(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member) session.getAttribute("member");
+		ArrayList<Message> list = dao.receiveMessageList(conn, m.getMemberNo());
+		JdbcUtil.close(conn);
+		return new Gson().toJson(list);
 
-	//호텔 회원 등록(추가)
+	}
+
+	// 일반 회원 메세지(쪽지) 삭제
+	public String messageDelete(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member) session.getAttribute("member");
+		dao.messageDelete(conn, Integer.parseInt(req.getParameter("message_no")), m.getMemberNo());
+		ArrayList<Message> list = dao.receiveMessageList(conn, m.getMemberNo());
+		JdbcUtil.close(conn);
+		return new Gson().toJson(list);
+
+	}
+	///////////////////////////////////////
+	// 호텔 서비스
+
+	// 호텔 회원 등록(추가)
 	public String hotelCreateEnd(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		int hotelNo = dao.selectHotelNoMax(conn);
@@ -265,16 +290,16 @@ public class Service {
 		return new Gson().toJson(hotel);
 	}
 
-	//호텔 로그인
+	// 호텔 로그인
 	public Object hotelLogin(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> user = new HashMap<>();
 		user.put("user_id", req.getParameter("member_id"));
 		user.put("user_pwd", req.getParameter("member_pwd"));
-		Hotel result = dao.hotelLogin(conn,user); 
+		Hotel result = dao.hotelLogin(conn, user);
 		HttpSession session = req.getSession();
-		
-		if(result.getHotelId()==null){
+
+		if (result.getHotelId() == null) {
 			System.out.println("아이디나 비밀번호 확인필요");
 			session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
 			JdbcUtil.close(conn);
@@ -283,134 +308,129 @@ public class Service {
 			System.out.println("로그인 성공");
 			session.removeAttribute("logincheck");
 			session.setAttribute("hotel", result);
+			session.setAttribute("hotelgson", new Gson().toJson(result));
 			JdbcUtil.close(conn);
 			return result;
 		}
 	}
 
-	
-	//호텔회원 로그아웃
+	// 호텔회원 로그아웃
 	public void hotelLogout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		session.removeAttribute("hotel");
+		session.removeAttribute("hotelgson");
 		session.removeAttribute("logincheck");
-		
+
 	}
 
-	//일반 회원 받은 메세지(쪽지) 리스트
-	public String receiveBoard(HttpServletRequest req) {
+	// 호텔 지역으로 검색
+	public String hotelAreaSearch(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
-		HttpSession session = req.getSession();
-		Member m = (Member)session.getAttribute("member");	
-		ArrayList<Message> list = dao.receiveMessageList(conn,m.getMemberNo());
+		ArrayList<Hotel> list = dao.selectHotelByArea(conn, req.getParameter("area"));
 		JdbcUtil.close(conn);
 		return new Gson().toJson(list);
-		
 	}
 
-	//일반 회원 메세지(쪽지) 삭제
-	public String messageDelete(HttpServletRequest req) {
+	// 호텔 상세보기
+	public String hotelView(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
-		HttpSession session = req.getSession();
-		Member m = (Member)session.getAttribute("member");
-		dao.messageDelete(conn,Integer.parseInt(req.getParameter("message_no")),m.getMemberNo());
-		ArrayList<Message> list = dao.receiveMessageList(conn,m.getMemberNo());
+		int hotelNo = Integer.parseInt(req.getParameter("hotel_no"));
+		Hotel h = dao.hotelView(conn, hotelNo);
 		JdbcUtil.close(conn);
-		return new Gson().toJson(list);
+		return new Gson().toJson(h);
+	}
+
+	// 방 정보 보기
+	public String roomView(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int hotelNo = Integer.parseInt(req.getParameter("hotel_no"));
+		ArrayList<Room> rList = dao.roomAllView(conn, hotelNo);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(rList);
+	}
+
+	/////////////
+	// 미용 회원 등록(추가)
+	public String beautyCreateEnd(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int beautyNo = dao.selectBeautyNoMax(conn);
+		Beauty beauty = MappingUtil.getBeautyFromRequest(req, beautyNo);
+		dao.beautyInsert(conn, beauty);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(beauty);
+	}
+
+	// 미용 로그인
+	public Object beautyLogin(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> user = new HashMap<>();
+		user.put("user_id", req.getParameter("member_id"));
+		user.put("user_pwd", req.getParameter("member_pwd"));
+		Beauty result = dao.beautyLogin(conn, user);
+		HttpSession session = req.getSession();
+
+		if (result.getBeautyId() == null) {
+			System.out.println("아이디나 비밀번호 확인필요");
+			session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
+			JdbcUtil.close(conn);
+			return null;
+		} else {
+			System.out.println("로그인 성공");
+			session.removeAttribute("logincheck");
+			session.setAttribute("beauty", result);
+			JdbcUtil.close(conn);
+			return result;
+		}
+	}
+
+	// 미용회원 로그아웃
+	public void beautyLogout(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.removeAttribute("beauty");
+		session.removeAttribute("logincheck");
 
 	}
-/////////////
-	//미용 회원 등록(추가)
-		public String beautyCreateEnd(HttpServletRequest req) {
-			Connection conn = JdbcUtil.getConnection();
-			int beautyNo = dao.selectBeautyNoMax(conn);
-			Beauty beauty = MappingUtil.getBeautyFromRequest(req, beautyNo);
-			dao.beautyInsert(conn, beauty);
+
+	//////////////////
+	// 병원 회원 등록(추가)
+	public String hospitalCreateEnd(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int hospitalNo = dao.selectHospitalNoMax(conn);
+		Hospital hospital = MappingUtil.getHospitalFromRequest(req, hospitalNo);
+		dao.hospitalInsert(conn, hospital);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(hospital);
+	}
+
+	// 병원 로그인
+	public Object hospitalLogin(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> user = new HashMap<>();
+		user.put("user_id", req.getParameter("member_id"));
+		user.put("user_pwd", req.getParameter("member_pwd"));
+		Hospital result = dao.hospitalLogin(conn, user);
+		HttpSession session = req.getSession();
+
+		if (result.getHospitalId() == null) {
+			System.out.println("아이디나 비밀번호 확인필요");
+			session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
 			JdbcUtil.close(conn);
-			return new Gson().toJson(beauty);
-		}
-
-		//미용 로그인
-		public Object beautyLogin(HttpServletRequest req) {
-			Connection conn = JdbcUtil.getConnection();
-			HashMap<String, String> user = new HashMap<>();
-			user.put("user_id", req.getParameter("member_id"));
-			user.put("user_pwd", req.getParameter("member_pwd"));
-			Beauty result = dao.beautyLogin(conn,user); 
-			HttpSession session = req.getSession();
-			
-			if(result.getBeautyId()==null){
-				System.out.println("아이디나 비밀번호 확인필요");
-				session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
-				JdbcUtil.close(conn);
-				return null;
-			} else {
-				System.out.println("로그인 성공");
-				session.removeAttribute("logincheck");
-				session.setAttribute("beauty", result);
-				JdbcUtil.close(conn);
-				return result;
-			}
-		}
-
-		
-		//미용회원 로그아웃
-		public void beautyLogout(HttpServletRequest req) {
-			HttpSession session = req.getSession();
-			session.removeAttribute("beauty");
+			return null;
+		} else {
+			System.out.println("로그인 성공");
 			session.removeAttribute("logincheck");
-			
-		}
-		//////////////////
-		//병원 회원 등록(추가)
-		public String hospitalCreateEnd(HttpServletRequest req) {
-			Connection conn = JdbcUtil.getConnection();
-			int hospitalNo = dao.selectHospitalNoMax(conn);
-			Hospital hospital = MappingUtil.getHospitalFromRequest(req, hospitalNo);
-			dao.hospitalInsert(conn, hospital);
+			session.setAttribute("hospital", result);
 			JdbcUtil.close(conn);
-			return new Gson().toJson(hospital);
+			return result;
 		}
+	}
 
-		//병원 로그인
-		public Object hospitalLogin(HttpServletRequest req) {
-			Connection conn = JdbcUtil.getConnection();
-			HashMap<String, String> user = new HashMap<>();
-			user.put("user_id", req.getParameter("member_id"));
-			user.put("user_pwd", req.getParameter("member_pwd"));
-			Hospital result = dao.hospitalLogin(conn,user); 
-			HttpSession session = req.getSession();
-			
-			if(result.getHospitalId()==null){
-				System.out.println("아이디나 비밀번호 확인필요");
-				session.setAttribute("logincheck", "아이디나 비밀번호 확인필요");
-				JdbcUtil.close(conn);
-				return null;
-			} else {
-				System.out.println("로그인 성공");
-				session.removeAttribute("logincheck");
-				session.setAttribute("hospital", result);
-				JdbcUtil.close(conn);
-				return result;
-			}
-		}
+	// 병원회원 로그아웃
+	public void hospitalLogout(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.removeAttribute("hospital");
+		session.removeAttribute("logincheck");
 
-		
-		//병원회원 로그아웃
-		public void hospitalLogout(HttpServletRequest req) {
-			HttpSession session = req.getSession();
-			session.removeAttribute("hospital");
-			session.removeAttribute("logincheck");
-			
-		}
+	}
 
-		public String hotelAreaSearch(HttpServletRequest req) {
-			Connection conn = JdbcUtil.getConnection();
-			ArrayList<Hotel> list = dao.selectHotelByArea(conn, req.getParameter("area"));
-			JdbcUtil.close(conn);
-			return new Gson().toJson(list);
-		}
-	
-=======
->>>>>>> branch 'yoohyeok' of https://github.com/dgr009/Pet.git
 }

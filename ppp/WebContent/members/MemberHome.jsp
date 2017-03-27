@@ -5,7 +5,7 @@
 <head>
 <title>Bootstrap Example</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../css/mycss.css">
+<link rel="stylesheet" href="/css/mycss.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -58,17 +58,6 @@
 	
 	function register_check() {
 		var register_form = document.getElementById('orner_register_form');
-		/*var oner_id = document.getElementById('orner_id');
-		var oner_pwd = document.getElementById('orner_pwd');
-		var oner_name = document.getElementById('orner_name');
-		var oner_no = document.getElementById('orner_no');
-		var oner_phone = document.getElementById('orner_phone');
-		var oner_address = document.getElementById('orner_address');
-		var oner_mail = document.getElementById('orner_mail');
-		var oner_active = document.getElementById('orner_active');
-		var oner_adminno = document.getElementById('orner_adminno');
-		var oner_photo = document.getElementById('orner_photo');
-		var business_name = document.getElementById('business_name');*/
 		
 		if (register_form.user[0].checked == true) {
 			register_form.action = "/ppp/hotel/hotelregister";

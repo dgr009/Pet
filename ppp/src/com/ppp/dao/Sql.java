@@ -106,7 +106,7 @@ public interface Sql {
 	// 52. 지역별 미용실 검색
 	public String findAreaBeauty = "select beauty_no,beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_address,beauty_phone from beauty where beauty_address like %?%";
 	// 53. 지역별 호텔 검색
-	public String findAreaHotel = "select hotel_no,hotel_name,hotel_mail,hotel_address,hotel_phone,hotel_photo from hotel where hotel_address like ? and hotel_active=1";
+	public String findAreaHotel = "select hotel_no,hotel_name,hotel_mail,hotel_address,hotel_phone,hotel_photo from hotel where hotel_address like ? and hotel_active=1 order by hotel_name";
 	// 54. 리뷰순 병원 검색
 	public String findReviewCntHospital = "select h.hospital_name,h.hospital_address,h.hospital_phone,h.hospital_mail from hospital h,hospital_review r where h.hospital_no=r.hospital_no order by r.hospital_review_cnt desc";
 	// 55. 리뷰순 미용실 검색
@@ -160,7 +160,7 @@ public interface Sql {
 	// 79. 미용사 프로필 보기
 	public String allBeautician = "select b.beautician_no,b.beautician_name,b.beautician_introduce,be.beauty_name from beauty be , beautician b where be.beauty_no=b.beauty_no and be.beauty_no=?";
 	// 80. 호텔 방 보기
-	public String allRoom = "select r.room_no,r.room_kind,r.room_price,h.hotel_name from hotel h, room r where h.hotel_no=r.hotel_no and h.hotel_no=?";
+	public String allRoom = "select r.room_no,r.room_kind,r.room_price from hotel h, room r where h.hotel_no=r.hotel_no and h.hotel_no=?";
 	// 81. 수의사 프로필 수정
 	public String updateVet = "update vet set vet_name='?', vet_introduce='?' where vet_no=? and hospital_no=?";
 	// 82. 미용사 프로필 수정
@@ -531,5 +531,8 @@ public interface Sql {
 	public String updateInquireBoardComment="update inquire_board_comment set inquire_board_comment_content=? where admin_no=?";
 	// 쪽지 마지막 번호 조회
 	public String messageNoMax="select max(message_no)+1 from message";
-
+	// 호텔 상세보기  (번호로)
+	public String allHotelNo = "select hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_address,hotel_phone,hotel_photo from hotel where hotel_no=? and hotel_active=1";
+	// 호텔 평점 구하기
+	public String hotelAvgScore = "select NVL(avg(r.hotel_review_score),0) from hotel h, hotel_review r where h.hotel_no=r.hotel_no(+) and h.hotel_address like ? group by h.hotel_name order by h.hotel_name";
 }
