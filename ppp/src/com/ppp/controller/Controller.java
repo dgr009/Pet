@@ -489,6 +489,7 @@ public class Controller {
 		return mav;
 	}
 /////////////////////////////////////////////////////////////
+	/*
 	// 비활성화 된 회원 검색
 	@RequestMapping(value="/admin/memberdeactiviysearch", method="GET")
 	public static ModelAndView list(HttpServletRequest req) {
@@ -528,7 +529,7 @@ public class Controller {
 		mav.setView("/ppp/admins/hotelList.jsp");
 		return mav;
 	}
-	
+	*/
 	// 쪽지
 	@RequestMapping(value = "/admin/messagesend", method = "POST")
 	public static ModelAndView messageSend(HttpServletRequest req) {

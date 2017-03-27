@@ -60,7 +60,7 @@ public class PppDao {
 	}
 
 	// 일반 회원 아이디찾기
-	public String memberIdCheck(Connection conn, HashMap<String, String> member) {
+	public String findMemberId(Connection conn, HashMap<String, String> member) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -675,6 +675,7 @@ public class PppDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(Sql.hospitalIdCheck);
+			pstmt.setString(1, hospitalId);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1);
@@ -869,18 +870,16 @@ public class PppDao {
 	}
 
 	// 병원회원 아이디 찾기
-	public Hospital findHospitalId(Connection conn, String hospitalMail, String hospitalOrnerNo) {
+	public String findHospitalId(Connection conn, HashMap<String, String> hospital) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Hospital h = new Hospital();
 		try {
 			pstmt = conn.prepareStatement(Sql.findHospitalId);
-			pstmt.setString(1, hospitalMail);
-			pstmt.setString(2, hospitalOrnerNo);
+			pstmt.setString(1, hospital.get("hospital_mail"));
+			pstmt.setString(2, hospital.get("hospital_orner_no"));
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				h.setHospitalId(rs.getString("hospitalId"));
-				return h;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -891,19 +890,17 @@ public class PppDao {
 	}
 
 	// 병원회원 비밀번호 찾기
-	public Hospital findHospitalPwd(Connection conn, String hospitalMail, String hopitalOrnerNo, String hospitalId) {
+	public String findHospitalPwd(Connection conn, String hospitalMail, HashMap<String,String> hospital) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Hospital h = new Hospital();
 		try {
 			pstmt = conn.prepareStatement(Sql.findHospitalPwd);
-			pstmt.setString(1, hospitalMail);
-			pstmt.setString(2, hopitalOrnerNo);
-			pstmt.setString(3, hospitalMail);
+			pstmt.setString(1, hospital.get("hospital_mail"));
+			pstmt.setString(2, hospital.get("hospital_orner_no"));
+			pstmt.setString(3, hospital.get("hospital_id"));
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				h.setHospitalPwd(rs.getString("hospitalPwd"));
-				return h;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -912,7 +909,7 @@ public class PppDao {
 		}
 		return null;
 	}
-
+	
 	// 미용실회원 아이디 중복체크
 	public int beautyidCheck(Connection conn, String beautyId) {
 		PreparedStatement pstmt = null;
@@ -1117,18 +1114,16 @@ public class PppDao {
 	}
 
 	// 미용실회원 아이디 찾기
-	public Beauty findbeautyId(Connection conn, String beautyMail, String beautyOrnerNo) {
+	public String findbeautyId(Connection conn, HashMap<String,String> beauty ) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Beauty b = new Beauty();
 		try {
 			pstmt = conn.prepareStatement(Sql.findBeautyId);
-			pstmt.setString(1, beautyMail);
-			pstmt.setString(2, beautyOrnerNo);
+			pstmt.setString(1, beauty.get("beauty_mail"));
+			pstmt.setString(2, beauty.get("beauty_orner_no"));
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				b.setBeautyId(rs.getString("beautyId"));
-				return b;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1137,20 +1132,19 @@ public class PppDao {
 		}
 		return null;
 	}
+	
 
 	// 미용실회원 비밀번호 찾기
-	public Beauty findbeautyPwd(Connection conn, String beautyMail, String beautyOrnerNo, String beautyId) {
+	public String findbeautyPwd(Connection conn, HashMap<String,String> beauty) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Beauty b = new Beauty();
 		try {
 			pstmt = conn.prepareStatement(Sql.findBeautyId);
-			pstmt.setString(1, beautyMail);
-			pstmt.setString(2, beautyOrnerNo);
-			pstmt.setString(3, beautyId);
+			pstmt.setString(1, beauty.get("beauty_mail"));
+			pstmt.setString(2, beauty.get("beaury_orner_no"));
+			pstmt.setString(3, beauty.get("beaury_id"));
 			if (rs.next()) {
-				b.setBeautyPwd(rs.getString("beautyPwd"));
-				return b;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1159,7 +1153,8 @@ public class PppDao {
 		}
 		return null;
 	}
-
+	
+	
 	// 호텔회원 아이디 중복체크
 	public int hotelidCheck(Connection conn, String hotelId) {
 		PreparedStatement pstmt = null;
@@ -1364,18 +1359,16 @@ public class PppDao {
 	}
 
 	// 호텔회원 아이디 찾기
-	public Hotel findHotelId(Connection conn, String hotelMail, String hotelOrnerNo) {
+	public String findHotelId(Connection conn, HashMap<String,String> hotel) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Hotel h = new Hotel();
 		try {
 			pstmt = conn.prepareStatement(Sql.findBeautyId);
-			pstmt.setString(1, hotelMail);
-			pstmt.setString(2, hotelOrnerNo);
+			pstmt.setString(1, hotel.get("hotel_mail"));
+			pstmt.setString(2, hotel.get("hotel_orner_no"));
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				h.setHotelId(rs.getString("hotelId"));
-				return h;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1385,19 +1378,18 @@ public class PppDao {
 		return null;
 	}
 
+
 	// 호텔회원 비밀번호 찾기
-	public Hotel findHotelPwd(Connection conn, String hotelMail, String hotelOrnerNo, String hotelId) {
+	public String findHotelPwd(Connection conn, HashMap<String,String> hotel) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Hotel h = new Hotel();
 		try {
 			pstmt = conn.prepareStatement(Sql.findHotelPwd);
-			pstmt.setString(1, hotelMail);
-			pstmt.setString(2, hotelOrnerNo);
-			pstmt.setString(3, hotelId);
+			pstmt.setString(1, hotel.get("hotel_mail"));
+			pstmt.setString(2, hotel.get("hotel_orner_no"));
+			pstmt.setString(3, hotel.get("hotel_id"));
 			if (rs.next()) {
-				h.setHotelPwd(rs.getString("hotelPwd"));
-				return h;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1406,6 +1398,8 @@ public class PppDao {
 		}
 		return null;
 	}
+	
+
 
 	// 병원 수의사 추가
 	public int insertVet(Connection conn, Vet v){

@@ -224,7 +224,7 @@ public interface Sql {
 	
 	
 	// 110. 관리자 쪽지 추가
-	public String insertMessage = "insert into member_message(member_message_no,member_message_title,member_message_content,member_message_date,member_no) values(?,?,?,?,?)";
+	//public String insertMessage = "insert into member_message(member_message_no,member_message_title,member_message_content,member_message_date,member_no) values(?,?,?,?,?)";
 	// 111. 회원 쪽지 검색
 	
 	// &관리자 쪽지 보내기

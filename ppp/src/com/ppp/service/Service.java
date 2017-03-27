@@ -93,7 +93,7 @@ public class Service {
 		member.put("member_mail", req.getParameter("member_mail"));
 		member.put("member_name", req.getParameter("member_name"));
 		JsonObject ob = new JsonObject();
-		ob.addProperty("result", dao.memberIdCheck(conn, member));
+		ob.addProperty("result", dao.findMemberId(conn, member));
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
@@ -123,7 +123,9 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
+	
 	//////////////////////////////////////////////
+	/*
 	//비활성화 된 회원 검색
 	public String inactiveMember(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
@@ -176,7 +178,7 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(map);
 	}
-	
+	*/
 	// 메세지 추가
 	public String messageSend(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
@@ -377,7 +379,18 @@ public class Service {
 		session.removeAttribute("logincheck");
 		
 	}
-
+	//호텔회원 아이디찾기
+	public String hotelIdSearch(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> hotel = new HashMap<>();
+		hotel.put("hotel_mail", req.getParameter("hotel_mail"));
+		hotel.put("hotel_orner_pwd", req.getParameter("hotel_orner_pwd"));
+		JsonObject ob = new JsonObject();
+		ob.addProperty("result", dao.findHotelId(conn, hotel));
+		JdbcUtil.close(conn);
+		return new Gson().toJson(ob);
+	}
+	
 	//일반 회원 받은 메세지(쪽지) 리스트
 	public String receiveBoard(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
@@ -484,5 +497,7 @@ public class Service {
 			session.removeAttribute("logincheck");
 			
 		}
+		
+		
 	
 }
