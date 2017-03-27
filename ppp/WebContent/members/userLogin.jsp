@@ -39,12 +39,15 @@
 
 					</div>
 					<div class="modal-footer">
-						<button type="button"
-							onclick="location.href = '/ppp/member/memberidsearch'"
-							class="btn btn-default">아이디찾기</button>
-						<button type="button"
-							onclick="location.href = '/ppp/member/memberpwdsearch'"
-							class="btn btn-default">비밀번호 찾기</button>
+						
+							<input type="button" class="btn btn-default"
+							onclick="user_id_check()" id="find_id"  value="Find ID">
+							
+					
+							<input type="button" class="btn btn-default"
+							onclick="user_pwd_check()" id="find_pwd"  value="Find PWD">
+						
+						왜안뷔꺼어어엉
 						<input type="button" class="btn btn-default"
 							onclick="login_check()" value="Login">
 					</div>

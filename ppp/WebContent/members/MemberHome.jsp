@@ -29,6 +29,33 @@
 		login_form.submit();
 	}
 	
+	function user_id_check(){
+		var btn = $("#find_id");
+		var login_form = document.getElementById('login_form');
+		if (login_form.user[0].checked == true) {	
+			location.href="/ppp/member/memberidsearch";
+		} else if (login_form.user[1].checked == true) {
+			location.href="/ppp/hotel/hotelidsearch";
+		} else if (login_form.user[2].checked == true) {
+			location.href = "/ppp/hospital/hospitalidsearch";
+		} else if (login_form.user[3].checked == true) {
+			location.href = "/ppp/beauty/beautyidsearch";
+		}
+	}
+	function user_pwd_check(){
+		var btn = $("find_pwd");
+		var login_form = document.getElementById('login_form');
+		if (login_form.user[0].checked == true) {	
+			location.href="/ppp/member/memberpwdsearch";
+		} else if (login_form.user[1].checked == true) {
+			location.href="/ppp/hotel/hotelpwdsearch";
+		} else if (login_form.user[2].checked == true) {
+			location.href = "/ppp/hospital/hospitalpwdsearch";
+		} else if (login_form.user[3].checked == true) {
+			location.href = "/ppp/beauty/beautypwdsearch";
+		}
+	}
+	
 	function register_check() {
 		var register_form = document.getElementById('orner_register_form');
 		/*var oner_id = document.getElementById('orner_id');
@@ -175,12 +202,12 @@ body {
 
 					</div>
 					<div class="modal-footer">
-						<button type="button"
-							onclick="location.href = '/ppp/member/memberidsearch'"
-							class="btn btn-default">아이디찾기</button>
-						<button type="button"
-							onclick="location.href = '/ppp/member/memberpwdsearch'"
-							class="btn btn-default">비밀번호 찾기</button>
+					<input type="button" class="btn btn-default"
+							onclick="user_id_check()" id="find_id"  value="Find ID">
+							
+					
+							<input type="button" class="btn btn-default"
+							onclick="user_pwd_check()" id="find_pwd"  value="Find PWD">
 						<input type="button" class="btn btn-default"
 							onclick="login_check()" value="Login">
 					</div>
@@ -216,19 +243,19 @@ body {
 			<div class="row">
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="#"><img
+					<a href="/ppp/hotel/hotelareasearch"><img
 						src="https://s-media-cache-ak0.pinimg.com/originals/03/1f/86/031f86ad9fb180893a2d899aeaceb44e.jpg"
 						width="150px" height="170"><br>지역별 호텔보기</a>
 				</div>
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="#"><img
+					<a href="/ppp/hotel/hotelgradesearch"><img
 						src="http://cfile24.uf.tistory.com/image/2419AD4652FC36A7345270"
 						width="150px" height="170"><br>평점순 호텔보기</a>
 				</div>
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="#"><img
+					<a href="/ppp/hotel/hotelreviewsearch"><img
 						src="http://cfile6.uf.tistory.com/image/1418904C5053417C19157A"
 						width="150px" height="170"><br>리뷰순 호텔보기</a>
 				</div>
@@ -247,7 +274,6 @@ body {
 	<div id="section42" class="container">
 		<h2>동물병원</h2>
 		<div class="containe">
-			//난 취하지않아 캬 캬 캬
 			<h2>동물병원 보기</h2>
 			<p>동물병원을 전체, 지역별, 평점순으로 찾아볼수 있습니다</p>
 			<div class="row">

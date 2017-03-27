@@ -103,7 +103,7 @@ public class MappingUtil {
 					}else if(item.getFieldName().equals("orner_pwd")){
 						h.setHotelPwd(item.getString("UTF-8"));
 					}else if(item.getFieldName().equals("orner_name")){
-						h.setHotelName(item.getString("UTF-8"));
+						h.setHotelOrnerName(item.getString("UTF-8"));
 					}else if(item.getFieldName().equals("orner_address")){
 						h.setHotelAddress(item.getString("UTF-8"));
 					}else if(item.getFieldName().equals("business_name")){
@@ -148,16 +148,46 @@ public class MappingUtil {
 	public static Hospital getHospitalFromRequest(HttpServletRequest req, int hospitalNo) {
 		Hospital h = new Hospital();
 
-		String path = req.getServletContext().getRealPath("hospitalimg");
+		h.setHospitalNo(hospitalNo);
+		java.sql.Date date = null;
+		String path = req.getServletContext().getRealPath("hospitals/hospitalimg");
 		DiskFileItemFactory f = new DiskFileItemFactory();
 		ServletFileUpload uploader = new ServletFileUpload(f);
 		uploader.setFileSizeMax(1024 * 1024 * 10);
 		List<FileItem> list;
+
 		try {
 			list = uploader.parseRequest(req);
-
 			for (FileItem item : list) {
-				if (!item.isFormField()) {
+				
+				if(item.isFormField()) {
+					if(item.getFieldName().equals("orner_id")){
+						h.setHospitalId(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_pwd")){
+						h.setHospitalPwd(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_name")){
+						h.setHospitalOrnerName(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_address")){
+						h.setHospitalAddress(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("business_name")){
+						h.setHospitalName(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_no")){
+						h.setHospitalOrnerNo(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_mail")){
+						h.setHospitalMail(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_phone")){
+						h.setHospitalPhone(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_active")){
+						h.setHospitalActive(Integer.parseInt(item.getString("UTF-8")));
+						if (h.getHospitalActive() == 2) {
+							java.util.Date d = new java.util.Date();
+							date = new java.sql.Date(d.getTime());
+						}
+						h.setHospitalActiveDate(date);
+					}else if(item.getFieldName().equals("orner_adminno")){
+						h.setAdminNo(Integer.parseInt(item.getString("UTF-8")));
+					}
+				}else{
 					String fileName = item.getName();
 					// System.out.println(item.getName());
 					int indexOfPoint = fileName.indexOf(".");
@@ -174,23 +204,6 @@ public class MappingUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		h.setHospitalNo(hospitalNo);
-		h.setHospitalId(req.getParameter("hospital_id"));
-		h.setHospitalPwd(req.getParameter("hospital_pwd"));
-		h.setHospitalName(req.getParameter("hospital_name"));
-		h.setHospitalAddress(req.getParameter("hospital_address"));
-		h.setHospitalOrnerName(req.getParameter("hospital_orner_name"));
-		h.setHospitalOrnerNo(req.getParameter("hospital_orner_no"));
-		h.setHospitalMail(req.getParameter("hospital_mail"));
-		h.setHospitalPhone(req.getParameter("hospital_phone"));
-		h.setHospitalActive(Integer.parseInt(req.getParameter("hospital_active")));
-		java.sql.Date date = null;
-		if (Integer.parseInt(req.getParameter("hospital_active")) == 2) {
-			java.util.Date d = new java.util.Date();
-			date = new java.sql.Date(d.getTime());
-		}
-		h.setHospitalActiveDate(date);
-		h.setAdminNo(Integer.parseInt(req.getParameter("hospital_adminno")));
 		return h;
 	}
 
@@ -198,16 +211,46 @@ public class MappingUtil {
 	public static Beauty getBeautyFromRequest(HttpServletRequest req, int beautyNo) {
 		Beauty b = new Beauty();
 
-		String path = req.getServletContext().getRealPath("beautyimg");
+		b.setBeautyNo(beautyNo);
+		java.sql.Date date = null;
+		String path = req.getServletContext().getRealPath("beautys/beautyimg");
 		DiskFileItemFactory f = new DiskFileItemFactory();
 		ServletFileUpload uploader = new ServletFileUpload(f);
 		uploader.setFileSizeMax(1024 * 1024 * 10);
 		List<FileItem> list;
+
 		try {
 			list = uploader.parseRequest(req);
-
 			for (FileItem item : list) {
-				if (!item.isFormField()) {
+				
+				if(item.isFormField()) {
+					if(item.getFieldName().equals("orner_id")){
+						b.setBeautyId(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_pwd")){
+						b.setBeautyPwd(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_name")){
+						b.setBeautyOrnerName(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_address")){
+						b.setBeautyAddress(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("business_name")){
+						b.setBeautyName(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_no")){
+						b.setBeautyOrnerNo(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_mail")){
+						b.setBeautyMail(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_phone")){
+						b.setBeautyPhone(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("orner_active")){
+						b.setBeautyActive(Integer.parseInt(item.getString("UTF-8")));
+						if (b.getBeautyActive() == 2) {
+							java.util.Date d = new java.util.Date();
+							date = new java.sql.Date(d.getTime());
+						}
+						b.setBeautyActiveDate(date);
+					}else if(item.getFieldName().equals("orner_adminno")){
+						b.setAdminNo(Integer.parseInt(item.getString("UTF-8")));
+					}
+				}else{
 					String fileName = item.getName();
 					// System.out.println(item.getName());
 					int indexOfPoint = fileName.indexOf(".");
@@ -224,23 +267,6 @@ public class MappingUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		b.setBeautyNo(beautyNo);
-		b.setBeautyId(req.getParameter("beauty_id"));
-		b.setBeautyPwd(req.getParameter("beauty_pwd"));
-		b.setBeautyName(req.getParameter("beauty_name"));
-		b.setBeautyAddress(req.getParameter("beauty_address"));
-		b.setBeautyOrnerName(req.getParameter("beauty_orner_name"));
-		b.setBeautyOrnerNo(req.getParameter("beauty_orner_no"));
-		b.setBeautyMail(req.getParameter("beauty_mail"));
-		b.setBeautyPhone(req.getParameter("beauty_phone"));
-		b.setBeautyActive(Integer.parseInt(req.getParameter("beauty_active")));
-		java.sql.Date date = null;
-		if (Integer.parseInt(req.getParameter("beauty_active")) == 2) {
-			java.util.Date d = new java.util.Date();
-			date = new java.sql.Date(d.getTime());
-		}
-		b.setBeautyActiveDate(date);
-		b.setAdminNo(Integer.parseInt(req.getParameter("beauty_adminno")));
 		return b;
 	}
 }
