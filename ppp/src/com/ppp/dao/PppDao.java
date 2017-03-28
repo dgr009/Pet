@@ -1144,13 +1144,14 @@ public class PppDao {
 			pstmt.setString(1, beauty.get("beauty_mail"));
 			pstmt.setString(2, beauty.get("beaury_orner_no"));
 			pstmt.setString(3, beauty.get("beaury_id"));
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JdbcUtil.close(pstmt, null);
+			JdbcUtil.close(pstmt, rs);
 		}
 		return null;
 	}
@@ -1398,16 +1399,18 @@ public class PppDao {
 			pstmt.setString(1, hotel.get("hotel_mail"));
 			pstmt.setString(2, hotel.get("hotel_orner_no"));
 			pstmt.setString(3, hotel.get("hotel_id"));
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JdbcUtil.close(pstmt, null);
+			JdbcUtil.close(pstmt, rs);
 		}
 		return null;
 	}
+	
 	
 
 

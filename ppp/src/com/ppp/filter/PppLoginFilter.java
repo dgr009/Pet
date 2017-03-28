@@ -8,7 +8,7 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import com.ppp.vo.*;
-//@WebFilter("/*")
+
 @WebFilter({"/admin/*", "/member/*","/hotel/*","/hospital/*","/beauty/*","/board/*"})
 public class PppLoginFilter implements Filter {
 	// 로그인 없이 접근할 수 있는 경로를 지정

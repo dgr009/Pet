@@ -384,7 +384,7 @@ public class Service {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> hotel = new HashMap<>();
 		hotel.put("hotel_mail", req.getParameter("hotel_mail"));
-		hotel.put("hotel_orner_pwd", req.getParameter("hotel_orner_pwd"));
+		hotel.put("hotel_orner_no", req.getParameter("hotel_orner_no"));
 		JsonObject ob = new JsonObject();
 		ob.addProperty("result", dao.findHotelId(conn, hotel));
 		JdbcUtil.close(conn);
@@ -540,7 +540,7 @@ public class Service {
 			Connection conn = JdbcUtil.getConnection();
 			HashMap<String, String> hospital = new HashMap<>();
 			hospital.put("hospital_mail", req.getParameter("hospital_mail"));
-			hospital.put("hospital_orner_on", req.getParameter("hospital_orner_on"));
+			hospital.put("hospital_orner_no", req.getParameter("hospital_orner_no"));
 			JsonObject ob = new JsonObject();
 			ob.addProperty("result", dao.findHospitalId(conn, hospital));
 			JdbcUtil.close(conn);
@@ -601,4 +601,7 @@ public class Service {
 			JdbcUtil.close(conn);
 			return new Gson().toJson(list);
 		}
+
+		// 회원 쿠폰수 조정
+
 }
