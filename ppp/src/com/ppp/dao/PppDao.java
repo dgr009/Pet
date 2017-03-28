@@ -351,7 +351,7 @@ public class PppDao {
 	}
 
 	// 비활성화 회원 조회
-	public ArrayList<Member> selectInactiveMember(Connection conn, Member m) {
+	public ArrayList<Member> selectInactiveMember(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Member> list = new ArrayList<>();
@@ -463,7 +463,7 @@ public class PppDao {
 	}
 
 	// 비활성화 된 병원 조회
-	public ArrayList<Hospital> selectInactiveHospital(Connection conn, Hospital h) {
+	public ArrayList<Hospital> selectInactiveHospital(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Hospital> list = new ArrayList<>();
@@ -512,7 +512,7 @@ public class PppDao {
 	}
 
 	// 비활성화 된 미용실 회원 조회
-	public ArrayList<Beauty> selectInactiveBeauty(Connection conn, Beauty b) {
+	public ArrayList<Beauty> selectInactiveBeauty(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Beauty> list = new ArrayList<>();
@@ -561,7 +561,7 @@ public class PppDao {
 	}
 
 	// 비활성화 된 호텔회원 조회
-	public ArrayList<Hotel> selectInactiveHotel(Connection conn, Hotel h) {
+	public ArrayList<Hotel> selectInactiveHotel(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Hotel> list = new ArrayList<>();

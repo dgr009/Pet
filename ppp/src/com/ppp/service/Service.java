@@ -561,12 +561,44 @@ public class Service {
 		}
 	
 		
-
+		// 지역별 호텔 검색
 		public String hotelAreaSearch(HttpServletRequest req) {
 			Connection conn = JdbcUtil.getConnection();
 			ArrayList<Hotel> list = dao.selectHotelByArea(conn, req.getParameter("area"));
 			JdbcUtil.close(conn);
 			return new Gson().toJson(list);
 		}
-	
+
+
+		// 비활성화 된 회원 검색
+		public String inactiveMemberSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Member> list = dao.selectInactiveMember(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+		
+		// 비활성화 된 병원 검색
+		public String inactiveHospitalSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Hospital> list = dao.selectInactiveHospital(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+		
+		// 비활성화 된 미용실 검색
+		public String inactiveBeautySearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Beauty> list = dao.selectInactiveBeauty(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+		
+		// 비활성화 된 호텔 검색
+		public String inactiveHotelSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Hotel> list = dao.selectInactiveHotel(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
 }
