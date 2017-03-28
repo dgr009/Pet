@@ -17,7 +17,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/ppp/member/membermain">Pet PAPA</a>
+				<a class="navbar-brand" href="/ppp/member/membermain"><img src="/ppp/images/logo.png"></a>
 			</div>
 			<div>
 				<div class="collapse navbar-collapse" id="myNavbar">
