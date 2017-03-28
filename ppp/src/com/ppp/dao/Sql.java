@@ -3,6 +3,7 @@ package com.ppp.dao;
 public interface Sql {
 	// 1.회원 리스트 조회
 	public String allMember = "select member_no,member_id,member_address,member_name,member_phone,member_mail,member_gender,member_coupon from member where member_active=1 ";
+
 	// 2.아이디로 회원 리스트 조회
 	public String allMemberId = "select member_no,member_id,member_address,member_name,member_phone,member_mail,member_gender,member_coupon from member where member_id=? and member_active=1";
 	// 3. 병원 리스트 조회
@@ -219,9 +220,18 @@ public interface Sql {
 	public String insertInquireBoardComment = "insert into inquire_board_comment(inquire_board_no,inquire_board_comment_no,admin_id,inquire_board_comment_content,inquire_board_comment_date,admin_no) values(?,?,?,?,?,?)";
 	// 109. 반려동물 추가
 	public String insertAnimal = "insert into animal(member_no,animal_no,animal_name,animal_kind,animal_gender,animal_breed,animal_weight) values(?,?,?,?,?,?,?)";
+	
+	
 	// 110. 관리자 쪽지 추가
-	public String insertMessage = "insert into member_message(member_message_no,member_message_title,member_message_content,member_message_date,member_no) values(?,?,?,?,?)";
+	//public String insertMessage = "insert into member_message(member_message_no,member_message_title,member_message_content,member_message_date,member_no) values(?,?,?,?,?)";
 	// 111. 회원 쪽지 검색
+	
+	// &관리자 쪽지 보내기
+	public String messageSend = "insert into message(message_no,message_title,message_content,message_date,member_no,admin_no) values(?,?,?,?,?,?)";
+	// &관리자 보낸 쪽지함 
+	public String adminMessageSend="select * from message";
+	
+	
 	public String selectMemberMessage = "select m.message_no,m.message_title,m.message_content,m.message_date from message m, member b where m.member_no=b.member_no and  b.member_no=?";
 	// 112. 수의사 추가
 	public String insertVet = "insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,?,?,?)";
@@ -501,7 +511,6 @@ public interface Sql {
 	// 미용실회원 사업자 등록번호 중복확인
 	public String beuatyOrnerNoCheck = "select count(*) from beauty where beauty_orner_no=?";
 	// 호텔회원 아이디 찾기
-
 	public String hotelIdCheck = "select count(*) from hotel where hotel_id=?";
 	// 호텔회원 사업자 등록번호 중복확인
 	public String hotelOrnerNoCheck = "select count(*) from hotel where hotel_orner_no=?";
@@ -517,6 +526,7 @@ public interface Sql {
 	public String HospitalLogin = "select hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_phone,hospital_address,hospital_id,hospital_pwd,hospital_photo,hospital_active,admin_no from hospital where hospital_id=? and hospital_pwd=?";
 	// 미용회원 로그인
 	public String beautyLogin = "select beauty_no,beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_phone,beauty_address,beauty_id,beauty_pwd,beauty_photo,beauty_active,admin_no from beauty where beauty_id=? and beauty_pwd=?";
+
 	// 병원리뷰 수정
 	public String updateHospitalReview="update hospital_review set hospital_review_epilogue=? where hospital_review_no=? and member_no=?";
 	// 미용실리뷰 수정
@@ -531,8 +541,43 @@ public interface Sql {
 	public String updateInquireBoardComment="update inquire_board_comment set inquire_board_comment_content=? where admin_no=?";
 	// 쪽지 마지막 번호 조회
 	public String messageNoMax="select max(message_no)+1 from message";
+
 	// 호텔 상세보기  (번호로)
 	public String allHotelNo = "select hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_address,hotel_phone,hotel_photo from hotel where hotel_no=? and hotel_active=1";
 	// 호텔 평점 구하기
 	public String hotelAvgScore = "select NVL(avg(r.hotel_review_score),0) from hotel h, hotel_review r where h.hotel_no=r.hotel_no(+) and h.hotel_address like ? group by h.hotel_name order by h.hotel_name";
+
+	// 회원리스트 페이징
+	public String selectCountMember = "select count(*) from member";
+	// 병원리스트 페이징
+	public String selectCountHospital="select count(*) from hospital";
+	// 미용실리스트 페이징
+	public String selectCountBeauty="select count(*) from beauty";
+	// 호텔리스트 페이징
+	public String selectCountHotel="select count(*) from hotel";
+	// 비활성화 된 회원 페이징
+	public String inactiveMemberList = "select * from(select * from (select rownum rnum, t.*from (select member_no,member_id, member_phone, member_mail, member_address, member_active_date from member where member_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum>=?";
+	// 비활성화 된 병원 페이징
+	public String inactiveHospitalList="select * from(select * from (select rownum rnum, t.*from (select hospital_id, hospital_phone, hospital_mail, hospital_address,hospital_orner_name, hospital_orner_no from hospital where hospital_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum?";
+	// 비활성화 된 미용실 페이징
+	public String inactiveBeautyList="select * from(select * from (select rownum rnum, t.*from (select hospital_id, hospital_phone, hospital_mail, hospital_address,hospital_orner_name, hospital_orner_no from hospital where hospital_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum>=?";
+	// 비활성화 된 호텔 페이징
+	public String inactiveHotelList="select * from(select * from (select rownum rnum, t.*from (select hospital_id, hospital_phone, hospital_mail, hospital_address,hospital_orner_name, hospital_orner_no from hospital where hospital_active=2)t )t2 where t2.rnum<=?) t3 where t3.rnum>=?";
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

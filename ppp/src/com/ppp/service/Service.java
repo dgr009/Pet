@@ -12,6 +12,7 @@ import org.apache.commons.fileupload.servlet.*;
 
 import com.google.gson.*;
 import com.ppp.dao.*;
+import com.ppp.di.RequestMapping;
 import com.ppp.util.*;
 import com.ppp.vo.*;
 
@@ -83,8 +84,9 @@ public class Service {
 		HashMap<String, String> admin = new HashMap<>();
 		admin.put("member_id", req.getParameter("admin_id"));
 		admin.put("member_pwd", req.getParameter("admin_pwd"));
-		int result = 0;
-		result = dao.adminLogin(conn, admin);
+
+		int result = 0; 
+		result = dao.adminLogin(conn,admin); 
 
 		JdbcUtil.close(conn);
 		return result;
@@ -97,12 +99,13 @@ public class Service {
 		member.put("member_mail", req.getParameter("member_mail"));
 		member.put("member_name", req.getParameter("member_name"));
 		JsonObject ob = new JsonObject();
-		ob.addProperty("result", dao.memberIdCheck(conn, member));
+		ob.addProperty("result", dao.findMemberId(conn, member));
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
 
-	// 일반회원 비밀번호 찾기
+	//일반회원 비밀번호 찾기
+
 	public String memberPwdSearch(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HashMap<String, String> member = new HashMap<>();
@@ -115,7 +118,7 @@ public class Service {
 		return new Gson().toJson(ob);
 	}
 
-	// 일반회원 정보수정
+	//일반회원 정보수정
 	public String memberUpdate(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		int memberNo = Integer.parseInt(req.getParameter("member_no"));
@@ -130,6 +133,95 @@ public class Service {
 			ob.addProperty("result", "fail");
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
+	}
+	
+	//////////////////////////////////////////////
+	/*
+	//비활성화 된 회원 검색
+	public String inactiveMember(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int pageNo = Integer.parseInt(req.getParameter("pageNo"));
+		int numberOfArticle = dao.selectCountMember(conn);
+		Pagination pagination = PagingUtil.setPageMaker(pageNo, numberOfArticle);
+		ArrayList<Member> list = dao.selectByPaging(conn, pagination.getStartArticle(), pagination.getEndArticle());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("list", list);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(map);
+	}
+	// 비활성화 된 병원 검색
+	public String inactiveHospital(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int pageNo = Integer.parseInt(req.getParameter("pageNo"));
+		int numberOfArticle = dao.selectCountHospital(conn);
+		Pagination pagination = PagingUtil.setPageMaker(pageNo, numberOfArticle);
+		ArrayList<Hospital> list = dao.selectByPagingHospital(conn, pagination.getStartArticle(), pagination.getEndArticle());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("list", list);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(map);
+	}
+	// 비활성화 된 미용실 검색
+	public String inactiveBeauty(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int pageNo = Integer.parseInt(req.getParameter("pageNo"));
+		int numberOfArticle = dao.selectCountBeauty(conn);
+		Pagination pagination = PagingUtil.setPageMaker(pageNo, numberOfArticle);
+		ArrayList<Beauty> list = dao.selectByPagingBeauty(conn, pagination.getStartArticle(), pagination.getEndArticle());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("list", list);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(map);
+	}
+	// 비활성화 된 호텔 검색
+	public String inactiveHotel(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int pageNo = Integer.parseInt(req.getParameter("pageNo"));
+		int numberOfArticle = dao.selectCountHotel(conn);
+		Pagination pagination = PagingUtil.setPageMaker(pageNo, numberOfArticle);
+		ArrayList<Hotel> list = dao.selectByPagingHotel(conn, pagination.getStartArticle(), pagination.getEndArticle());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("list", list);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(map);
+	}
+	*/
+	// 메세지 추가
+	public String messageSend(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Admin a = (Admin)session.getAttribute("admin");
+		int messageNo = dao.selectMessageNoMax(conn);
+		int adminNo =a.getAdminNo();
+		Message m = MappingUtil.getSendMessge(req, adminNo, messageNo);
+		int result = dao.insertMessage(conn, m);
+		JsonObject ob = new JsonObject();
+		if(result==1) ob.addProperty("result", "success");
+		else ob.addProperty("result", "fail");
+		JdbcUtil.close(conn);
+		if(result==1){
+			ob.addProperty("result", "success");
+			ArrayList<Message> messagelist = messageSelect(req);
+			session.setAttribute("messagelist", messagelist);
+			session.setAttribute("messagelistgson", new Gson().toJson(messagelist));
+		}
+		else ob.addProperty("result", "fail");
+		JdbcUtil.close(conn);
+
+		return new Gson().toJson(ob);
+	}
+	public ArrayList<Message> messageSelect(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Message m = (Message)session.getAttribute("message");
+		
+		ArrayList<Message> result = dao.allMessage(conn, m); 
+		JdbcUtil.close(conn);
+		return result;
 	}
 
 	// 로그인시 애완 동물 리스트 불러오기
@@ -251,7 +343,6 @@ public class Service {
 		} else {
 
 		}
-
 		return new Gson().toJson(ob);
 	}
 
@@ -323,12 +414,28 @@ public class Service {
 
 	}
 
-	// 호텔 지역으로 검색
-	public String hotelAreaSearch(HttpServletRequest req) {
+	//호텔회원 아이디찾기
+	public String hotelIdSearch(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
-		ArrayList<Hotel> list = dao.selectHotelByArea(conn, req.getParameter("area"));
+		HashMap<String, String> hotel = new HashMap<>();
+		hotel.put("hotel_mail", req.getParameter("hotel_mail"));
+		hotel.put("hotel_orner_no", req.getParameter("hotel_orner_no"));
+		JsonObject ob = new JsonObject();
+		ob.addProperty("result", dao.findHotelId(conn, hotel));
 		JdbcUtil.close(conn);
-		return new Gson().toJson(list);
+		return new Gson().toJson(ob);
+	}
+	//호텔회원 비밀번호 찾기
+	public String hotelPwdSearch(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HashMap<String, String> hotel = new HashMap<>();
+		hotel.put("hotel_mail", req.getParameter("hotel_mail"));
+		hotel.put("hotel_orner_no", req.getParameter("hotel_orner_no"));
+		hotel.put("hotel_id", req.getParameter("hotel_id"));
+		JsonObject ob = new JsonObject();
+		ob.addProperty("result", dao.findHotelPwd(conn, hotel));
+		JdbcUtil.close(conn);
+		return new Gson().toJson(ob);
 	}
 
 	// 호텔 평점으로 검색(리스트)
@@ -428,17 +535,117 @@ public class Service {
 			System.out.println("로그인 성공");
 			session.removeAttribute("logincheck");
 			session.setAttribute("hospital", result);
+			session.setAttribute("hotelgson", new Gson().toJson(result));
 			JdbcUtil.close(conn);
 			return result;
 		}
 	}
+		
+		//미용실 회원 아이디찾기
+		public String beautyIdSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String, String> beauty = new HashMap<>();
+			beauty.put("beauty_mail", req.getParameter("beauty_mail"));
+			beauty.put("beauty_orner_no", req.getParameter("beauty_orner_no"));
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", dao.findbeautyId(conn, beauty));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(ob);
+		}
+		
+		//미용실 회원 비밀번호 찾기
+		public String beautyPwdSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String, String> beauty = new HashMap<>();
+			beauty.put("beauty_mail", req.getParameter("beauty_mail"));
+			beauty.put("beauty_orner_no", req.getParameter("beauty_orner_no"));
+			beauty.put("beauty_id", req.getParameter("beauty_id"));
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", dao.findbeautyPwd(conn, beauty));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(ob);
+		}
 
+		//////////////////
+		//병원 회원 등록(추가)
+	
 	// 병원회원 로그아웃
 	public void hospitalLogout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		session.removeAttribute("hospital");
+		session.removeAttribute("hospitalgson");
 		session.removeAttribute("logincheck");
 
 	}
+
+		
+		//병원회원 아이디 찾기
+		public String hospitalIdSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String, String> hospital = new HashMap<>();
+			hospital.put("hospital_mail", req.getParameter("hospital_mail"));
+			hospital.put("hospital_orner_no", req.getParameter("hospital_orner_no"));
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", dao.findHospitalId(conn, hospital));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(ob);
+		}
+		
+		//병원회원 비밀번호 찾기
+		public String hospitalPwdSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HashMap<String , String> hospital = new HashMap<>();
+			hospital.put("hospital_mail", req.getParameter("hospital_mail"));
+			hospital.put("hospital_orner_no", req.getParameter("hospital_orner_no"));
+			hospital.put("hospital_id", req.getParameter("hospital_id"));
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", dao.findHospitalPwd(conn, hospital));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(ob);
+		}
+	
+		
+		// 지역별 호텔 검색
+		public String hotelAreaSearch(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Hotel> list = dao.selectHotelByArea(conn, req.getParameter("area"));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+
+
+		// 비활성화 된 회원 검색
+		public String inactiveMemberSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Member> list = dao.selectInactiveMember(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+		
+		// 비활성화 된 병원 검색
+		public String inactiveHospitalSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Hospital> list = dao.selectInactiveHospital(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+		
+		// 비활성화 된 미용실 검색
+		public String inactiveBeautySearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Beauty> list = dao.selectInactiveBeauty(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+		
+		// 비활성화 된 호텔 검색
+		public String inactiveHotelSearch(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Hotel> list = dao.selectInactiveHotel(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+
+		// 회원 쿠폰수 조정
 
 }

@@ -21,19 +21,19 @@
 
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="who">User: </label> <input type="radio" name="user"
-								value="member" checked="checked">멤버 <input type="radio"
-								name="user" value="hotel">호텔 <input type="radio"
-								name="user" value="hospital">병원 <input type="radio"
-								name="user" value="beauty">미용
+							<label for="who">User: </label> 
+							<input type="radio" name="user" value="member" checked="checked">멤버 
+							<input type="radio" name="user" value="hotel">호텔 
+							<input type="radio" name="user" value="hospital">병원 
+							<input type="radio" name="user" value="beauty">미용
 						</div>
 						<div class="form-group">
-							<label for="usr">I D:</label> <input type="text"
-								class="form-control" id="usr_id" name="member_id">
+							<label for="usr">I D:</label>
+							 <input type="text" class="form-control" id="usr_id" name="member_id">
 						</div>
 						<div class="form-group">
-							<label for="pwd">Password:</label> <input type="password"
-								class="form-control" id="usr_pwd" name="member_pwd">
+							<label for="pwd">Password:</label> 
+							<input type="password" class="form-control" id="usr_pwd" name="member_pwd">
 						</div>
 
 
@@ -43,11 +43,11 @@
 							<input type="button" class="btn btn-default"
 							onclick="user_id_check()" id="find_id"  value="Find ID">
 							
-					
+						
 							<input type="button" class="btn btn-default"
 							onclick="user_pwd_check()" id="find_pwd"  value="Find PWD">
 						
-						왜안뷔꺼어어엉
+					
 						<input type="button" class="btn btn-default"
 							onclick="login_check()" value="Login">
 					</div>

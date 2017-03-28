@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.*;
 
 import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.servlet.http.*;
 
@@ -69,6 +70,20 @@ public class MappingUtil {
 		a.setAdminMail(req.getParameter("admin_mail"));
 
 		return a;
+	}
+	
+	// 메세지 가져오기
+	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
+		Message m = new Message();
+		java.util.Date d = new java.util.Date();
+	    java.sql.Date date = new java.sql.Date(d.getTime());  
+		m.setAdminNo(adminNo);
+		m.setMessageNo(messageNo);
+		m.setMessageTitle(req.getParameter("message_title"));
+		m.setMessageContent(req.getParameter("message_content"));
+		m.setMessageDate(date);
+		m.setMemberNo(Integer.parseInt(req.getParameter("member_no")));
+		return m;
 	}
 
 	// 애완 동물 만들기
@@ -275,18 +290,16 @@ public class MappingUtil {
 		return b;
 	}
 	
-	//메세지 보내기
-	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
-		Message m = new Message();
+	// 쪽지 
+	public static Message getMessageFromRequest(HttpServletRequest req, int messageNo){
 		java.util.Date d = new java.util.Date();
-	    java.sql.Date date = new java.sql.Date(d.getTime());  
-		m.setAdminNo(adminNo);
+	     java.sql.Date date = new java.sql.Date(d.getTime());
+		Message m = new Message();
 		m.setMessageNo(messageNo);
+		m.setMemberNo(Integer.parseInt(req.getParameter("member_no")));
 		m.setMessageTitle(req.getParameter("message_title"));
 		m.setMessageContent(req.getParameter("message_content"));
 		m.setMessageDate(date);
-		m.setMemberNo(Integer.parseInt(req.getParameter("memeber_no")));
 		return m;
-
 	}
 }

@@ -8,6 +8,6 @@
 </head>
 <body>
 관리자 로그인 성공
-
+<a href="MessageSend.jsp">메세지 보내기</a>
 </body>
 </html>

@@ -5,6 +5,10 @@ import java.sql.Date;
 import java.util.*;
 
 import com.ppp.util.*;
+
+import javax.naming.spi.DirStateFactory.*;
+
+import com.ppp.util.*;
 import com.ppp.vo.*;
 
 public class PppDao {
@@ -53,7 +57,7 @@ public class PppDao {
 	}
 
 	// 일반 회원 아이디찾기
-	public String memberIdCheck(Connection conn, HashMap<String, String> member) {
+	public String findMemberId(Connection conn, HashMap<String, String> member) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -222,13 +226,13 @@ public class PppDao {
 	public int insertMessage(Connection conn, Message m) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement(Sql.insertMessage);
+			pstmt = conn.prepareStatement(Sql.messageSend);
 			pstmt.setInt(1, m.getMessageNo());
 			pstmt.setString(2, m.getMessageTitle());
 			pstmt.setString(3, m.getMessageContent());
 			pstmt.setDate(4, m.getMessageDate());
-			pstmt.setInt(5, m.getAdminNo());
-			pstmt.setInt(6, m.getMemberNo());
+			pstmt.setInt(6, m.getAdminNo());
+			pstmt.setInt(5, m.getMemberNo());
 
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -254,7 +258,7 @@ public class PppDao {
 	}
 
 	// 회원정보 조회
-	public ArrayList<Member> selectAllMember(Connection conn) {
+	public ArrayList<Member> selectAllMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Member> list = new ArrayList<Member>();
@@ -344,7 +348,7 @@ public class PppDao {
 	}
 
 	// 비활성화 회원 조회
-	public ArrayList<Member> selectInactiveMember(Connection conn, Member m) {
+	public ArrayList<Member> selectInactiveMember(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Member> list = new ArrayList<>();
@@ -456,7 +460,7 @@ public class PppDao {
 	}
 
 	// 비활성화 된 병원 조회
-	public ArrayList<Hospital> selectInactiveHospital(Connection conn, Hospital h) {
+	public ArrayList<Hospital> selectInactiveHospital(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Hospital> list = new ArrayList<>();
@@ -505,7 +509,7 @@ public class PppDao {
 	}
 
 	// 비활성화 된 미용실 회원 조회
-	public ArrayList<Beauty> selectInactiveBeauty(Connection conn, Beauty b) {
+	public ArrayList<Beauty> selectInactiveBeauty(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Beauty> list = new ArrayList<>();
@@ -554,7 +558,7 @@ public class PppDao {
 	}
 
 	// 비활성화 된 호텔회원 조회
-	public ArrayList<Hotel> selectInactiveHotel(Connection conn, Hotel h) {
+	public ArrayList<Hotel> selectInactiveHotel(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Hotel> list = new ArrayList<>();
@@ -669,6 +673,7 @@ public class PppDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(Sql.hospitalIdCheck);
+			pstmt.setString(1, hospitalId);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1);
@@ -863,18 +868,16 @@ public class PppDao {
 	}
 
 	// 병원회원 아이디 찾기
-	public Hospital findHospitalId(Connection conn, String hospitalMail, String hospitalOrnerNo) {
+	public String findHospitalId(Connection conn, HashMap<String, String> hospital) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Hospital h = new Hospital();
 		try {
 			pstmt = conn.prepareStatement(Sql.findHospitalId);
-			pstmt.setString(1, hospitalMail);
-			pstmt.setString(2, hospitalOrnerNo);
+			pstmt.setString(1, hospital.get("hospital_mail"));
+			pstmt.setString(2, hospital.get("hospital_orner_no"));
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				h.setHospitalId(rs.getString("hospitalId"));
-				return h;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -885,19 +888,17 @@ public class PppDao {
 	}
 
 	// 병원회원 비밀번호 찾기
-	public Hospital findHospitalPwd(Connection conn, String hospitalMail, String hopitalOrnerNo, String hospitalId) {
+	public String findHospitalPwd(Connection conn, HashMap<String,String> hospital) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Hospital h = new Hospital();
 		try {
 			pstmt = conn.prepareStatement(Sql.findHospitalPwd);
-			pstmt.setString(1, hospitalMail);
-			pstmt.setString(2, hopitalOrnerNo);
-			pstmt.setString(3, hospitalMail);
+			pstmt.setString(1, hospital.get("hospital_mail"));
+			pstmt.setString(2, hospital.get("hospital_orner_no"));
+			pstmt.setString(3, hospital.get("hospital_id"));
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				h.setHospitalPwd(rs.getString("hospitalPwd"));
-				return h;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -906,7 +907,7 @@ public class PppDao {
 		}
 		return null;
 	}
-
+	
 	// 미용실회원 아이디 중복체크
 	public int beautyidCheck(Connection conn, String beautyId) {
 		PreparedStatement pstmt = null;
@@ -1111,18 +1112,16 @@ public class PppDao {
 	}
 
 	// 미용실회원 아이디 찾기
-	public Beauty findbeautyId(Connection conn, String beautyMail, String beautyOrnerNo) {
+	public String findbeautyId(Connection conn, HashMap<String,String> beauty ) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Beauty b = new Beauty();
 		try {
 			pstmt = conn.prepareStatement(Sql.findBeautyId);
-			pstmt.setString(1, beautyMail);
-			pstmt.setString(2, beautyOrnerNo);
+			pstmt.setString(1, beauty.get("beauty_mail"));
+			pstmt.setString(2, beauty.get("beauty_orner_no"));
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				b.setBeautyId(rs.getString("beautyId"));
-				return b;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1131,29 +1130,30 @@ public class PppDao {
 		}
 		return null;
 	}
+	
 
 	// 미용실회원 비밀번호 찾기
-	public Beauty findbeautyPwd(Connection conn, String beautyMail, String beautyOrnerNo, String beautyId) {
+	public String findbeautyPwd(Connection conn, HashMap<String,String> beauty) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Beauty b = new Beauty();
 		try {
 			pstmt = conn.prepareStatement(Sql.findBeautyId);
-			pstmt.setString(1, beautyMail);
-			pstmt.setString(2, beautyOrnerNo);
-			pstmt.setString(3, beautyId);
+			pstmt.setString(1, beauty.get("beauty_mail"));
+			pstmt.setString(2, beauty.get("beaury_orner_no"));
+			pstmt.setString(3, beauty.get("beaury_id"));
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				b.setBeautyPwd(rs.getString("beautyPwd"));
-				return b;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JdbcUtil.close(pstmt, null);
+			JdbcUtil.close(pstmt, rs);
 		}
 		return null;
 	}
-
+	
+	
 	// 호텔회원 아이디 중복체크
 	public int hotelidCheck(Connection conn, String hotelId) {
 		PreparedStatement pstmt = null;
@@ -1378,18 +1378,16 @@ public class PppDao {
 	}
 
 	// 호텔회원 아이디 찾기
-	public Hotel findHotelId(Connection conn, String hotelMail, String hotelOrnerNo) {
+	public String findHotelId(Connection conn, HashMap<String,String> hotel) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Hotel h = new Hotel();
 		try {
-			pstmt = conn.prepareStatement(Sql.findBeautyId);
-			pstmt.setString(1, hotelMail);
-			pstmt.setString(2, hotelOrnerNo);
+			pstmt = conn.prepareStatement(Sql.findHotelId);
+			pstmt.setString(1, hotel.get("hotel_mail"));
+			pstmt.setString(2, hotel.get("hotel_orner_no"));
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				h.setHotelId(rs.getString("hotelId"));
-				return h;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1399,19 +1397,19 @@ public class PppDao {
 		return null;
 	}
 
+
 	// 호텔회원 비밀번호 찾기
-	public Hotel findHotelPwd(Connection conn, String hotelMail, String hotelOrnerNo, String hotelId) {
+	public String findHotelPwd(Connection conn, HashMap<String,String> hotel) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Hotel h = new Hotel();
 		try {
 			pstmt = conn.prepareStatement(Sql.findHotelPwd);
-			pstmt.setString(1, hotelMail);
-			pstmt.setString(2, hotelOrnerNo);
-			pstmt.setString(3, hotelId);
+			pstmt.setString(1, hotel.get("hotel_mail"));
+			pstmt.setString(2, hotel.get("hotel_orner_no"));
+			pstmt.setString(3, hotel.get("hotel_id"));
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				h.setHotelPwd(rs.getString("hotelPwd"));
-				return h;
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1479,6 +1477,8 @@ public class PppDao {
 		}
 		return null;
 	}
+	
+	
 
 	// 애완 동물 마지막 번호 찾기
 	public int animalMaxNo(Connection conn, int memberNo) {
@@ -2353,12 +2353,39 @@ public class PppDao {
 	// 쪽지 찾기 기본
 	public Message basicMessage(ResultSet rs) throws SQLException{
 		Message m = new Message();
-		m.setMemberNo(rs.getInt("memberNo"));
-		m.setMessageTitle(rs.getString("messageTitle"));
-		m.setMessageContent(rs.getString("messageContent"));
-		m.setMessageDate(rs.getDate("messageDate"));
+		m.setMessageNo(rs.getInt("message_no"));
+		m.setMessageTitle(rs.getString("message_title"));
+		m.setMessageContent(rs.getString("message_content"));
+		m.setMessageDate(rs.getDate("message_date"));
+		m.setAdminNo(rs.getInt("admin_no"));
+		m.setMemberNo(rs.getInt("member_no"));
+		
 		return m;
 	}
+	
+	// &쪽지 리스트
+	public ArrayList<Message> allMessage(Connection conn, Message m){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Message> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.adminMessageSend);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				list.add(basicMessage(rs));
+				return list;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		} return null;
+	
+		
+	}
+	
+	
 	// 쪽지 찾기
 	public ArrayList<Message> findAllMessage(Connection conn, Message m){
 		PreparedStatement pstmt =null;
@@ -2392,6 +2419,25 @@ public class PppDao {
 		}  return -1;
 	}
 	
+	// 반려동물 추가
+	public int insertAnimal(Connection conn, Animal a){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.insertAnimal);
+			pstmt.setInt(1, a.getMemberNo());
+			pstmt.setInt(2, a.getAnimalNo());
+			pstmt.setString(3, a.getAnimalName());
+			pstmt.setString(4, a.getAnimalKind());
+			pstmt.setString(5, a.getAnimalGender());
+			pstmt.setString(6, a.getAnimalBreed());
+			pstmt.setFloat(7, a.getAnimalWeight());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
 	// 개인회원 병원예약내역 조회
 	public ArrayList<HospitalReserve> findHospitalReserve(Connection conn, HospitalReserve hr){
 		PreparedStatement pstmt = null;
@@ -2450,6 +2496,37 @@ public class PppDao {
 		} return null;
 	}
 	
+	// 반려동물 수정
+	public int updateAnimal(Connection conn, Animal a){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.updateAnimal);
+			pstmt.setString(1, a.getAnimalName());
+			pstmt.setString(2, a.getAnimalGender());
+			pstmt.setFloat(3, a.getAnimalWeight());
+			pstmt.setInt(4, a.getMemberNo());
+			pstmt.setInt(5, a.getAnimalNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
+	// 반려동물 삭제
+	public int deleteAnimal(Connection conn, Animal a){
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.deleteAnimal);
+			pstmt.setInt(1, a.getMemberNo());
+			pstmt.setInt(2, a.getAnimalNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		} return -1;
+	}
 	// 마지막 쪽지번호 조회
 	public int selectMessageNoMax(Connection conn){
 		PreparedStatement pstmt = null;
@@ -2561,6 +2638,199 @@ public class PppDao {
 			e.printStackTrace();
 		} finally {
 
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+
+
+	// 전체회원 리스트
+
+	public int selectCountMember(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.selectCountMember);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+
+	// 병원회원 전체 리스트
+	//애완동물 리스트 보기
+	// 애완동물 리스트 보기
+
+	
+	public int selectCountHospital(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.selectCountHospital);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+	// 미용실회원 전체 리스트
+	public int selectCountBeauty(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.selectCountBeauty);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+	// 호텔회원 전체리스트
+	public int selectCountHotel(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(Sql.selectCountHotel);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+	
+	// 비활성화된 회원 페이징
+	public ArrayList<Member> selectByPaging(Connection conn, int startId, int endId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Member> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.inactiveMemberList);  // 여기부터
+			pstmt.setInt(1, endId);
+			pstmt.setInt(2, startId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Member m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberName(rs.getString("member_name"));
+				m.setMemberPhone(rs.getString("member_phone"));
+				m.setMemberMail(rs.getString("member_mail"));
+				m.setMemberActiveDate(rs.getDate("member_active_date"));
+				list.add(m);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+	
+	// 비활성화 된 병원 페이징
+	public ArrayList<Hospital> selectByPagingHospital(Connection conn, int startId, int endId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hospital> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.inactiveHospitalList);  // 여기부터
+			pstmt.setInt(1, endId);
+			pstmt.setInt(2, startId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Hospital h = new Hospital();
+				h.setHospitalNo(rs.getInt("hospital_no"));
+				h.setHospitalName(rs.getString("hospital_name"));
+				h.setHospitalPhone(rs.getString("hospital_phone"));
+				h.setHospitalMail(rs.getString("hospital_mail"));
+				h.setHospitalOrnerName(rs.getString("hospital_orner_name"));
+				h.setHospitalOrnerNo(rs.getString("hospital_orner_no"));
+				h.setHospitalActiveDate(rs.getDate("hospital_active_date"));
+				list.add(h);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+	// 비활성화 된 미용실 페이징
+	public ArrayList<Beauty> selectByPagingBeauty(Connection conn, int startId, int endId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Beauty> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.inactiveBeautyList);  // 여기부터
+			pstmt.setInt(1, endId);
+			pstmt.setInt(2, startId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Beauty b = new Beauty();
+				b.setBeautyNo(rs.getInt("beauty_no"));
+				b.setBeautyName(rs.getString("beauty_name"));
+				b.setBeautyPhone(rs.getString("beauty_phone"));
+				b.setBeautyMail(rs.getString("beauty_mail"));
+				b.setBeautyOrnerName(rs.getString("beauty_orner_name"));
+				b.setBeautyOrnerNo(rs.getString("beauty_orner_no"));
+				b.setBeautyActiveDate(rs.getDate("beauty_active_date"));
+				list.add(b);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+	
+	// 비활성화 된 호텔 페이징
+	public ArrayList<Hotel> selectByPagingHotel(Connection conn, int startId, int endId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hotel> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.inactiveHotelList);  // 여기부터
+			pstmt.setInt(1, endId);
+			pstmt.setInt(2, startId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Hotel h = new Hotel();
+				h.setHotelNo(rs.getInt("hotel_no"));
+				h.setHotelName(rs.getString("hotel_name"));
+				h.setHotelPhone(rs.getString("hotel_phone"));
+				h.setHotelMail(rs.getString("hotel_mail"));
+				h.setHotelOrnerName(rs.getString("hotel_orner_name"));
+				h.setHotelOrnerNo(rs.getString("hotel_orner_no"));
+				h.setHotelActiveDate(rs.getDate("hotel_active_date"));
+				list.add(h);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
 		return null;
