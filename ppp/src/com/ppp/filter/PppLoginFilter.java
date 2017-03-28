@@ -48,6 +48,7 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/hotel/hotelpwdsearch");
     	whiteList.add("/ppp/hospital/hospitalpwdsearch");
     	whiteList.add("/ppp/beauty/beautypwdsearch");
+    	whiteList.add("/ppp/hotel/hotelscoresearch");
     }
 	public void destroy() {
 	}

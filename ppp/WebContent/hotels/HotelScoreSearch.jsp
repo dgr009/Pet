@@ -31,6 +31,7 @@ $(document).ready(function() {
 });
 </script>
 <body>
+<br><br><br><br>
 <div>
 <!-- 헤더 -->
 	<%@ include file="../members/BigHeader.jsp"%>
@@ -39,6 +40,7 @@ $(document).ready(function() {
 <br><br><br>
 <div>
 </div>
+<br><br><br><br>
 <table class="hotel_list"  width="700px">
 		
 			<thead>

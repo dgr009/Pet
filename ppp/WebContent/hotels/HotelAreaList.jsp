@@ -8,7 +8,14 @@
     <link href="/ppp/css/reset.css" rel="stylesheet" />
     <link href="/ppp/css/hotel.css" rel="stylesheet" />
 <title>Insert title here</title>
-
+<style>
+	#list_title{
+		display:inline;
+	}
+	#inline_form{
+	display:inline;
+	}
+</style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -24,15 +31,22 @@ $(document).ready(function() {
 		$(".hotel_list tbody").append("<tr><td rowspan='5' width='200px'><a href='/ppp/hotel/hotelview?hotel_no="+h.hotelNo+"'><img src='../hotels/hotelimg//"+h.hotelPhoto +"' width='200px' height='200px'></a></td><td>"+h.hotelName+"</td></tr>").append(hotelMail).append(hotelPhone).append(hotelAddress).append(hotelScore);
 	});
 	
-	
 });
+
+</script>
+
 </head>
+
 <body>
  <header>
-        <h1 class="main_title"><a href="/ppp/member/membermain"><img src="/ppp/images/logo.png" alt="펫파파 로고" /></a></h1>
+        <h1 class="main_title"><a href="/ppp/member/membermain"><img src="/ppp/images/logo2.png" alt="펫파파 로고" /></a></h1>
+
     </header>
     <section class="hotel_section">
-        <h2>Hotel List</h2>
+        <h2 id="list_title">Hotel List</h2>
+        <form  id="inline_form" action="/ppp/hotel/hotelareasearch" method="get">
+			지역 검색 : <input type="text" name="area"><button>검색</button>
+		</form>
         <hr />
         <a href="#">
             <article class="hotel_article">

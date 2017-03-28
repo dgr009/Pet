@@ -42,10 +42,14 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<!-- 헤더 -->
+	<%@ include file="../members/BigHeader.jsp"%>
+
 	<form action="/ppp/hotel/hotelareasearch" method="get">
 	지역 검색 : <input type="text" name="area"><button>검색</button>
 </form>
 </div>
+
 <table class="hotel_view" border='1'>
 
 </table>

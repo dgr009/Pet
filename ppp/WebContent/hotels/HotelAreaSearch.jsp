@@ -31,6 +31,7 @@ $(document).ready(function() {
 });
 </script>
 <body>
+<br><br><br><br>
 <div>
 <!-- 헤더 -->
 	<%@ include file="../members/BigHeader.jsp"%>
