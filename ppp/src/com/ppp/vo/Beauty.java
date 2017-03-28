@@ -13,9 +13,26 @@ public class Beauty {
 	String beautyMail;
 	String beautyPhone;
 	String beautyPhoto;
+	float beautyScore;
+	int countReview;
 	int beautyActive;
 	Date beautyActiveDate;
 	int adminNo;
+	
+	
+	
+	public float getBeautyScore() {
+		return beautyScore;
+	}
+	public void setBeautyScore(float beautyScore) {
+		this.beautyScore = beautyScore;
+	}
+	public int getCountReview() {
+		return countReview;
+	}
+	public void setCountReview(int countReview) {
+		this.countReview = countReview;
+	}
 	public int getBeautyNo() {
 		return beautyNo;
 	}

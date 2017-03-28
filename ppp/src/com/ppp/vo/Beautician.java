@@ -4,6 +4,7 @@ public class Beautician {
 	   int beauticianNo;
 	   String beauticianName;
 	   String beauticianIntroduce;
+	   String beauticianPhoto;
 	   int beautyNo;
 	public int getBeauticianNo() {
 		return beauticianNo;
@@ -29,5 +30,12 @@ public class Beautician {
 	public void setBeautyNo(int beautyNo) {
 		this.beautyNo = beautyNo;
 	}
+	public String getBeauticianPhoto() {
+		return beauticianPhoto;
+	}
+	public void setBeauticianPhoto(String beauticianPhoto) {
+		this.beauticianPhoto = beauticianPhoto;
+	}
 	   
+	
 }

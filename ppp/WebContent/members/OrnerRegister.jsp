@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 	<div class="modal fade" id="myModalll" role="dialog">
@@ -53,17 +54,22 @@
 								class="form-control" id="usr" name='orner_phone'>
 						</div>
 						<div class="form-group">
-							<label for="usr">mail:</label> <input type="text"
+							<label for="usr">mail:</label><input type="text"
 								class="form-control" id="usr" name='orner_mail'>
 						</div>
 						<div class="form-group">
-							<label for="usr">address:</label> <input type="text"
-								class="form-control" id="usr" name='orner_address'>
+							<label for="usr">address:</label>
+							<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="주소검색">
+							 <input type="text"
+								class="form-control" id="jibun_address2" name='orner_address'>
+								<span id="guide" style="color:#999"></span>
+								
 						</div>
 						<div>
 							<input type='hidden' value='1' name='orner_active'> <input
 								type='hidden' value='1' name='orner_adminno'><input
-								type="hidden" value='0' name="score">
+								type="hidden" value='0' name="score"><input
+								type="hidden" value='0' name="count_review">
 						</div>
 						<div class="form-group">
 							<label for="usr">photo:</label> <input type="file"

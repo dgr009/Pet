@@ -41,10 +41,6 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/hotel/hotelidsearch");
     	whiteList.add("/ppp/hospital/hospitalidsearch");
     	whiteList.add("/ppp/beauty/beautyidsearch");
-    	whiteList.add("/ppp/hotel/hotelareasearch");
-    	whiteList.add("/ppp/hotel/hotelgradesearch");
-    	whiteList.add("/ppp/hotel/hotelreviewsearch");
-    	whiteList.add("/ppp/hotel/hotelview");
     	whiteList.add("/ppp/hotel/hotelpwdsearch");
     	whiteList.add("/ppp/hospital/hospitalpwdsearch");
     	whiteList.add("/ppp/beauty/beautypwdsearch");
@@ -62,8 +58,11 @@ public class PppLoginFilter implements Filter {
 		String go = uri;
 		Member member = (Member)session.getAttribute("member");
 		Admin admin = (Admin)session.getAttribute("admin");
+		Hotel hotel = (Hotel)session.getAttribute("hotel");
+		Hospital hospital = (Hospital)session.getAttribute("hospital");
+		Beauty beauty = (Beauty)session.getAttribute("beauty");
 		// 화이트리스트에 없는 로그인이 필요한 경로에 접근했고 로그인이 안된 경우
-		if((!whiteList.contains(uri)) && (member==null && admin==null)) {
+		if((!whiteList.contains(uri)) && (member==null && admin==null && hotel==null && hospital==null && beauty==null)) {
 			System.out.println("로그인 안됨");
 			// 예를 들어 /board/view를 요청했는데 로그인이 안된 경우
 			// 로그인을 한 다음 /board/view로 다시 이동해야 한다
@@ -71,6 +70,12 @@ public class PppLoginFilter implements Filter {
 			String user = uri.substring(uri.indexOf("/",2)+1, uri.lastIndexOf("/"));
 			System.out.println("user : " + user);
 			if(user.equals("member") || user.equals("members"))
+				go = "/ppp/member/login";
+			else if(user.equals("hotel") || user.equals("hotels"))
+				go = "/ppp/member/login";
+			else if(user.equals("hospital") || user.equals("hospitals"))
+				go = "/ppp/member/login";
+			else if(user.equals("beauty") || user.equals("beauties"))
 				go = "/ppp/member/login";
 			else if(user.equals("admin") || user.equals("admins"))
 				go = "/ppp/admin/adminlogin";

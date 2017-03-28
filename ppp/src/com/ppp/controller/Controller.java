@@ -121,18 +121,17 @@ public class Controller {
 
 		return mav;
 	}
-	
+
 	// 회원 홈페이지로 이동
-		@RequestMapping(value = "/member/memberhome", method = "GET")
-		public static ModelAndView memberHome(HttpServletRequest req) {
-			ModelAndView mav = new ModelAndView();
-			HttpSession session = req.getSession();
-			mav.setView("/ppp/members/memberindex2.jsp");
-			mav.setRedirect();
-			return mav;
-		}
-		
-		
+	@RequestMapping(value = "/member/memberhome", method = "GET")
+	public static ModelAndView memberHome(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		mav.setView("/ppp/members/memberindex2.jsp");
+		mav.setRedirect();
+		return mav;
+	}
+
 	//////////////////////////////////////////////////////////////////
 
 	// 일반회원 정보 수정(폼으로)
@@ -252,10 +251,10 @@ public class Controller {
 
 		return mav;
 	}
-	
+
 	// 비활성화 된 회원 검색
-	@RequestMapping(value="/member/memberdeactiviysearch", method="GET")
-	public static ModelAndView memberInactiveSearch(HttpServletRequest req){
+	@RequestMapping(value = "/member/memberdeactiviysearch", method = "GET")
+	public static ModelAndView memberInactiveSearch(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveMemberSearch(req));
@@ -315,43 +314,46 @@ public class Controller {
 	}
 
 	// 호텔회원 아이디찾기 (폼)
-	@RequestMapping(value ="/hotel/hotelidsearch", method="GET")
-	public static ModelAndView hotelIdSearchStart(HttpServletRequest req){
-		Service s =(Service) req.getServletContext().getAttribute("service");
+	@RequestMapping(value = "/hotel/hotelidsearch", method = "GET")
+	public static ModelAndView hotelIdSearchStart(HttpServletRequest req) {
+		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/hotels/hotelIdSearch.jsp");
-		
+
 		return mav;
 	}
+
 	// 호텔회원 아이디 찾기
-	@RequestMapping(value="/hotel/hotelidsearch", method="AJAX")
-	public static ModelAndView hotelIdSearchEnd(HttpServletRequest req){
+	@RequestMapping(value = "/hotel/hotelidsearch", method = "AJAX")
+	public static ModelAndView hotelIdSearchEnd(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.hotelIdSearch(req));
 		return mav;
 	}
+
 	// 호텔회원 비밀번호 찾기(폼)
-	@RequestMapping(value="/hotel/hotelpwdsearch", method="GET")
-	public static ModelAndView hotelPwdSearchStart(HttpServletRequest req){
-		Service s = (Service)req.getServletContext().getAttribute("service");
+	@RequestMapping(value = "/hotel/hotelpwdsearch", method = "GET")
+	public static ModelAndView hotelPwdSearchStart(HttpServletRequest req) {
+		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/hotels/hotelPwdSearch.jsp");
-		
+
 		return mav;
 	}
-	
-	//호텔회원 비밀번호찾기
-	@RequestMapping(value="/hotel/hotelpwdsearch", method="AJAX")
-	public static ModelAndView hotelPwdSearchend(HttpServletRequest req){
+
+	// 호텔회원 비밀번호찾기
+	@RequestMapping(value = "/hotel/hotelpwdsearch", method = "AJAX")
+	public static ModelAndView hotelPwdSearchend(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.hotelPwdSearch(req));
 		return mav;
 	}
+
 	// 비활성화 된 호텔 검색
-	@RequestMapping(value="/hotel/hoteldeactiviysearch", method="GET")
-	public static ModelAndView hotelInactiveSearch(HttpServletRequest req){
+	@RequestMapping(value = "/hotel/hoteldeactiviysearch", method = "GET")
+	public static ModelAndView hotelInactiveSearch(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveHotelSearch(req));
@@ -359,30 +361,40 @@ public class Controller {
 		return mav;
 	}
 
-	
-	//호텔 지역으로 검색(리스트)
+	// 호텔 지역으로 검색(리스트)
 	@RequestMapping(value = "/hotel/hotelareasearch", method = "GET")
 	public static ModelAndView hotelAreaSearch(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.hotelAreaSearch(req));
-		mav.setView("/hotels/HotelAreaSearch.jsp");
+		mav.setView("/hotels/HotelList.jsp");
 
 		return mav;
 	}
-	
-	//호텔 평점으로 검색(리스트)
+
+	// 호텔 평점으로 검색(리스트)
 	@RequestMapping(value = "/hotel/hotelscoresearch", method = "GET")
 	public static ModelAndView hotelScoreSearch(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.hotelScoreSearch(req));
-		mav.setView("/hotels/HotelScoreSearch.jsp");
+		mav.setView("/hotels/HotelList.jsp");
 
 		return mav;
 	}
-	
-	//호텔 상세보기
+
+	// 호텔 리뷰순으로 검색(리스트)
+	@RequestMapping(value = "/hotel/hotelreviewsearch", method = "GET")
+	public static ModelAndView hotelReviewSearch(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.hotelReviewSearch(req));
+		mav.setView("/hotels/HotelList.jsp");
+
+		return mav;
+	}
+
+	// 호텔 상세보기
 	@RequestMapping(value = "/hotel/hotelview", method = "GET")
 	public static ModelAndView hotelView(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
@@ -394,7 +406,27 @@ public class Controller {
 		return mav;
 	}
 	
+	// 호텔 방 추가하기
+	@RequestMapping(value = "/hotel/roomregister", method = "GET")
+	public static ModelAndView roomRegisterStart(HttpServletRequest req){
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/hotels/RoomRegister.jsp");
+		return mav;
+	}
 	
+	// 호텔 방 추가하기
+		@RequestMapping(value = "/hotel/roomregister", method = "POST")
+		public static ModelAndView roomRegisterEnd(HttpServletRequest req){
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("result", service.roomInsert(req));
+			mav.setView("/ppp/hotel/hotelareasearch");
+			mav.setRedirect();
+			return mav;
+		}
+	
+
 	/////////////////////////////////
 	/////////////////////////////////
 	/////////////////////////////////
@@ -446,69 +478,115 @@ public class Controller {
 
 		return mav;
 	}
+
 	// 미용실회원 아이디찾기 (폼)
-	@RequestMapping(value="/beauty/beautyidsearch", method="GET")
-	public static ModelAndView beautyIdSearchStart(HttpServletRequest req){
+	@RequestMapping(value = "/beauty/beautyidsearch", method = "GET")
+	public static ModelAndView beautyIdSearchStart(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/ppp/beauties/beautyIdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
-	//미용실회원 아이디 찾기
-	@RequestMapping(value="/beauty/beautyidsearch", method="AJAX")
-	public static ModelAndView beautyIdSearchEnd(HttpServletRequest req){
+
+	// 미용실회원 아이디 찾기
+	@RequestMapping(value = "/beauty/beautyidsearch", method = "AJAX")
+	public static ModelAndView beautyIdSearchEnd(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.beautyIdSearch(req));
 		return mav;
 	}
-	//미용실회원 비밀번호 찾기 (폼)
-	@RequestMapping(value="/beauty/beautypwdsearch", method="GET")
-	public static ModelAndView beautyPwdSearchStart(HttpServletRequest req){
+
+	// 미용실회원 비밀번호 찾기 (폼)
+	@RequestMapping(value = "/beauty/beautypwdsearch", method = "GET")
+	public static ModelAndView beautyPwdSearchStart(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/ppp/beauties/beautyPwdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
-	//미용실회원 비밀번호 찾기
-	@RequestMapping(value="/beauty/beautypwdsearch", method="AJAX")
-	public static ModelAndView beautyPwdSearchEnd(HttpServletRequest req){
+
+	// 미용실회원 비밀번호 찾기
+	@RequestMapping(value = "/beauty/beautypwdsearch", method = "AJAX")
+	public static ModelAndView beautyPwdSearchEnd(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
-		ModelAndView mav= new ModelAndView();
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.beautyPwdSearch(req));
 		return mav;
 	}
 	/*
-	 * 	//병원회원 비밀번호 찾기(폼)
-	@RequestMapping(value="/hospital/hospitalpwdsearch" , method="GET")
-	public static ModelAndView hospitalPwdSearchStart(HttpServletRequest req){
-		Service s = (Service) req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
-		mav.setView("/ppp/hospitals/hospitalPwdSearch.jsp");
-		mav.setRedirect();
-		return mav;
-	}
-	//병원회원 비밀번호 찾기
-	@RequestMapping(value="/hospital/hospitalpwdsearch", method="AJAX")
-	public static ModelAndView hospitalPwdSearchEnd(HttpServletRequest req){
-		Service s = (Service) req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("result", s.hospitalPwdSearch(req));
-		return mav;
-	}
+	 * //병원회원 비밀번호 찾기(폼)
+	 * 
+	 * @RequestMapping(value="/hospital/hospitalpwdsearch" , method="GET")
+	 * public static ModelAndView hospitalPwdSearchStart(HttpServletRequest
+	 * req){ Service s = (Service)
+	 * req.getServletContext().getAttribute("service"); ModelAndView mav = new
+	 * ModelAndView(); mav.setView("/ppp/hospitals/hospitalPwdSearch.jsp");
+	 * mav.setRedirect(); return mav; } //병원회원 비밀번호 찾기
+	 * 
+	 * @RequestMapping(value="/hospital/hospitalpwdsearch", method="AJAX")
+	 * public static ModelAndView hospitalPwdSearchEnd(HttpServletRequest req){
+	 * Service s = (Service) req.getServletContext().getAttribute("service");
+	 * ModelAndView mav = new ModelAndView(); mav.addObject("result",
+	 * s.hospitalPwdSearch(req)); return mav; }
 	 */
-	
+
 	// 비활성화 된 미용실회원 조회
-	@RequestMapping(value="/beauty/beautydeactiviysearch", method="GET")
-	public static ModelAndView beautyInactiveSearch(HttpServletRequest req){
+	@RequestMapping(value = "/beauty/beautydeactiviysearch", method = "GET")
+	public static ModelAndView beautyInactiveSearch(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveBeautySearch(req));
 		mav.setView("/beauties/inactiveBeautySearch.jsp");
 		return mav;
 	}
+	
+	// 미용실 지역으로 검색(리스트)
+		@RequestMapping(value = "/beauty/beautyareasearch", method = "GET")
+		public static ModelAndView beautyAreaSearch(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("result", service.beautyAreaSearch(req));
+			mav.setView("/beauties/BeautyList.jsp");
+
+			return mav;
+		}
+
+		// 미용 평점으로 검색(리스트)
+		@RequestMapping(value = "/beauty/beautyscoresearch", method = "GET")
+		public static ModelAndView beautyScoreSearch(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("result", service.beautyScoreSearch(req));
+			mav.setView("/beauties/BeautyList.jsp");
+
+			return mav;
+		}
+
+		// 미용 리뷰순으로 검색(리스트)
+		@RequestMapping(value = "/beauty/beautyreviewsearch", method = "GET")
+		public static ModelAndView beautyReviewSearch(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("result", service.beautyReviewSearch(req));
+			mav.setView("/beauties/BeautyList.jsp");
+
+			return mav;
+		}
+
+		// 미용 상세보기
+		@RequestMapping(value = "/beauty/beautyview", method = "GET")
+		public static ModelAndView beautyView(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("hotel", service.beautyView(req));
+			mav.addObject("room", service.roomView(req));
+			mav.setView("/beauties/BeautyView.jsp");
+
+			return mav;
+		}
 
 	/////////////////////////////////
 	/////////////////////////////////
@@ -560,52 +638,101 @@ public class Controller {
 
 		return mav;
 	}
-	//병원회원 아이디찾기(폼)
-	@RequestMapping(value="/hospital/hospitalidsearch", method="GET")
-	public static ModelAndView hospitalIdSearchStart(HttpServletRequest req){
+
+	// 병원회원 아이디찾기(폼)
+	@RequestMapping(value = "/hospital/hospitalidsearch", method = "GET")
+	public static ModelAndView hospitalIdSearchStart(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/ppp/hospitals/hospitalIdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
-	//병원회원 아이디찾기
-	@RequestMapping(value="/hospital/hospitalidsearch", method="AJAX")
-	public static ModelAndView hospitalIdSearchEnd(HttpServletRequest req){
+
+	// 병원회원 아이디찾기
+	@RequestMapping(value = "/hospital/hospitalidsearch", method = "AJAX")
+	public static ModelAndView hospitalIdSearchEnd(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.hospitalIdSearch(req));
 		return mav;
 	}
-	//병원회원 비밀번호 찾기(폼)
-	@RequestMapping(value="/hospital/hospitalpwdsearch" , method="GET")
-	public static ModelAndView hospitalPwdSearchStart(HttpServletRequest req){
+
+	// 병원회원 비밀번호 찾기(폼)
+	@RequestMapping(value = "/hospital/hospitalpwdsearch", method = "GET")
+	public static ModelAndView hospitalPwdSearchStart(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/ppp/hospitals/hospitalPwdSearch.jsp");
 		mav.setRedirect();
 		return mav;
 	}
-	//병원회원 비밀번호 찾기
-	@RequestMapping(value="/hospital/hospitalpwdsearch", method="AJAX")
-	public static ModelAndView hospitalPwdSearchEnd(HttpServletRequest req){
+
+	// 병원회원 비밀번호 찾기
+	@RequestMapping(value = "/hospital/hospitalpwdsearch", method = "AJAX")
+	public static ModelAndView hospitalPwdSearchEnd(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.hospitalPwdSearch(req));
 		return mav;
 	}
-	
+
 	// 비활성화 된 병원회원 조회
-	@RequestMapping(value="/hospital/hospitaldeactiviysearch", method="GET")
-	public static ModelAndView hospitalInactiveSearch(HttpServletRequest req){
+	@RequestMapping(value = "/hospital/hospitaldeactiviysearch", method = "GET")
+	public static ModelAndView hospitalInactiveSearch(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveHospitalSearch(req));
 		mav.setView("/hospitals/inactiveHospitalSearch.jsp");
 		return mav;
 	}
-	 
 
+	// 병원 지역으로 검색(리스트)
+			@RequestMapping(value = "/hospital/hospitalareasearch", method = "GET")
+			public static ModelAndView hospitalAreaSearch(HttpServletRequest req) {
+				Service service = (Service) req.getServletContext().getAttribute("service");
+				ModelAndView mav = new ModelAndView();
+				mav.addObject("result", service.hospitalAreaSearch(req));
+				mav.setView("/hospitals/HospitalList.jsp");
+
+				return mav;
+			}
+
+			// 병원 평점으로 검색(리스트)
+			@RequestMapping(value = "/hospital/hospitalscoresearch", method = "GET")
+			public static ModelAndView hospitalScoreSearch(HttpServletRequest req) {
+				Service service = (Service) req.getServletContext().getAttribute("service");
+				ModelAndView mav = new ModelAndView();
+				mav.addObject("result", service.hospitalScoreSearch(req));
+				mav.setView("/hospitals/HospitalList.jsp");
+
+				return mav;
+			}
+
+			// 병원  리뷰순으로 검색(리스트)
+			@RequestMapping(value = "/hospital/hospitalreviewsearch", method = "GET")
+			public static ModelAndView hospitalReviewSearch(HttpServletRequest req) {
+				Service service = (Service) req.getServletContext().getAttribute("service");
+				ModelAndView mav = new ModelAndView();
+				mav.addObject("result", service.hospitalReviewSearch(req));
+				mav.setView("/hospitals/HospitalList.jsp");
+
+				return mav;
+			}
+
+			// 병원 상세보기
+			@RequestMapping(value = "/hospital/hospitalview", method = "GET")
+			public static ModelAndView hospitalView(HttpServletRequest req) {
+				Service service = (Service) req.getServletContext().getAttribute("service");
+				ModelAndView mav = new ModelAndView();
+				mav.addObject("hotel", service.hospitalView(req));
+				mav.addObject("room", service.roomView(req));
+				mav.setView("/hospitals/HospitalView.jsp");
+
+				return mav;
+			}
+	
+	
 	//////////////////////////
 	// 관리자 컨트롤러
 
@@ -669,8 +796,6 @@ public class Controller {
 		return mav;
 	}
 
-	
-
 	// 관리자 홈페이지로 이동
 	@RequestMapping(value = "/admin/adminhome", method = "GET")
 	public static ModelAndView adminHome(HttpServletRequest req) {
@@ -680,48 +805,45 @@ public class Controller {
 		mav.setRedirect();
 		return mav;
 	}
-/////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////
 	/*
-	// 비활성화 된 회원 검색
-	@RequestMapping(value="/admin/memberdeactiviysearch", method="GET")
-	public static ModelAndView list(HttpServletRequest req) {
-		Service service = (Service)req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("result", service.inactiveMember(req));
-		mav.setView("/ppp/admins/list.jsp");
-		return mav;
-	}
-	
-	// 비활성화 된 병원회원 검색
-	@RequestMapping(value="/admin/hospitaldeactiviysearch", method="GET")
-	public static ModelAndView hospitalList(HttpServletRequest req){
-		Service service = (Service)req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("result", service.inactiveHospital(req));
-		mav.setView("/ppp/admins/hospitalList.jsp");
-		return mav;
-	}
-	
-	// 비활성화 된 미용실회원 검색
-	@RequestMapping(value="/admin/beautydeactiviysearch", method="GET")
-	public static ModelAndView beautyList(HttpServletRequest req){
-		Service service = (Service)req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("result", service.inactiveBeauty(req));
-		mav.setView("/ppp/admins/beautyList.jsp");
-		return mav;
-	}
-	
-	// 비활성화 된 호텔회원 검색
-	@RequestMapping(value="/admin/hoteldeactiviysearch", method="GET")
-	public static ModelAndView hotelList(HttpServletRequest req){
-		Service service = (Service)req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("result", service.inactiveHotel(req));
-		mav.setView("/ppp/admins/hotelList.jsp");
-		return mav;
-	}
-	*/
+	 * // 비활성화 된 회원 검색
+	 * 
+	 * @RequestMapping(value="/admin/memberdeactiviysearch", method="GET")
+	 * public static ModelAndView list(HttpServletRequest req) { Service service
+	 * = (Service)req.getServletContext().getAttribute("service"); ModelAndView
+	 * mav = new ModelAndView(); mav.addObject("result",
+	 * service.inactiveMember(req)); mav.setView("/ppp/admins/list.jsp"); return
+	 * mav; }
+	 * 
+	 * // 비활성화 된 병원회원 검색
+	 * 
+	 * @RequestMapping(value="/admin/hospitaldeactiviysearch", method="GET")
+	 * public static ModelAndView hospitalList(HttpServletRequest req){ Service
+	 * service = (Service)req.getServletContext().getAttribute("service");
+	 * ModelAndView mav = new ModelAndView(); mav.addObject("result",
+	 * service.inactiveHospital(req));
+	 * mav.setView("/ppp/admins/hospitalList.jsp"); return mav; }
+	 * 
+	 * // 비활성화 된 미용실회원 검색
+	 * 
+	 * @RequestMapping(value="/admin/beautydeactiviysearch", method="GET")
+	 * public static ModelAndView beautyList(HttpServletRequest req){ Service
+	 * service = (Service)req.getServletContext().getAttribute("service");
+	 * ModelAndView mav = new ModelAndView(); mav.addObject("result",
+	 * service.inactiveBeauty(req)); mav.setView("/ppp/admins/beautyList.jsp");
+	 * return mav; }
+	 * 
+	 * // 비활성화 된 호텔회원 검색
+	 * 
+	 * @RequestMapping(value="/admin/hoteldeactiviysearch", method="GET") public
+	 * static ModelAndView hotelList(HttpServletRequest req){ Service service =
+	 * (Service)req.getServletContext().getAttribute("service"); ModelAndView
+	 * mav = new ModelAndView(); mav.addObject("result",
+	 * service.inactiveHotel(req)); mav.setView("/ppp/admins/hotelList.jsp");
+	 * return mav; }
+	 */
 	// 쪽지
 	@RequestMapping(value = "/admin/messagesend", method = "POST")
 	public static ModelAndView messageSend(HttpServletRequest req) {
@@ -732,14 +854,14 @@ public class Controller {
 		mav.setRedirect();
 		return mav;
 	}
-	// 메인으로가기
-		@RequestMapping(value = "/admin/adminmain", method = "GET")
-		public static ModelAndView adminMain(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.setView("/ppp/admins/adminindex2.jsp");
-			mav.setRedirect();
-			return mav;
-		}
-}
 
+	// 메인으로가기
+	@RequestMapping(value = "/admin/adminmain", method = "GET")
+	public static ModelAndView adminMain(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/ppp/admins/adminindex2.jsp");
+		mav.setRedirect();
+		return mav;
+	}
+}

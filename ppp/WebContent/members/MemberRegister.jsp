@@ -43,8 +43,11 @@
 								class="form-control" id="usr" name='member_mail'>
 						</div>
 						<div class="form-group">
-							<label for="usr">address:</label> <input type="text"
-								class="form-control" id="usr" name='member_address'>
+							<label for="usr">address:</label>
+							<input type="button" class="form-control" onclick="sample4_execDaumPostcode()" value="주소검색">
+							 <input type="text"
+								class="form-control" id="jibun_address" name='member_address'>
+								<span id="guide" style="color:#999"></span>
 						</div>
 						<div class="form-group">
 							<label for="usr">Gender:</label><br> <label
@@ -66,4 +69,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

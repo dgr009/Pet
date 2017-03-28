@@ -71,7 +71,7 @@ body {
 	<!-- 헤더 -->
 	<%@ include file="BigHeader.jsp"%>
 
-<br><br><br><br>
+<div height='135px'></div>
 	<div id="section1" class="container"><br><br><br><br>
 		<!-- <img src="images/KakaoTalk_20170328_144152588.png" width="800px">-->
 		<h2>Pet PAPA에 오신걸 환영합니다</h2>
@@ -121,19 +121,19 @@ body {
 			<div class="row">
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="/ppp/hotel/hotelareasearch"><img
+					<a href="/ppp/hospital/hospitalareasearch"><img
 						src="https://s-media-cache-ak0.pinimg.com/originals/03/1f/86/031f86ad9fb180893a2d899aeaceb44e.jpg"
 						width="150px" height="170"><br>지역별 호텔보기</a>
 				</div>
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="/ppp/hotel/hotelgradesearch"><img
+					<a href="/ppp/hospital/hospitalscoresearch"><img
 						src="http://cfile24.uf.tistory.com/image/2419AD4652FC36A7345270"
 						width="150px" height="170"><br>평점순 호텔보기</a>
 				</div>
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="/ppp/hotel/hotelreviewsearch"><img
+					<a href="/ppp/hospital/hospitalreviewsearch"><img
 						src="http://cfile6.uf.tistory.com/image/1418904C5053417C19157A"
 						width="150px" height="170"><br>리뷰순 호텔보기</a>
 				</div>
@@ -155,19 +155,19 @@ body {
 			<div class="row">
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="/ppp/hotel/hotelareasearch"><img
+					<a href="/ppp/beauty/beautyareasearch"><img
 						src="https://s-media-cache-ak0.pinimg.com/originals/03/1f/86/031f86ad9fb180893a2d899aeaceb44e.jpg"
 						width="150px" height="170"><br>지역별 호텔보기</a>
 				</div>
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="/ppp/hotel/hotelgradesearch"><img
+					<a href="/ppp/beauty/beautyscoresearch"><img
 						src="http://cfile24.uf.tistory.com/image/2419AD4652FC36A7345270"
 						width="150px" height="170"><br>평점순 호텔보기</a>
 				</div>
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="/ppp/hotel/hotelreviewsearch"><img
+					<a href="/ppp/beauty/beautyreviewsearch"><img
 						src="http://cfile6.uf.tistory.com/image/1418904C5053417C19157A"
 						width="150px" height="170"><br>리뷰순 호텔보기</a>
 				</div>

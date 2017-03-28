@@ -13,9 +13,25 @@ public class Hospital {
 	String hospitalMail;
 	String hospitalPhone;
 	String hospitalPhoto;
+	float hospitalScore;
+	int countReview;
 	int hospitalActive;
 	Date hospitalActiveDate;
 	int adminNo;
+	
+	
+	public float getHospitalScore() {
+		return hospitalScore;
+	}
+	public void setHospitalScore(float hospitalScore) {
+		this.hospitalScore = hospitalScore;
+	}
+	public int getCountReview() {
+		return countReview;
+	}
+	public void setCountReview(int countReview) {
+		this.countReview = countReview;
+	}
 	public int getHospitalNo() {
 		return hospitalNo;
 	}

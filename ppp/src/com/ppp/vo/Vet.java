@@ -4,6 +4,7 @@ public class Vet {
 	   int vetNo;
 	   String vetName;
 	   String vetIntroduce;
+	   String vetPhoto;
 	   int hospitalNo;
 	public int getVetNo() {
 		return vetNo;
@@ -29,5 +30,13 @@ public class Vet {
 	public void setHospitalNo(int hospitalNo) {
 		this.hospitalNo = hospitalNo;
 	}
+	public String getVetPhoto() {
+		return vetPhoto;
+	}
+	public void setVetPhoto(String vetPhoto) {
+		this.vetPhoto = vetPhoto;
+	}
+	
+	
 	   
 }
