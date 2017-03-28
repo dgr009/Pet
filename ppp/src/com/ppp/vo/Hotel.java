@@ -13,6 +13,7 @@ public class Hotel {
 	String hotelMail;
 	String hotelPhone;
 	String hotelPhoto;
+	float hotelScore;
 	int hotelActive;
 	Date hotelActiveDate;
 	int adminNo;
@@ -93,6 +94,12 @@ public class Hotel {
 	}
 	public void setAdminNo(int adminNo) {
 		this.adminNo = adminNo;
+	}
+	public float getHotelScore() {
+		return hotelScore;
+	}
+	public void setHotelScore(float hotelScore) {
+		this.hotelScore = hotelScore;
 	}
 	
 }

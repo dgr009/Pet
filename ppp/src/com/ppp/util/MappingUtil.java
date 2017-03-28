@@ -2,6 +2,9 @@ package com.ppp.util;
 
 import java.io.*;
 import java.sql.*;
+
+import java.util.*;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -69,19 +72,6 @@ public class MappingUtil {
 		return a;
 	}
 	
-	// 메세지 가져오기
-	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
-		Message m = new Message();
-		java.util.Date d = new java.util.Date();
-	    java.sql.Date date = new java.sql.Date(d.getTime());  
-		m.setAdminNo(adminNo);
-		m.setMessageNo(messageNo);
-		m.setMessageTitle(req.getParameter("message_title"));
-		m.setMessageContent(req.getParameter("message_content"));
-		m.setMessageDate(date);
-		m.setMemberNo(Integer.parseInt(req.getParameter("member_no")));
-		return m;
-	}
 
 	// 애완 동물 만들기
 	public static Animal getAnimalFromRequest(HttpServletRequest req, int animalNo, int memberNo) {
@@ -138,6 +128,8 @@ public class MappingUtil {
 						h.setHotelActiveDate(date);
 					}else if(item.getFieldName().equals("orner_adminno")){
 						h.setAdminNo(Integer.parseInt(item.getString("UTF-8")));
+					}else if(item.getFieldName().equals("score")){
+						h.setHotelScore(Integer.parseInt(item.getString("UTF-8")));
 					}
 				}else{
 					String fileName = item.getName();
@@ -284,12 +276,11 @@ public class MappingUtil {
 		}
 		return b;
 	}
-	
-	// 쪽지 
-	public static Message getMessageFromRequest(HttpServletRequest req, int messageNo){
+	//메세지 보내기
+	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
+		Message m = new Message();
 		java.util.Date d = new java.util.Date();
 	     java.sql.Date date = new java.sql.Date(d.getTime());
-		Message m = new Message();
 		m.setMessageNo(messageNo);
 		m.setMemberNo(Integer.parseInt(req.getParameter("member_no")));
 		m.setMessageTitle(req.getParameter("message_title"));

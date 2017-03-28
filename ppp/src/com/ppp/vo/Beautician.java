@@ -3,7 +3,7 @@ package com.ppp.vo;
 public class Beautician {
 	   int beauticianNo;
 	   String beauticianName;
-	   String beauticianIntriduce;
+	   String beauticianIntroduce;
 	   int beautyNo;
 	public int getBeauticianNo() {
 		return beauticianNo;
@@ -17,11 +17,11 @@ public class Beautician {
 	public void setBeauticianName(String beauticianName) {
 		this.beauticianName = beauticianName;
 	}
-	public String getBeauticianIntriduce() {
-		return beauticianIntriduce;
+	public String getBeauticianIntroduce() {
+		return beauticianIntroduce;
 	}
-	public void setBeauticianIntriduce(String beauticianIntriduce) {
-		this.beauticianIntriduce = beauticianIntriduce;
+	public void setBeauticianIntroduce(String beauticianIntroduce) {
+		this.beauticianIntroduce = beauticianIntroduce;
 	}
 	public int getBeautyNo() {
 		return beautyNo;

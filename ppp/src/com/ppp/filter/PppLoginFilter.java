@@ -10,11 +10,12 @@ import javax.servlet.http.*;
 import com.ppp.vo.*;
 
 @WebFilter({"/admin/*", "/member/*","/hotel/*","/hospital/*","/beauty/*","/board/*"})
+
+//@WebFilter({"/admin/*", "/member/*","/hotel/*","/hospital/*","/beauty/*","/board/*"})
 public class PppLoginFilter implements Filter {
 	// 로그인 없이 접근할 수 있는 경로를 지정
 	private ArrayList<String> whiteList = new ArrayList<>();
     public PppLoginFilter() {
-    	//whiteList.add("/ppp/message/send.html");
     	whiteList.add("/ppp/member/membermain");
     	whiteList.add("/ppp/member/memberidsearch");
     	whiteList.add("/ppp/member/memberpwdsearch");
@@ -43,6 +44,10 @@ public class PppLoginFilter implements Filter {
     	whiteList.add("/ppp/hotel/hotelpwdsearch");
     	whiteList.add("/ppp/hospital/hospitalpwdsearch");
     	whiteList.add("/ppp/beauty/beautypwdsearch");
+    	whiteList.add("/ppp/hotel/hotelareasearch");
+    	whiteList.add("/ppp/hotel/hotelgradesearch");
+    	whiteList.add("/ppp/hotel/hotelreviewsearch");
+    	whiteList.add("/ppp/hotel/hotelview");
     }
 	public void destroy() {
 	}
@@ -66,7 +71,7 @@ public class PppLoginFilter implements Filter {
 			System.out.println("user : " + user);
 			if(user.equals("member") || user.equals("members"))
 				go = "/ppp/member/login";
-			if(user.equals("admin") || user.equals("admins"))
+			else if(user.equals("admin") || user.equals("admins"))
 				go = "/ppp/admin/adminlogin";
 			session.setAttribute("destination", uri);
 			if(req.getParameter("member_no")!=null)
