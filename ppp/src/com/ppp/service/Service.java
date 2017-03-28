@@ -331,6 +331,14 @@ public class Service {
 		return new Gson().toJson(list);
 	}
 
+	// 호텔 평점으로 검색(리스트)
+	public String hotelScoreSearch(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		ArrayList<Hotel> list = dao.selectHotelByScore(conn,req.getParameter("area"));
+		JdbcUtil.close(conn);
+		return new Gson().toJson(list);
+	}
+
 	// 호텔 상세보기
 	public String hotelView(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();

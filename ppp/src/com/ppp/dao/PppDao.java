@@ -2534,4 +2534,36 @@ public class PppDao {
 		return null;
 	}
 
+	//평점별 호텔 조회
+	public ArrayList<Hotel> selectHotelByScore(Connection conn,String area) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Hotel> list = new ArrayList<>();
+		if(area==null)
+			area="";
+		try {
+			pstmt = conn.prepareStatement(Sql.findScoreHotel);
+			pstmt.setString(1, "%"+area+"%");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Hotel h = new Hotel();
+				h.setHotelNo(rs.getInt("hotel_no"));
+				h.setHotelName(rs.getString("hotel_name"));
+				h.setHotelMail(rs.getString("hotel_mail"));
+				h.setHotelAddress(rs.getString("hotel_address"));
+				h.setHotelPhone(rs.getString("hotel_phone"));
+				h.setHotelPhoto(rs.getString("hotel_photo"));
+				h.setHotelScore(rs.getFloat(7));
+				list.add(h);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+
 }

@@ -17,9 +17,9 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	var areaHotelList = <%=request.getAttribute("result")%>
+	var scoreHotelList = <%=request.getAttribute("result")%>
 	// 이름, 메일, 연락처, 위치 //사진
-	$.each(areaHotelList, function(index, h) {
+	$.each(scoreHotelList, function(index, h) {
 		var hotelMail = $("<tr><td></td></tr>").html(h.hotelMail);
 		var hotelPhone = $("<tr><td></td></tr>").html(h.hotelPhone);
 		var hotelAddress = $("<tr><td></td></tr>").html(h.hotelAddress);
@@ -38,9 +38,6 @@ $(document).ready(function() {
 </div>
 <br><br><br>
 <div>
-<form action="/ppp/hotel/hotelareasearch" method="get">
-	지역 검색 : <input type="text" name="area"><button>검색</button>
-</form>
 </div>
 <table class="hotel_list"  width="700px">
 		

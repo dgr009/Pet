@@ -65,13 +65,12 @@ public class Controller {
 
 	// 일반회원 로그아웃
 	@RequestMapping(value = "/member/memberlogout", method = "GET")
-	public static ModelAndView memberIdCheck(HttpServletRequest req) {
+	public static ModelAndView memberLogout(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		service.memberLogout(req);
 		ModelAndView mav = new ModelAndView();
 		mav.setView("/ppp/member/membermain");
 		mav.setRedirect();
-
 		return mav;
 	}
 
@@ -299,6 +298,17 @@ public class Controller {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.hotelAreaSearch(req));
 		mav.setView("/hotels/HotelAreaSearch.jsp");
+
+		return mav;
+	}
+	
+	//호텔 평점으로 검색(리스트)
+	@RequestMapping(value = "/hotel/hotelscoresearch", method = "GET")
+	public static ModelAndView hotelScoreSearch(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.hotelScoreSearch(req));
+		mav.setView("/hotels/HotelScoreSearch.jsp");
 
 		return mav;
 	}

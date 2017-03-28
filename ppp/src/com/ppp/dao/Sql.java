@@ -118,7 +118,7 @@ public interface Sql {
 	// 58. 평점별 미용실 검색
 	public String findScoreBeauty = "select beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_address,beauty_phone from beauty b, beauty_review r where b.beauty_no=r.beauty_no order by beauty_review_score desc";
 	// 59. 평점별 호텔 검색
-	public String findScoreHotel = "select hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_address,hotel_phone from hotel h, hotel_review r where h.hotel_no=r.hotel_no order by hotel_review_score desc";
+	public String findScoreHotel = "select h.hotel_no,h.hotel_name,h.hotel_mail,h.hotel_address,h.hotel_phone,h.hotel_photo,NVL(avg(r.hotel_review_score),0) from hotel h,hotel_review r where h.hotel_no=r.hotel_no(+) and h.hotel_address like ? and h.hotel_active=1 group by h.hotel_no,h.hotel_name,h.hotel_mail,h.hotel_address,h.hotel_phone,h.hotel_photo order by NVL(avg(r.hotel_review_score),0) desc";
 	// 60. 병원별 전체 예약내역 확인
 	public String findAllReserveHospital = "select * from reserve_hospital where hospital_no=?";
 	// 61. 미용실별 전체 예약내역 확인

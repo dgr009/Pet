@@ -9,103 +9,10 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	function login_check() {
-		var login_form = document.getElementById('login_form');
-		var user_id = document.getElementById('usr_id');
-		var user_pwd = document.getElementById('usr_pwd');
-		if (login_form.user[0].checked == true) {	
-			login_form.action = "/ppp/member/login";
-		} else if (login_form.user[1].checked == true) {
-			login_form.action = "/ppp/hotel/login";
-		} else if (login_form.user[2].checked == true) {
-			login_form.action = "/ppp/hospital/login";
-		} else if (login_form.user[3].checked == true) {
-			login_form.action = "/ppp/beauty/login";
-		}
-		login_form.submit();
-	}
-	
-	function user_id_check(){
-		var btn = $("#find_id");
-		var login_form = document.getElementById('login_form');
-		if (login_form.user[0].checked == true) {	
-			location.href="/ppp/member/memberidsearch";
-		} else if (login_form.user[1].checked == true) {
-			location.href="/ppp/hotel/hotelidsearch";
-		} else if (login_form.user[2].checked == true) {
-			location.href = "/ppp/hospital/hospitalidsearch";
-		} else if (login_form.user[3].checked == true) {
-			location.href = "/ppp/beauty/beautyidsearch";
-		}
-	}
-	function user_pwd_check(){
-		var btn = $("find_pwd");
-		var login_form = document.getElementById('login_form');
-		if (login_form.user[0].checked == true) {	
-			location.href="/ppp/member/memberpwdsearch";
-		} else if (login_form.user[1].checked == true) {
-			location.href="/ppp/hotel/hotelpwdsearch";
-		} else if (login_form.user[2].checked == true) {
-			location.href = "/ppp/hospital/hospitalpwdsearch";
-		} else if (login_form.user[3].checked == true) {
-			location.href = "/ppp/beauty/beautypwdsearch";
-		}
-	}
-	
-	function register_check() {
-		var register_form = document.getElementById('orner_register_form');
-		
-		if (register_form.user[0].checked == true) {
-			register_form.action = "/ppp/hotel/hotelregister";
-		} else if (register_form.user[1].checked == true) {
-			register_form.action = "/ppp/hospital/hospitalregister";
-		} else if (register_form.user[2].checked == true) {
-			register_form.action = "/ppp/beauty/beautyregister";
-		}
-		register_form.submit();
-	}
-	
-	var InputImage = (function loadImageFile() {
-		if (window.FileReader) {
-			var ImagePre;
-			var ImgReader = new window.FileReader();
-			var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-			ImgReader.onload = function(Event) {
-				if (!ImagePre) {
-					var newPreview = document.getElementById("imagePreview");
-					ImagePre = new Image();
-					ImagePre.style.width = "400px";
-					ImagePre.style.height = "400px";
-					newPreview.appendChild(ImagePre);
-				}
-				ImagePre.src = Event.target.result;
-
-			};
-
-			return function() {
-
-				var img = document.getElementById("image").files;
-
-				if (!fileType.test(img[0].type)) {
-					alert("이미지 파일을 업로드 하세요");
-					return;
-				}
-
-				ImgReader.readAsDataURL(img[0]);
-			}
-
-		}
-
-		document.getElementById("imagePreview").src = document
-				.getElementById("image").value;
-
-	})();
-</script>
 
 <style>
 body {
@@ -157,64 +64,8 @@ body {
 </head>
 <body>
 	<!-- 헤더 -->
-	<%@ include file="header/BigHeader.jsp"%>
+	<%@ include file="BigHeader.jsp"%>
 
-	<!-- 로그인 폼 -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Login</h4>
-				</div>
-				<form id="login_form" action="" method="post">
-
-
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="who">User: </label> <input type="radio" name="user"
-								value="member" checked="checked">멤버 <input type="radio"
-								name="user" value="hotel">호텔 <input type="radio"
-								name="user" value="hospital">병원 <input type="radio"
-								name="user" value="beauty">미용
-						</div>
-						<div class="form-group">
-							<label for="usr">I D:</label> <input type="text"
-								class="form-control" id="usr_id" name="member_id">
-						</div>
-						<div class="form-group">
-							<label for="pwd">Password:</label> <input type="password"
-								class="form-control" id="usr_pwd" name="member_pwd">
-						</div>
-
-
-					</div>
-					<div class="modal-footer">
-					<input type="button" class="btn btn-default"
-							onclick="user_id_check()" id="find_id"  value="Find ID">
-							
-					
-							<input type="button" class="btn btn-default"
-							onclick="user_pwd_check()" id="find_pwd"  value="Find PWD">
-						<input type="button" class="btn btn-default"
-							onclick="login_check()" value="Login">
-					</div>
-
-				</form>
-
-			</div>
-		</div>
-	</div>
-
-	<!-- 회원가입 개인기업 선택 폼 -->
-	<%@ include file="SelectRegister.jsp" %>
-
-	<!-- 개인 회원가입 -->
-	<%@ include file="MemberRegister.jsp" %>
-	<!-- 기업 회원가입 -->
-	<%@ include file="OrnerRegister.jsp" %>
-	
 	<div id="section1" class="container-fluid">
 		<h1>메인</h1>
 		<p>Try to scroll this section and look at the navigation bar while
@@ -238,7 +89,7 @@ body {
 				</div>
 				<div class="col-sm-3 col-md-6 col-lg-3 btnimg"
 					style="background-color: white;">
-					<a href="/ppp/hotel/hotelgradesearch"><img
+					<a href="/ppp/hotel/hotelscoresearch"><img
 						src="http://cfile24.uf.tistory.com/image/2419AD4652FC36A7345270"
 						width="150px" height="170"><br>평점순 호텔보기</a>
 				</div>
