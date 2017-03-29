@@ -57,7 +57,10 @@ $(document).ready(function() {
 				member_coupon 
 				-->
 				<tr>
-					<td>번호</td>
+					<th colspan="8">회 원 정 보</th>
+				</tr>
+				<tr>
+					<td>회원번호</td>
 					<td>아이디</td>
 					<td>주소</td>
 					<td>이름</td>
@@ -79,12 +82,13 @@ $(document).ready(function() {
 					<td><%=member.getMemberCoupon() %></td>
 					
 				</tr>
-				<tr><td colspan="8">---------------------------------</td></tr>
 			</tbody>
 		</table>
+		<hr />
 		<table class="animal_list" border="1" width="500px">
 		
-			<thead>		
+			<thead>	
+				<tr><th colspan="6"> 애 완 동 물 리 스 트 </th></tr>	
 				<tr>
 					<th>번호</th>
 					<th>이름</th>

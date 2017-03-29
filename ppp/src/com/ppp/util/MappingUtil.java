@@ -72,7 +72,20 @@ public class MappingUtil {
 		return a;
 	}
 	
-
+	// 메세지 가져오기
+	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
+		Message m = new Message();
+		java.util.Date d = new java.util.Date();
+	    java.sql.Date date = new java.sql.Date(d.getTime());  
+		m.setAdminNo(adminNo);
+		m.setMessageNo(messageNo);
+		m.setMessageTitle(req.getParameter("message_title"));
+		m.setMessageContent(req.getParameter("message_content"));
+		m.setMessageDate(date);
+		m.setMemberNo(Integer.parseInt(req.getParameter("member_no")));
+		return m;
+	}
+	
 	// 애완 동물 만들기
 	public static Animal getAnimalFromRequest(HttpServletRequest req, int animalNo, int memberNo) {
 		Animal a = new Animal();
@@ -130,7 +143,10 @@ public class MappingUtil {
 						h.setAdminNo(Integer.parseInt(item.getString("UTF-8")));
 					}else if(item.getFieldName().equals("score")){
 						h.setHotelScore(Integer.parseInt(item.getString("UTF-8")));
+					}else if(item.getFieldName().equals("count_review")){
+						h.setCountReview(Integer.parseInt(item.getString("UTF-8")));
 					}
+					
 				}else{
 					String fileName = item.getName();
 					// System.out.println(item.getName());
@@ -193,6 +209,10 @@ public class MappingUtil {
 						h.setHospitalActiveDate(date);
 					}else if(item.getFieldName().equals("orner_adminno")){
 						h.setAdminNo(Integer.parseInt(item.getString("UTF-8")));
+					}else if(item.getFieldName().equals("score")){
+						h.setHospitalScore(Integer.parseInt(item.getString("UTF-8")));
+					}else if(item.getFieldName().equals("count_review")){
+						h.setCountReview(Integer.parseInt(item.getString("UTF-8")));
 					}
 				}else{
 					String fileName = item.getName();
@@ -220,7 +240,7 @@ public class MappingUtil {
 
 		b.setBeautyNo(beautyNo);
 		java.sql.Date date = null;
-		String path = req.getServletContext().getRealPath("beautys/beautyimg");
+		String path = req.getServletContext().getRealPath("beauties/beautyimg");
 		DiskFileItemFactory f = new DiskFileItemFactory();
 		ServletFileUpload uploader = new ServletFileUpload(f);
 		uploader.setFileSizeMax(1024 * 1024 * 10);
@@ -256,6 +276,10 @@ public class MappingUtil {
 						b.setBeautyActiveDate(date);
 					}else if(item.getFieldName().equals("orner_adminno")){
 						b.setAdminNo(Integer.parseInt(item.getString("UTF-8")));
+					}else if(item.getFieldName().equals("score")){
+						b.setBeautyScore(Integer.parseInt(item.getString("UTF-8")));
+					}else if(item.getFieldName().equals("count_review")){
+						b.setCountReview(Integer.parseInt(item.getString("UTF-8")));
 					}
 				}else{
 					String fileName = item.getName();
@@ -277,15 +301,62 @@ public class MappingUtil {
 		return b;
 	}
 	//메세지 보내기
-	public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
-		Message m = new Message();
+	//public static Message getSendMessge(HttpServletRequest req, int adminNo , int messageNo){
+	//	Message m = new Message();
+	//}
+	
+	// 쪽지 
+	public static Message getMessageFromRequest(HttpServletRequest req, int messageNo){
 		java.util.Date d = new java.util.Date();
 	     java.sql.Date date = new java.sql.Date(d.getTime());
+	     Message m = new Message();
 		m.setMessageNo(messageNo);
 		m.setMemberNo(Integer.parseInt(req.getParameter("member_no")));
 		m.setMessageTitle(req.getParameter("message_title"));
 		m.setMessageContent(req.getParameter("message_content"));
 		m.setMessageDate(date);
 		return m;
+	}
+
+	// 방 추가하기
+	public static Room getRoomFromRequest(HttpServletRequest req, int roomNo, int hotelNo) {
+		Room r = new Room();
+		r.setHotelNo(hotelNo);
+		r.setRoomNo(roomNo);
+		
+		String path = req.getServletContext().getRealPath("hotels/roomimg");
+		DiskFileItemFactory f = new DiskFileItemFactory();
+		ServletFileUpload uploader = new ServletFileUpload(f);
+		uploader.setFileSizeMax(1024 * 1024 * 10);
+		List<FileItem> list;
+
+		try {
+			list = uploader.parseRequest(req);
+			for (FileItem item : list) {
+				
+				if(item.isFormField()) {
+					if(item.getFieldName().equals("room_kind")){
+						r.setRoomKind(item.getString("UTF-8"));
+					}else if(item.getFieldName().equals("room_price")){
+						r.setRoomPrice(Integer.parseInt(item.getString("UTF-8")));
+					}
+				}else{
+					String fileName = item.getName();
+					// System.out.println(item.getName());
+					int indexOfPoint = fileName.indexOf(".");
+					// System.out.println(fileName.indexOf("."));
+					String fName = fileName.substring(0, indexOfPoint);
+					String ext = fileName.substring(indexOfPoint + 1);
+					fileName = fName + "-" + System.nanoTime() + "." + ext;
+					item.write(new File(path + "\\" + fileName));
+					System.out.println(path + "\\" + fileName);
+					r.setRoomPhoto(fileName);
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return r;
 	}
 }

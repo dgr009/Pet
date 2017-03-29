@@ -14,6 +14,7 @@ public class Hotel {
 	String hotelPhone;
 	String hotelPhoto;
 	float hotelScore;
+	int countReview;
 	int hotelActive;
 	Date hotelActiveDate;
 	int adminNo;
@@ -101,5 +102,13 @@ public class Hotel {
 	public void setHotelScore(float hotelScore) {
 		this.hotelScore = hotelScore;
 	}
+	public int getCountReview() {
+		return countReview;
+	}
+	public void setCountReview(int countReview) {
+		this.countReview = countReview;
+	}
+	
+	
 	
 }

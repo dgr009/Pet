@@ -22,12 +22,14 @@ $(document).ready(function() {
 		var roomPrice = $("<td></td>").html(r.roomPrice);
 		var btn1 = $("<button></button>").html("예약");
 		var btn2 = $("<button></button>").html("수정");
+		var btn3 = $("<button></button>").html("추가");
 		var td1 = $("<td></td>").append(btn1);
 		var td2 = $("<td></td>").append(btn2);
 		var tr = $("<tr></tr>").append(roomNo).append(roomKind).append(roomPrice);
 		if(hotel!=null){
 			if(hotel.hotelNo==hotelDetail.hotelNo){
 				tr.append(td2);
+				$("#insertBtn").append(btn3);
 			}
 		}else{
 			tr.append(td1);	
@@ -35,15 +37,6 @@ $(document).ready(function() {
 		$(".room_view tbody").append(tr);
 	});
 	
-	if(hotel!=null){
-		if(hotel.hotelNo==hotelDetail.hotelNo){
-			document.getElementById("room_insert").style.visibility = "visible";
-		}else{
-			document.getElementById("room_insert").style.visibility = "hidden";
-		}	
-	}else{
-		document.getElementById("room_insert").style.visibility = "hidden";
-	}
 	
 });
 </script>
@@ -76,6 +69,6 @@ $(document).ready(function() {
 				
 			</tbody>
 		</table>
-		<button id='room_insert' onclick='location.href="/ppp/hotel/roomregister"'>추가</button>
+<div id="insertBtn"></div>
 </body>
 </html>

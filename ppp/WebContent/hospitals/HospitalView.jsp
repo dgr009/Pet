@@ -1,4 +1,4 @@
-<%@page import="com.ppp.vo.Hotel"%>
+<%@page import="com.ppp.vo.Hospital"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,9 +10,9 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-var hotelDetail = <%=request.getAttribute("hotel")%>
+var hospitalDetail = <%=request.getAttribute("hospital")%>
 var roomDetail = <%=request.getAttribute("room")%>
-var hotel = <%=session.getAttribute("hotelgson") %>
+var hospital = <%=session.getAttribute("hospitalgson") %>
 $(document).ready(function() {
 	
 	// 이름, 메일, 연락처, 위치 //사진
@@ -22,12 +22,14 @@ $(document).ready(function() {
 		var roomPrice = $("<td></td>").html(r.roomPrice);
 		var btn1 = $("<button></button>").html("예약");
 		var btn2 = $("<button></button>").html("수정");
+		var btn3 = $("<button></button>").html("추가");
 		var td1 = $("<td></td>").append(btn1);
 		var td2 = $("<td></td>").append(btn2);
 		var tr = $("<tr></tr>").append(roomNo).append(roomKind).append(roomPrice);
-		if(hotel!=null){
-			if(hotel.hotelNo==hotelDetail.hotelNo){
+		if(hospital!=null){
+			if(hospital.hospitalNo==hospitalDetail.hospitalNo){
 				tr.append(td2);
+				$("#insertBtn").append(btn3);
 			}
 		}else{
 			tr.append(td1);	
@@ -35,15 +37,6 @@ $(document).ready(function() {
 		$(".room_view tbody").append(tr);
 	});
 	
-	if(hotel!=null){
-		if(hotel.hotelNo==hotelDetail.hotelNo){
-			document.getElementById("room_insert").style.visibility = "visible";
-		}else{
-			document.getElementById("room_insert").style.visibility = "hidden";
-		}	
-	}else{
-		document.getElementById("room_insert").style.visibility = "hidden";
-	}
 	
 });
 </script>
@@ -54,12 +47,12 @@ $(document).ready(function() {
 	
 <br><br><br><br><br><br><br><br><br><br>
 	<div>
-	<form action="/ppp/hotel/hotelareasearch" method="get">
+	<form action="/ppp/hospital/hospitalareasearch" method="get">
 	지역 검색 : <input type="text" name="area"><button>검색</button>
 </form>
 </div>
 
-<table class="hotel_view" border='1'>
+<table class="hospital_view" border='1'>
 
 </table>
 <table class="room_view" border='1' width="400px">
@@ -76,6 +69,6 @@ $(document).ready(function() {
 				
 			</tbody>
 		</table>
-		<button id='room_insert' onclick='location.href="/ppp/hotel/roomregister"'>추가</button>
+<div id="insertBtn"></div>
 </body>
 </html>
