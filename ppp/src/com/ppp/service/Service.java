@@ -631,12 +631,12 @@ public class Service {
 	}
 
 	// 호텔 상세보기
-	public String hotelView(HttpServletRequest req) {
+	public Hotel hotelView(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		int hotelNo = Integer.parseInt(req.getParameter("hotel_no"));
 		Hotel h = dao.hotelView(conn, hotelNo);
 		JdbcUtil.close(conn);
-		return new Gson().toJson(h);
+		return h;
 	}
 
 	/////////////////////////

@@ -1,9 +1,10 @@
 <%@page import="com.ppp.vo.Hotel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%
- 	String h = (String)request.getAttribute("hotel");
- %>
+    
+<%
+	Hotel h = (Hotel)request.getAttribute("hotel");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,17 +15,12 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-var h = <%=request.getAttribute("hotel")%>
+var hotelDetail = <%=request.getAttribute("hotel")%>
 var roomDetail = <%=request.getAttribute("room")%>
-var hotelGson = <%=session.getAttribute("hotelgson") %>
+var hotel = <%=session.getAttribute("hotelgson") %>
 $(document).ready(function() {
-	
-	var hotelName = $("<div></div>").append("<h2>"+h.hotelName+"</h2>")
-	var reserveBtn = $("<div></div>").append('<a href="#"><div class="reserv"><img src="/ppp/images/reservation.png" alt="Alternate Text" width="70px;" /></div></a>')
-	$(".detail_header").append(hotelName).append(reserveBtn);
-	
-	/*// 이름, 메일, 연락처, 위치 //사진
-	$.each(roomDetail, function(index, r) {
+	// 이름, 메일, 연락처, 위치 //사진
+	/*$.each(roomDetail, function(index, r) {
 		var roomNo = $("<td></td>").html(r.roomNo);
 		var roomKind = $("<td></td>").html(r.roomKind);
 		var roomPrice = $("<td></td>").html(r.roomPrice);
@@ -41,7 +37,7 @@ $(document).ready(function() {
 		}else{
 			tr.append(td1);	
 		}
-		$("room_view tbody").append(tr);
+		$(".room_view tbody").append(tr);
 	});
 	
 	if(hotel!=null){
@@ -66,29 +62,40 @@ $(document).ready(function() {
     </header>
     <section class="hotel_section">
         <div class="detail_header">
-           
+            <div>
+                <h2><%= h.getHotelName() %></h2>
+            </div>
+            <div>
+                <a href="#">
+                    <div class="reserv">
+                        <img src="/ppp/images/reservation.png" alt="Alternate Text" width="70px;" />
+                    </div>
+                </a>
+            </div>
         </div>
         <hr />
-        
         <article class="detail_article">
             <div class="detail_img">
-                <img src="호텔1.jpg" alt="Alternate Text" width="300" height="300" />
+           
                 <img src="호텔2.jpg" alt="Alternate Text" width="300" height="300" />
                 <img src="호텔3.jpg" alt="Alternate Text" width="300" height="300" />
+                <img src="호텔3.jpg" alt="Alternate Text" width="300" height="300" />
+         
+                
             </div>
             <div class="detail_description">
                 <div class="detail_row info">
                     <div>
                         <p>주소</p>
-                        <p>인천 남구 학익동 663-1 태승빌딩 5층 (1층 홈플러스)</p>
+                        <p><%=h.getHotelAddress() %></p>
                     </div>
                     <div>
                         <p>전화번호</p>
-                        <p>032 - 123 - 4567</p>
+                        <p><%=h.getHotelPhone() %></p>
                     </div>
                     <div>
                         <p>이메일</p>
-                        <p>petpapa@ICIA.com</p>
+                        <p><%=h.getHotelMail() %></p>
                     </div>
                 </div>
                 <div class="detail_row info2">
@@ -121,7 +128,6 @@ $(document).ready(function() {
                 </div>
             </div>
         </article>
-         
     </section>
 
 </body>
