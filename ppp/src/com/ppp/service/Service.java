@@ -887,4 +887,21 @@ public class Service {
 			}
 			return new Gson().toJson(ob);
 		}
+		//호텔 정보 수정하기
+		public String hotelUpdate(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Hotel h = (Hotel)session.getAttribute("hotel");
+			Hotel hotel = h;
+			hotel.setHotelName(req.getParameter("hotel_name"));
+			hotel.setHotelPhone(req.getParameter("hotel_phone"));
+			hotel.setHotelPwd(req.getParameter("hotel_pwd"));
+			hotel.setHotelAddress(req.getParameter("hotel_address"));
+			hotel.setHotelMail(req.getParameter("hotel_mail"));
+			dao.updateHotel(conn, hotel);
+			session.setAttribute("hotel", hotel);
+			session.setAttribute("hotelgson", new Gson().toJson(hotel));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(hotel);
+		}
 }

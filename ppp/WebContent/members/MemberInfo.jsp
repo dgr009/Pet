@@ -1,5 +1,3 @@
-<%@page import="com.ppp.vo.Animal"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.ppp.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -7,7 +5,6 @@
 
 <%
 	Member member = (Member)session.getAttribute("member");
-	ArrayList<Animal> animallist = (ArrayList<Animal>)session.getAttribute("animallist");
 %>
 <html>
 <head>
