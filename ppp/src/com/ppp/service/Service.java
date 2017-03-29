@@ -447,7 +447,7 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(list);
 	}
-
+	
 	// 호텔 상세보기
 	public String hotelView(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
@@ -563,7 +563,7 @@ public class Service {
 			JdbcUtil.close(conn);
 			return new Gson().toJson(ob);
 		}
-
+		
 
 
 		//병원회원 로그아웃
@@ -640,6 +640,6 @@ public class Service {
 			return new Gson().toJson(list);
 		}
 
-		// 회원 쿠폰수 조정
+		// 
 
 }
