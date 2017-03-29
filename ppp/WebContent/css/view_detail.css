@@ -1,0 +1,97 @@
+﻿@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+        *{
+            font-family: 'Nanum Gothic', serif;
+            color:#393939;
+        }
+        header{
+            background:#393939;
+            border-bottom:10px solid #BEBEBE;
+            height:135px;
+        }
+        section{
+            margin: 20px 50px;
+        }
+        section h2{
+            display:inline-block;
+            font-size:40px;
+            font-weight:bold;
+            margin:20px 0 0 30px;
+        }
+        .hotel_section>.detail_header{
+            overflow:hidden;
+            margin-bottom:20px;
+        }
+        .hotel_section>.detail_header>div{
+            float:left;
+        }
+        .hotel_section>.detail_header>div:nth-child(2){
+            background:#393939;
+            border-radius:10px;
+            width:200px;
+            text-align:center;
+            float:right;
+        }
+        section>hr{
+            border: thin solid #BEBEBE; 
+        }
+        .detail_article{
+            margin:20px 0;
+            text-align:center;
+        }
+        .detail_article>.detail_img{
+            margin-bottom:20px;
+        }
+        .detail_article>.detail_img>img{
+            margin: 0 30px;
+            border-radius:150px;
+        }
+        .detail_description{
+            overflow:hidden;
+        }
+        .detail_row{
+            display:inline-block;
+            width:50%;   
+        }
+        .info{
+            float:left;
+           
+        }
+        .info>div{
+            text-align:left;
+        }
+        .info>div>p{
+            display:inline-block;
+            height:40px;
+            line-height:40px;
+            padding-left:10px;
+        }
+        .info>div>p:first-child{
+            width:15%;
+            font-weight:bold;
+        }
+        .info>div:nth-child(2n+1){
+            background:#C8C8C8;
+        }
+        .info2{
+            overflow:hidden;
+            width:48%;
+        }
+        .info2>table{
+            float:right;
+            width:100%;
+        }
+        .info2>table>thead{
+            background:#C8C8C8;
+        }
+        .info2>table>thead>tr{
+            height:40px;
+            line-height:40px;
+            font-weight:bold;  
+        }
+        .info2>table>tbody>tr{
+            height:40px;
+            line-height:40px;
+        }
+        .info2>table>tbody>tr:nth-child(2n){
+            background:#C8C8C8;
+        }

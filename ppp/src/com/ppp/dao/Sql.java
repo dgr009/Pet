@@ -83,7 +83,7 @@ public interface Sql {
 	// 40. 미용실 정보 수정
 	public String updateBeauty = "update beauty set beauty_name=?,beauty_mail=?,beauty_address=?,beauty_phone=?,beauty_orner_name=? where beauty_no?";
 	// 41. 호텔 정보 수정
-	public String updateHotel = "update hotel set hotel_name=?,hotel_mail=?,hotel_address=?,hotel_phone=?,hotel_orner_name=? where hotel_no=?";
+	public String updateHotel = "update hotel set hotel_name=?,hotel_mail=?,hotel_address=?,hotel_phone=?,hotel_pwd=? where hotel_no=?";
 	// 42. 병원 아이디 찾기
 	public String findHospitalId = "select hospital_id from hospital where hospital_mail=? and hospital_orner_no=?";
 	// 43. 미용실 아이디 찾기
@@ -161,7 +161,7 @@ public interface Sql {
 	// 79. 미용사 프로필 보기
 	public String allBeautician = "select b.beautician_no,b.beautician_name,b.beautician_introduce,be.beauty_name from beauty be , beautician b where be.beauty_no=b.beauty_no and be.beauty_no=?";
 	// 80. 호텔 방 보기
-	public String allRoom = "select r.room_no,r.room_kind,r.room_price from hotel h, room r where h.hotel_no=r.hotel_no and h.hotel_no=?";
+	public String allRoom = "select r.room_no,r.room_kind,r.room_price, r.room_photo from hotel h, room r where h.hotel_no=r.hotel_no and h.hotel_no=?";
 	// 81. 수의사 프로필 수정
 	public String updateVet = "update vet set vet_name='?', vet_introduce='?' where vet_no=? and hospital_no=?";
 	// 82. 미용사 프로필 수정

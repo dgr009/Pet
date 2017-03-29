@@ -1279,12 +1279,12 @@ public class PppDao {
 	public int updateHotel(Connection conn, Hotel h) {
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement(Sql.updateBeauty);
+			pstmt = conn.prepareStatement(Sql.updateHotel);
 			pstmt.setString(1, h.getHotelName());
 			pstmt.setString(2, h.getHotelMail());
 			pstmt.setString(3, h.getHotelAddress());
 			pstmt.setString(4, h.getHotelPhone());
-			pstmt.setString(5, h.getHotelOrnerName());
+			pstmt.setString(5, h.getHotelPwd());
 			pstmt.setInt(6, h.getHotelNo());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -2541,6 +2541,7 @@ public class PppDao {
 				r.setRoomKind(rs.getString("room_kind"));
 				r.setRoomNo(rs.getInt("room_no"));
 				r.setRoomPrice(rs.getInt("room_price"));
+				r.setRoomPhoto(rs.getString("room_photo"));
 				rList.add(r);
 			}
 
