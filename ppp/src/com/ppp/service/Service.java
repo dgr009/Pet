@@ -422,6 +422,7 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(ob);
 	}
+	// &&호텔회원 삭제
 	
 	//일반 회원 받은 메세지(쪽지) 리스트
 
@@ -711,6 +712,8 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(h);
 	}
+	
+
 
 	/////////////////////////
 	//병원
@@ -795,5 +798,93 @@ public class Service {
 			
 			JdbcUtil.close(conn);
 			return new Gson().toJson(r);
+		}
+		
+		// 관리자 페이지에서 비활성화 호텔 리스트 불러오기
+		public ArrayList<Hotel> inactiveHotelSelect(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Admin a = (Admin) session.getAttribute("admin");
+			ArrayList<Hotel> result =dao.selectInactiveHotel(conn);
+			JdbcUtil.close(conn);
+			return result;
+		}
+
+		//호텔회원 삭제 
+		public String deleteHotel(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Admin a = (Admin) session.getAttribute("admin");
+			int adminNo = a.getAdminNo();
+			int hotelNo = Integer.parseInt(req.getParameter("hotel_no"));
+			int result = dao.deleteHotel(conn, hotelNo);
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", result);
+			if(result ==1 ){
+				System.out.println("삭제성공");
+				ArrayList<Hotel> hotelList = inactiveHotelSelect(req);
+				session.setAttribute("hotelList", hotelList);
+				session.setAttribute("hotelListgson", new Gson().toJson(hotelList));
+			}
+			return new Gson().toJson(ob);
+			
+		}
+		
+		// 관리자 페이지에서 비활성화 병원 리스트 불러오기
+		public ArrayList<Hospital> inactiveHospitalSelect(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Admin a = (Admin) session.getAttribute("admin");
+			ArrayList<Hospital> result = dao.selectInactiveHospital(conn);
+			JdbcUtil.close(conn);
+			return result;
+		}
+	
+		//병원회원 삭제
+		public String deleteHospital(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Admin a = (Admin) session.getAttribute("admin");
+			int adminNo = a.getAdminNo();
+			int hospitalNo = Integer.parseInt(req.getParameter("hospital_no"));
+			int result  = dao.deleteHospital(conn, hospitalNo);
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", result);
+			if(result == 1 ){
+				System.out.println("삭제성공");
+				ArrayList<Hospital> hospitalList = inactiveHospitalSelect(req);
+				session.setAttribute("hospitalList", hospitalList);
+				session.setAttribute("hospitalListgson", new Gson().toJson(hospitalList));
+			}
+			return new Gson().toJson(ob);
+		}
+		
+		// 관리자 페이지에서 비활성화 미용실 리스트 불러오기
+		public ArrayList<Beauty> inactiveBeautySelect(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Admin a = (Admin) session.getAttribute("admin");
+			ArrayList<Beauty> result = dao.selectInactiveBeauty(conn);
+			JdbcUtil.close(conn);
+			return result;
+		}
+		
+		// 미용실회원 삭제
+		public String deleteBeauty(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession  session = req.getSession();
+			Admin a = (Admin) session.getAttribute("admin");
+			int adminNo = a.getAdminNo();
+			int beautyNo = Integer.parseInt(req.getParameter("beauty_no"));
+			int result = dao.deleteBeauty(conn, beautyNo);
+			JsonObject ob = new JsonObject();
+			ob.addProperty("result", result);
+			if(result==1){
+				System.out.println("삭제성공");
+				ArrayList<Beauty> beautyList = inactiveBeautySelect(req);
+				session.setAttribute("beautyList", beautyList);
+				session.setAttribute("beaautyListgson", new Gson().toJson(beautyList));
+			}
+			return new Gson().toJson(ob);
 		}
 }
