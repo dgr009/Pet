@@ -1,6 +1,9 @@
 <%@page import="com.ppp.vo.Hotel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%
+ 	String h = (String)request.getAttribute("hotel");
+ %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,12 +14,16 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
-var hotelDetail = <%=request.getAttribute("hotel")%>
+var h = <%=request.getAttribute("hotel")%>
 var roomDetail = <%=request.getAttribute("room")%>
-var hotel = <%=session.getAttribute("hotelgson") %>
+var hotelGson = <%=session.getAttribute("hotelgson") %>
 $(document).ready(function() {
 	
-	// 이름, 메일, 연락처, 위치 //사진
+	var hotelName = $("<div></div>").append("<h2>"+h.hotelName+"</h2>")
+	var reserveBtn = $("<div></div>").append('<a href="#"><div class="reserv"><img src="/ppp/images/reservation.png" alt="Alternate Text" width="70px;" /></div></a>')
+	$(".detail_header").append(hotelName).append(reserveBtn);
+	
+	/*// 이름, 메일, 연락처, 위치 //사진
 	$.each(roomDetail, function(index, r) {
 		var roomNo = $("<td></td>").html(r.roomNo);
 		var roomKind = $("<td></td>").html(r.roomKind);
@@ -34,7 +41,7 @@ $(document).ready(function() {
 		}else{
 			tr.append(td1);	
 		}
-		$(".room_view tbody").append(tr);
+		$("room_view tbody").append(tr);
 	});
 	
 	if(hotel!=null){
@@ -45,7 +52,7 @@ $(document).ready(function() {
 		}	
 	}else{
 		document.getElementById("room_insert").style.visibility = "hidden";
-	}
+	}*/
 	
 });
 </script>
@@ -59,21 +66,13 @@ $(document).ready(function() {
     </header>
     <section class="hotel_section">
         <div class="detail_header">
-            <div>
-                <h2>대구 상동 딱지애견샵호텔</h2>
-            </div>
-            <div>
-                <a href="#">
-                    <div class="reserv">
-                        <img src="/ppp/images/reservation.png" alt="Alternate Text" width="70px;" />
-                    </div>
-                </a>
-            </div>
+           
         </div>
         <hr />
+        
         <article class="detail_article">
             <div class="detail_img">
-                <img src="호텔1.jpg" alt="Alternate Text" width="300" height="300"/>
+                <img src="호텔1.jpg" alt="Alternate Text" width="300" height="300" />
                 <img src="호텔2.jpg" alt="Alternate Text" width="300" height="300" />
                 <img src="호텔3.jpg" alt="Alternate Text" width="300" height="300" />
             </div>
@@ -122,6 +121,7 @@ $(document).ready(function() {
                 </div>
             </div>
         </article>
+         
     </section>
 
 </body>
