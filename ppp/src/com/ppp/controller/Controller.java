@@ -394,7 +394,7 @@ public class Controller {
 		return mav;
 	}
 
-	// 호텔 상세보기
+	// 호텔 리스트에서 상세보기 (뷰)
 	@RequestMapping(value = "/hotel/hotelview", method = "GET")
 	public static ModelAndView hotelView(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
@@ -426,7 +426,7 @@ public class Controller {
 		return mav;
 	}
 
-	// 호텔 상세 정보 보기
+	// 호텔 회원의 상세 정보 보기 (인포)
 	@RequestMapping(value = "/hotel/hotelinfo", method = "GET")
 	public static ModelAndView hotelInfo(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");

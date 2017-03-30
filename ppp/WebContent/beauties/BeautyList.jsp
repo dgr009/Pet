@@ -31,7 +31,7 @@ $(document).ready(function() {
 		//var tagA = $("<a href='#'></a>").html('<article class="hotel_article"><div class="hotel img"><img src="http://placehold.it/250x250" alt="미용사진" width="250px" height="250px;" /> </div><div class="hotel description"><h3 class="hotel_title row">대구 상동 딱지애견샵미용</h3><span>리뷰(3)</span><p class="hotel_address row">인천 남구 학익동 663-1 태승빌딩 5층 (1층 홈플러스)</p><p class="hotel_phone_number row">032 - 123 - 4567</p><p class="hotel_email row">petpapa@ICIA.com</p></div><div class="star">3.0</div></article><hr />');
 		var tagA = $("<a href='/ppp/beauty/beautyview?beauty_no="+h.beautyNo+"'></a>");
 		var tagArticle = $('<article class="hotel_article"></article>');
-		var tagImg = $('<img src="/ppp/beautys/beautyimg/'+h.beautyPhoto+'" alt="미용사진" width="250px" height="250px;" />');
+		var tagImg = $('<img src="/ppp/beauties/beautyimg/'+h.beautyPhoto+'" alt="미용사진" width="250px" height="250px;" />');
 		var tagImgDiv = $('<div class="hotel img"></div>').append(tagImg);
 		var title = $('<h3 class="hotel_title row">'+h.beautyName+'</h3>');
 		var review = $('<a href="#"><span>리뷰('+h.countReview +')</span></a>');

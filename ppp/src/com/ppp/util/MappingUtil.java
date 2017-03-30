@@ -355,4 +355,46 @@ public class MappingUtil {
 		}
 		return r;
 	}
+	
+	// 미용사 추가하기
+		public static Beautician getBeauticianFromRequest(HttpServletRequest req, int beauticianNo, int beautyNo) {
+			Beautician b = new Beautician();
+			b.setBeauticianNo(beauticianNo);
+			b.setBeautyNo(beautyNo);
+			
+			String path = req.getServletContext().getRealPath("beauties/beauticianimg");
+			DiskFileItemFactory f = new DiskFileItemFactory();
+			ServletFileUpload uploader = new ServletFileUpload(f);
+			uploader.setFileSizeMax(1024 * 1024 * 10);
+			List<FileItem> list;
+
+			try {
+				list = uploader.parseRequest(req);
+				for (FileItem item : list) {
+					
+					if(item.isFormField()) {
+						if(item.getFieldName().equals("beautician_name")){
+							b.setBeauticianName(item.getString("UTF-8"));
+						}else if(item.getFieldName().equals("beautician_introduce")){
+							b.setBeauticianIntroduce(item.getString("UTF-8"));
+						}
+					}else{
+						String fileName = item.getName();
+						// System.out.println(item.getName());
+						int indexOfPoint = fileName.indexOf(".");
+						// System.out.println(fileName.indexOf("."));
+						String fName = fileName.substring(0, indexOfPoint);
+						String ext = fileName.substring(indexOfPoint + 1);
+						fileName = fName + "-" + System.nanoTime() + "." + ext;
+						item.write(new File(path + "\\" + fileName));
+						System.out.println(path + "\\" + fileName);
+						b.setBeauticianPhoto(fileName);
+					}
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return b;
+		}
 }
