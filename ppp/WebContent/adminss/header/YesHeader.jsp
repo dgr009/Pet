@@ -58,7 +58,7 @@
  						                
                      </ul>
                      <li><a href="#section3">고객센터</a></li>
-                  <li><a href="#" data-toggle="modal" data-target="#myModall" ><span class="glyphicon glyphicon-user"></span> My Page</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#myModall" ><span class="glyphicon glyphicon-user"></span> 관리자 추가</a></li>
                   <li><a href="#" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                </ul>
             </div>
@@ -71,42 +71,39 @@
             <div class="modal-content">
                <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Modal Header</h4>
+                  <h4 class="modal-title">관리자추가</h4>
                </div>
                <form action="/ppp/member/memberregister" method="post">
                <div class="modal-body">
                
                   <div class="form-group">
-                     <label for="usr">Name:</label> <input type="text"
-                        class="form-control" id="usr" name='member_name'>
+                     <label for="usr">이 름:</label> <input type="text"
+                        class="form-control" id="usr" name='admin_name'>
                   </div>
                   <div class="form-group">
-                     <label for="usr">I D:</label> <input type="text"
-                        class="form-control" id="usr" name='member_id'>
+                     <label for="usr">아이디:</label> <input type="text"
+                        class="form-control" id="usr" name='admin_id'>
                   </div>
                   <div class="form-group">
-                     <label for="pwd">Password:</label> <input type="password"
-                        class="form-control" id="pwd" name='member_pwd'>
+                     <label for="pwd">비밀번호:</label> <input type="password"
+                        class="form-control" id="pwd" name='admin_pwd'>
                   </div>
                   <div class="form-group">
-                     <label for="pwd">PasswordCheck:</label> <input type="password"
+                     <label for="pwd">비밀번호확인:</label> <input type="password"
                         class="form-control" id="pwd" >
                   </div>
                   <div class="form-group">
-                     <label for="usr">phone:</label> <input type="text"
-                        class="form-control" id="usr" name='member_phone'>
+                     <label for="usr">전화번호:</label> <input type="text"
+                        class="form-control" id="usr" name='admin_phone'>
                   </div>
                   <div class="form-group">
-                     <label for="usr">mail:</label> <input type="text"
-                        class="form-control" id="usr" name='member_mail'>
+                     <label for="usr">E-mail:</label> <input type="text"
+                        class="form-control" id="usr" name='admin_mail'>
                   </div>
+                 
                   <div class="form-group">
-                     <label for="usr">address:</label> <input type="text"
-                        class="form-control" id="usr" name='member_address'>
-                  </div>
-                  <div class="form-group">
-                     <label for="usr">Gender:</label>
-                        <select class="form-group" name="member_gender" id="usr">
+                     <label for="usr">성별:</label>
+                        <select class="form-group" name="amdin_gender" id="usr">
                           <option value="M">남자</option>
                           <option value="F">여자</option>
                        </select>
