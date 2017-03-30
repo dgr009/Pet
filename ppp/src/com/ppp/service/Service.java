@@ -904,4 +904,27 @@ public class Service {
 			JdbcUtil.close(conn);
 			return new Gson().toJson(hotel);
 		}
+		
+		// 회원 쿠폰수 검색
+		public String memberCoupon(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Member> list = dao.selectMemberByCoupon(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+		// 회원 쿠폰수 조정
+		public String memberCouponUpadte(HttpServletRequest req){
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Admin a = (Admin)session.getAttribute("admin");
+			Member m = new Member();
+			int memberNo = m.getMemberNo();
+			dao.updateMemberCoupon(conn, memberNo);
+			session.setAttribute("m", m);
+			session.setAttribute("mgson", new Gson().toJson(m));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(m);
+			
+		}
+		
 }

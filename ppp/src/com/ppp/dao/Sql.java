@@ -21,7 +21,7 @@ public interface Sql {
 	// 9. 관리자 리스트 조회
 	public String allAdmin = "select * from admin";
 	// 10. 회원 쿠폰수 조회
-	public String memberCoupon = "select member_no,member_id,member_address,member_name,member_phone,member_mail,member_gender,member_coupon from member where member_coupon=? and member_active=1";
+	public String memberCoupon = "select member_no,member_id,member_address,member_name,member_phone,member_mail,member_gender,member_coupon from member where member_coupon>=10 and member_active=1";
 	// 11. 회원 쿠폰수 수정
 	public String updateMemberCoupon = "update member set member_coupon = 0 where member_no=?";
 	// 12. 회원 비활성화

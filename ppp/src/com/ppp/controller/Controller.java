@@ -758,7 +758,7 @@ public class Controller {
 	@RequestMapping(value = "/admin/adminregister", method = "GET")
 	public static ModelAndView adminRegisterStart(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/admins/adminResistration.html");
+		mav.setView("/adminss/adminResistration.html");
 		return mav;
 	}
 
@@ -768,7 +768,7 @@ public class Controller {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.adminCreateEnd(req));
-		mav.setView("/ppp/admins/adminindex.jsp");
+		mav.setView("/ppp/adminss/adminindex.jsp");
 		mav.setRedirect();
 
 		return mav;
@@ -781,12 +781,12 @@ public class Controller {
 		HttpSession session = req.getSession();
 		String go = (String) session.getAttribute("destination");
 		System.out.println("1go:" + go);
-		mav.setView("/admins/adminLogin.jsp");
+		mav.setView("/adminss/adminHome.jsp");
 
 		return mav;
 	}
 
-	// 관리자 로그인
+	// &&관리자 로그인
 	@RequestMapping(value = "/admin/adminlogin", method = "POST")
 	public static ModelAndView adminLoginEnd(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
@@ -795,13 +795,13 @@ public class Controller {
 
 		if (adminNo == 0) {
 			System.out.println("아이디나 비밀번호 확인필요");
-			mav.setView("/admins/adminLogin.jsp");
+			mav.setView("/adminss/adminHome.jsp");
 		} else {
 			System.out.println("로그인 성공");
 			HttpSession session = req.getSession();
 			String go = (String) session.getAttribute("destination");
 			if (go == null || go.equals("")) {
-				go = "/ppp/admins/adminindex2.jsp";
+				go = "/ppp/adminss/adminHome.jsp";
 			}
 			System.out.println("admin login go:" + go);
 			session.removeAttribute("destination");
@@ -813,13 +813,37 @@ public class Controller {
 		}
 		return mav;
 	}
+	/*
+	 * 	// 일반회원 로그인
+	@RequestMapping(value = "/member/login", method = "POST")
+	public static ModelAndView memberLoginEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		if (service.memberLogin(req) == null) {
+			// 로그인실패
+			mav.setView("/ppp/member/membermain");
+			mav.setRedirect();
+		} else {
+			// 로그인성공
+			HttpSession session = req.getSession();
+			String go = (String) session.getAttribute("destination");
+			System.out.println("go:" + go);
+			session.removeAttribute("destination");
+			if (go == null)
+				go = "/ppp/member/membermain";
+			mav.setView(go);
+			mav.setRedirect();
+		}
+		return mav;
+	}
+	 */
 
 	// 관리자 홈페이지로 이동
 	@RequestMapping(value = "/admin/adminhome", method = "GET")
 	public static ModelAndView adminHome(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
-		mav.setView("/ppp/admins/adminindex2.jsp");
+		mav.setView("/ppp/adminss/adminHome.jsp");
 		mav.setRedirect();
 		return mav;
 	}
@@ -878,7 +902,7 @@ public class Controller {
 	public static ModelAndView adminMain(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/ppp/admins/adminindex2.jsp");
+		mav.setView("/ppp/adminss/adminindex2.jsp");
 		mav.setRedirect();
 		return mav;
 	}

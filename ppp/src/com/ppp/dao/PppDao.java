@@ -299,13 +299,12 @@ public class PppDao {
 	}
 
 	// 회원 쿠폰수 조회
-	public ArrayList<Member> selectMemberByCoupon(Connection conn, int memberCoupon) {
+	public ArrayList<Member> selectMemberByCoupon(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<Member> list = new ArrayList<Member>();
 		try {
 			pstmt = conn.prepareStatement(Sql.memberCoupon);
-			pstmt.setInt(1, memberCoupon);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicMember(rs));
