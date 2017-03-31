@@ -262,7 +262,7 @@ public class Controller {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveMemberSearch(req));
-		mav.setView("/members/inactiveMemberSearch.jsp");
+		mav.setView("/adminss/user/inactiveMemberSearch.jsp");
 		return mav;
 	}
 	/////////////////////////////////
@@ -906,4 +906,22 @@ public class Controller {
 		mav.setRedirect();
 		return mav;
 	}
+	
+	// 일반회원 쿠폰수 리스트
+	@RequestMapping(value="/admin/membercouponlist" , method = "AJAX")
+	public static ModelAndView memberCouponList(HttpServletRequest req){
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.memberCoupon(req));
+		mav.setView("/ppp/adminss/user/MemberCouponList.jsp");
+		return mav;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }
