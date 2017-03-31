@@ -81,7 +81,7 @@ public interface Sql {
 	// 39. 병원 정보 수정
 	public String updateHospital = "update hospital set hospital_name=?,hospital_mail=?,hospital_address=?,hospital_phone=?,hospital_orner_name=? where hospital_no=?";
 	// 40. 미용실 정보 수정
-	public String updateBeauty = "update beauty set beauty_name=?,beauty_mail=?,beauty_address=?,beauty_phone=?,beauty_orner_name=? where beauty_no?";
+	public String updateBeauty = "update beauty set beauty_name=?,beauty_mail=?,beauty_address=?,beauty_phone=?,beauty_pwd=? where beauty_no?";
 	// 41. 호텔 정보 수정
 	public String updateHotel = "update hotel set hotel_name=?,hotel_mail=?,hotel_address=?,hotel_phone=?,hotel_pwd=? where hotel_no=?";
 	// 42. 병원 아이디 찾기
@@ -157,9 +157,9 @@ public interface Sql {
 	// 77. 호텔별 리뷰 보기
 	public String allReviewHotel = "select hotel_review_no,hotel_review_score,hotel_review_epilogue from hotel_review where hotel_no=?";
 	// 78. 수의사 프로필 보기
-	public String allVet = "select v.vet_no,v.vet_name,v.vet_introduce,h.hospital_name from hospital h, vet v where h.hospital_no=v.hospital_no and h.hospital_no=?";
+	public String allVet = "select v.vet_no,v.vet_name,v.vet_introduce,v.vet_photo from hospital h, vet v where h.hospital_no=v.hospital_no and h.hospital_no=?";
 	// 79. 미용사 프로필 보기
-	public String allBeautician = "select b.beautician_no,b.beautician_name,b.beautician_introduce,be.beauty_name from beauty be , beautician b where be.beauty_no=b.beauty_no and be.beauty_no=?";
+	public String allBeautician = "select b.beautician_no,b.beautician_name,b.beautician_introduce,b.beautician_photo from beauty be , beautician b where be.beauty_no=b.beauty_no and be.beauty_no=?";
 	// 80. 호텔 방 보기
 	public String allRoom = "select r.room_no,r.room_kind,r.room_price, r.room_photo from hotel h, room r where h.hotel_no=r.hotel_no and h.hotel_no=?";
 	// 81. 수의사 프로필 수정
@@ -236,7 +236,7 @@ public interface Sql {
 	// 112. 수의사 추가
 	public String insertVet = "insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,?,?,?)";
 	// 113. 미용사 추가
-	public String insertBeautician = "insert into beautician(beautician_no,beautician_name,beautician_introduce,beauty_no) values(?,?,?,?)";
+	public String insertBeautician = "insert into beautician(beautician_no,beautician_name,beautician_introduce,beautician_photo,beauty_no) values(?,?,?,?,?)";
 	// 114. 병원 예약 시간대
 	public String insertHospitalReserveTiem = "insert into reserve_hospital_time(reserve_hospital_no,hospital_time_kind,hospital_no) values(?,?,?)";
 	// 115. 미용실 예약 시간대 추가
@@ -567,5 +567,8 @@ public interface Sql {
 
 	// 마지막 방 번호 가져오기
 	public String roomNoMax = "select nvl(max(room_no),0)+1 from room where hotel_no=?";
+
+	// 마지막 미용사 번호 가져오기
+	public String beauticianNoMax = "select nvl(max(beautician_no),0)+1 from beautician where beauty_no=?";
 
 }

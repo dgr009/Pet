@@ -1100,7 +1100,7 @@ public class PppDao {
 			pstmt.setString(2, b.getBeautyMail());
 			pstmt.setString(3, b.getBeautyAddress());
 			pstmt.setString(4, b.getBeautyPhone());
-			pstmt.setString(5, b.getBeautyOrnerName());
+			pstmt.setString(5, b.getBeautyPwd());
 			pstmt.setInt(6, b.getBeautyNo());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -3201,4 +3201,82 @@ public class PppDao {
 				
 		return 0;
 	}
+
+	// 미용사 전체 보기
+	public ArrayList<Beautician> BeauticianAllView(Connection conn, int beautyNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Beautician> bList = new ArrayList<>();
+		String a = Sql.allRoom;
+		try {
+			pstmt = conn.prepareStatement(Sql.allBeautician);
+			pstmt.setInt(1, beautyNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Beautician v = new Beautician();
+				v.setBeautyNo(beautyNo);
+				v.setBeauticianNo(rs.getInt("beautician_no"));
+				v.setBeauticianName(rs.getString("beautician_name"));
+				v.setBeauticianIntroduce(rs.getString("beautician_introduce"));
+				v.setBeauticianPhoto(rs.getString("beautician_photo"));
+				bList.add(v);
+			}
+
+			return bList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+
+		return null;
+	}
+
+	//미용사 마지막 번호 조회
+	public int selectBeauticianNoMax(Connection conn, int beautyNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.beauticianNoMax);
+			pstmt.setInt(1, beautyNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				return rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+				
+		return 0;
+	}
+
+	// 미용사 추가
+	public int beauticianInsert(Connection conn, Beautician bn) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.insertBeautician);
+			pstmt.setInt(1, bn.getBeauticianNo());
+			pstmt.setString(2, bn.getBeauticianName());
+			pstmt.setString(3, bn.getBeauticianIntroduce());
+			pstmt.setString(4, bn.getBeauticianPhoto());
+			pstmt.setInt(5, bn.getBeautyNo());
+	
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, null);
+		}
+				
+		return 0;
+	}
+	
 }

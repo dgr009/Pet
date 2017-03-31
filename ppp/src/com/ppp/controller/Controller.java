@@ -406,7 +406,7 @@ public class Controller {
 		return mav;
 	}
 
-	// 호텔 방 추가하기
+	// 호텔 방 추가하기(폼으로)
 	@RequestMapping(value = "/hotel/roomregister", method = "GET")
 	public static ModelAndView roomRegisterStart(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
@@ -598,12 +598,51 @@ public class Controller {
 	public static ModelAndView beautyView(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("hotel", service.beautyView(req));
-		mav.addObject("room", service.roomView(req));
+		mav.addObject("beauty", service.beautyView(req));
+		mav.addObject("beautician", service.beauticianView(req));
 		mav.setView("/beauties/BeautyView.jsp");
 
 		return mav;
 	}
+	
+	// 미용 미용사 추가하기(폼으로)
+		@RequestMapping(value = "/beauty/beauticianregister", method = "GET")
+		public static ModelAndView beautyRegisterStart(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.setView("/beauties/BeauticianRegister.jsp");
+			return mav;
+		}
+
+		// 미용 미용사 추가하기
+		@RequestMapping(value = "/beauty/beauticianregister", method = "POST")
+		public static ModelAndView beauticianRegisterEnd(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("result", service.beauticianInsert(req));
+			mav.setView("/ppp/beauty/beautyareasearch");
+			mav.setRedirect();
+			return mav;
+		}
+
+		// 미용 회원의 상세 정보 보기 (인포)
+		@RequestMapping(value = "/beauty/beautyinfo", method = "GET")
+		public static ModelAndView beautyInfo(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.setView("/beauties/BeautyInfo.jsp");
+
+			return mav;
+		}
+			
+		// 미용 정보 수정하기
+		@RequestMapping(value = "/beauty/beautyupdate", method = "AJAX")
+		public static ModelAndView beautyUpdateStart(HttpServletRequest req) {
+			Service service = (Service) req.getServletContext().getAttribute("service");
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("result", service.beautyUpdate(req));
+			return mav;
+		}
 
 	/////////////////////////////////
 	/////////////////////////////////

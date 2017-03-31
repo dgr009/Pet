@@ -464,6 +464,7 @@ public class Service {
 			System.out.println("로그인 성공");
 			session.removeAttribute("logincheck");
 			session.setAttribute("beauty", result);
+			session.setAttribute("beautygson", new Gson().toJson(result));
 			JdbcUtil.close(conn);
 			return result;
 		}
@@ -473,6 +474,7 @@ public class Service {
 	public void beautyLogout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		session.removeAttribute("beauty");
+		session.removeAttribute("beautygson");
 		session.removeAttribute("logincheck");
 
 	}
@@ -506,7 +508,7 @@ public class Service {
 			System.out.println("로그인 성공");
 			session.removeAttribute("logincheck");
 			session.setAttribute("hospital", result);
-			session.setAttribute("hotelgson", new Gson().toJson(result));
+			session.setAttribute("hospitalgson", new Gson().toJson(result));
 			JdbcUtil.close(conn);
 			return result;
 		}
@@ -703,12 +705,12 @@ public class Service {
 		}
 
 		// 미용 상세보기
-		public String beautyView(HttpServletRequest req) {
+		public Beauty beautyView(HttpServletRequest req) {
 			Connection conn = JdbcUtil.getConnection();
 			int beautyNo = Integer.parseInt(req.getParameter("beauty_no"));
 			Beauty h = dao.beautyView(conn, beautyNo);
 			JdbcUtil.close(conn);
-			return new Gson().toJson(h);
+			return h;
 		}
 
 		// 호텔 방 추가하기
@@ -740,5 +742,46 @@ public class Service {
 			session.setAttribute("hotelgson", new Gson().toJson(hotel));
 			JdbcUtil.close(conn);
 			return new Gson().toJson(hotel);
+		}
+
+		//미용사 상세보기
+		public String beauticianView(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			int beautyNo = Integer.parseInt(req.getParameter("beauty_no"));
+			ArrayList<Beautician> bList = dao.BeauticianAllView(conn, beautyNo);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(bList);
+		}
+
+		
+		//미용사 추가하기
+		public String beauticianInsert(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Beauty b = (Beauty)session.getAttribute("beauty");
+			int beauticianNo = dao.selectBeauticianNoMax(conn,b.getBeautyNo());
+			Beautician bn = MappingUtil.getBeauticianFromRequest(req,beauticianNo,b.getBeautyNo());
+			int result = dao.beauticianInsert(conn, bn);
+			
+			JdbcUtil.close(conn);
+			return new Gson().toJson(bn);
+		}
+
+		//미용회원 수정하기
+		public String beautyUpdate(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			HttpSession session = req.getSession();
+			Beauty b = (Beauty)session.getAttribute("beauty");
+			Beauty beauty = b;
+			beauty.setBeautyName(req.getParameter("beauty_name"));
+			beauty.setBeautyPhone(req.getParameter("beauty_phone"));
+			beauty.setBeautyPwd(req.getParameter("beauty_pwd"));
+			beauty.setBeautyAddress(req.getParameter("beauty_address"));
+			beauty.setBeautyMail(req.getParameter("beauty_mail"));
+			dao.updateBeauty(conn, beauty);
+			session.setAttribute("beauty", beauty);
+			session.setAttribute("beautygson", new Gson().toJson(beauty));
+			JdbcUtil.close(conn);
+			return new Gson().toJson(beauty);
 		}
 }
