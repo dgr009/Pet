@@ -941,7 +941,6 @@ public class Service {
 			session.setAttribute("mgson", new Gson().toJson(m));
 			JdbcUtil.close(conn);
 			return new Gson().toJson(m);
-			
 		}
 		
 }

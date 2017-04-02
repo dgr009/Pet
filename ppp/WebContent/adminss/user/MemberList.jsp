@@ -16,6 +16,39 @@
    src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(function() {
+	function printList(result) {
+		var list = result.list;
+		var p = result.pagination;
+		var t = $("#context-main tbody");
+		$.each(list, function(idx, member) {
+			var str = "<tr><td>";
+			str = str + member.memberNo + "</td><td>"
+			str = str + member.memberId + "</td><td>"
+			str = str + member.memberPhone + "</td><td>";
+			str = str + member.memberMail + "</td><td>";
+			str = str + member.memberAddress+"</td></tr>";
+			t.append(str);
+		});
+		$("#pagination").append("<ul></ul>");
+		var pt = $("#pagination ul");
+		if(p.prev>-1)
+			pt.append("<li><a href='list?pageNo="+p.prev+"'>이전으로</a></li>");
+		for(var i=p.startPage;i<=p.endPage;i++)
+			pt.append("<li><a href='list?pageNo='"+i+"'>"+i+"</a></li>");
+		if(p.next>-1)
+			pt.append("<li><a href='list?pageNo="+p.next+"'>다음으로</a></li>");
+	}
+	$.ajax({
+		type: "POST",
+		url: "/ppp/admin/memberlist",
+		data: {pageNo:1},
+		success: function(result) {
+			printList(result);
+		}
+	});
+</script>
 <style>
 body {
    position: relative;
@@ -94,6 +127,7 @@ body {
 								<th>아이디</th>
 								<th>연락처</th>  
 								<th>이메일</th>   
+								<th>주소</th> 
 								<th>
 								활성화상태
 								
@@ -117,19 +151,7 @@ body {
 							<!-- //btn -->
 					</div>
    <div class="container">
-  <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">6</a></li>
-    <li><a href="#">7</a></li>
-    <li><a href="#">8</a></li>
-    <li><a href="#">9</a></li>
-    <li><a href="#">10</a></li>
-   
-  </ul>
+
 </div>
    <br>
     <br>
