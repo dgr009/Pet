@@ -79,7 +79,7 @@ public interface Sql {
 	// 38. 반려동물 삭제
 	public String deleteAnimal = "delete from animal where member_no=? and animal_no=?";
 	// 39. 병원 정보 수정
-	public String updateHospital = "update hospital set hospital_name=?,hospital_mail=?,hospital_address=?,hospital_phone=?,hospital_orner_name=? where hospital_no=?";
+	public String updateHospital = "update hospital set hospital_name=?,hospital_mail=?,hospital_address=?,hospital_phone=?,hospital_pwd=? where hospital_no=?";
 	// 40. 미용실 정보 수정
 	public String updateBeauty = "update beauty set beauty_name=?,beauty_mail=?,beauty_address=?,beauty_phone=?,beauty_pwd=? where beauty_no?";
 	// 41. 호텔 정보 수정
@@ -234,7 +234,7 @@ public interface Sql {
 
 	public String selectMemberMessage = "select m.message_no,m.message_title,m.message_content,m.message_date from message m, member b where m.member_no=b.member_no and  b.member_no=?";
 	// 112. 수의사 추가
-	public String insertVet = "insert into vet(vet_no,vet_name,vet_introduce,hospital_no) values(?,?,?,?)";
+	public String insertVet = "insert into vet(vet_no,vet_name,vet_introduce,vet_photo,hospital_no) values(?,?,?,?,?)";
 	// 113. 미용사 추가
 	public String insertBeautician = "insert into beautician(beautician_no,beautician_name,beautician_introduce,beautician_photo,beauty_no) values(?,?,?,?,?)";
 	// 114. 병원 예약 시간대
@@ -570,5 +570,7 @@ public interface Sql {
 
 	// 마지막 미용사 번호 가져오기
 	public String beauticianNoMax = "select nvl(max(beautician_no),0)+1 from beautician where beauty_no=?";
+	//수의사 마지막 번호 가져오기
+	public String vetNoMax = "select nvl(max(vet_no),0)+1 from vet where hospital_no=?";
 
 }

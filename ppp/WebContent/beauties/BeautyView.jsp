@@ -93,8 +93,8 @@ $(document).ready(function() {
                     <table id='beautician_info'>
                         <thead>
                             <tr>
-                                <th>무게</th>
-                                <th>가격</th>
+                                <th>이름</th>
+                                <th>소개</th>
                             </tr>
                         </thead>
                         <tbody>

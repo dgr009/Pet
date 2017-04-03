@@ -856,7 +856,7 @@ public class PppDao {
 			pstmt.setString(2, h.getHospitalMail());
 			pstmt.setString(3, h.getHospitalAddress());
 			pstmt.setString(4, h.getHospitalPhone());
-			pstmt.setString(5, h.getHospitalOrnerName());
+			pstmt.setString(5, h.getHospitalPwd());
 			pstmt.setInt(6, h.getHospitalNo());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -3161,28 +3161,28 @@ public class PppDao {
 	public int selectRoomNoMax(Connection conn, int hotelNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(Sql.roomNoMax);
 			pstmt.setInt(1, hotelNo);
-			
+
 			rs = pstmt.executeQuery();
-			if(rs.next())
+			if (rs.next())
 				return rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
+		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
-				
+
 		return 0;
 	}
 
 	// 방 추가하기
 	public int roomInsert(Connection conn, Room r) {
 		PreparedStatement pstmt = null;
-	
+
 		try {
 			pstmt = conn.prepareStatement(Sql.insertRoom);
 			pstmt.setInt(1, r.getRoomNo());
@@ -3190,15 +3190,15 @@ public class PppDao {
 			pstmt.setString(3, r.getRoomKind());
 			pstmt.setInt(4, r.getRoomPrice());
 			pstmt.setString(5, r.getRoomPhoto());
-	
+
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
+		} finally {
 			JdbcUtil.close(pstmt, null);
 		}
-				
+
 		return 0;
 	}
 
@@ -3234,32 +3234,32 @@ public class PppDao {
 		return null;
 	}
 
-	//미용사 마지막 번호 조회
+	// 미용사 마지막 번호 조회
 	public int selectBeauticianNoMax(Connection conn, int beautyNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(Sql.beauticianNoMax);
 			pstmt.setInt(1, beautyNo);
-			
+
 			rs = pstmt.executeQuery();
-			if(rs.next())
+			if (rs.next())
 				return rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
+		} finally {
 			JdbcUtil.close(pstmt, rs);
 		}
-				
+
 		return 0;
 	}
 
 	// 미용사 추가
 	public int beauticianInsert(Connection conn, Beautician bn) {
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(Sql.insertBeautician);
 			pstmt.setInt(1, bn.getBeauticianNo());
@@ -3267,16 +3267,92 @@ public class PppDao {
 			pstmt.setString(3, bn.getBeauticianIntroduce());
 			pstmt.setString(4, bn.getBeauticianPhoto());
 			pstmt.setInt(5, bn.getBeautyNo());
-	
+
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
+		} finally {
 			JdbcUtil.close(pstmt, null);
 		}
-				
+
 		return 0;
 	}
-	
+
+	// 수의사 상세보기
+	public ArrayList<Vet> VetAllView(Connection conn, int hospitalNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Vet> bList = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.allVet);
+			pstmt.setInt(1, hospitalNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Vet v = new Vet();
+				v.setHospitalNo(hospitalNo);
+				v.setVetNo(rs.getInt("vet_no"));
+				v.setVetName(rs.getString("vet_name"));
+				v.setVetIntroduce(rs.getString("vet_introduce"));
+				v.setVetPhoto(rs.getString("vet_photo"));
+				bList.add(v);
+			}
+
+			return bList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+
+		return null;
+	}
+
+	// 수의사 마지막 번호 가져오기
+	public int selectVetNoMax(Connection conn, int hospitalNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			pstmt = conn.prepareStatement(Sql.vetNoMax);
+			pstmt.setInt(1, hospitalNo);
+
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				return rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+
+		return 0;
+	}
+
+	// 수의사 추가하기
+	public int vetInsert(Connection conn, Vet v) {
+		PreparedStatement pstmt = null;
+
+		try {
+			pstmt = conn.prepareStatement(Sql.insertVet);
+			pstmt.setInt(1, v.getVetNo());
+			pstmt.setString(2, v.getVetName());
+			pstmt.setString(3, v.getVetIntroduce());
+			pstmt.setString(4, v.getVetPhoto());
+			pstmt.setInt(5, v.getHospitalNo());
+
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		}
+
+		return 0;
+	}
+
 }

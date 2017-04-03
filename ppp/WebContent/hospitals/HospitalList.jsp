@@ -34,11 +34,11 @@ $(document).ready(function() {
 		var tagImg = $('<img src="/ppp/hospitals/hospitalimg/'+h.hospitalPhoto+'" alt="병원사진" width="250px" height="250px;" />');
 		var tagImgDiv = $('<div class="hotel img"></div>').append(tagImg);
 		var title = $('<h3 class="hotel_title row">'+h.hospitalName+'</h3>');
-		var review = $('<a href="#"><span>리뷰('+h.countReview +')</span></a>');
+		var review = $('<a href="#"><p class="hotel_review">리뷰('+h.countReview +')</p></a>');
 		var phone = $('<p class="hotel_phone_number row">'+h.hospitalPhone+'</p>');
 		var mail = $('<p class="hotel_email row">'+h.hospitalMail+'</p>');
 		var address = $('<p class="hotel_address row">'+h.hospitalAddress+'</p>')
-		var tagConDiv = $('<div class="hotel description"></div').append(title).append(review).append(phone).append(mail).append(address);
+		var tagConDiv = $('<div class="hotel description"></div').append(title).append(phone).append(mail).append(address).append(review);
 		var tagStarDiv = $('<div class="star"></div>').html(h.hospitalScore);
 		tagArticle.append(tagImgDiv).append(tagConDiv).append(tagStarDiv);
 		tagA.append(tagArticle);

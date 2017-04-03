@@ -338,9 +338,9 @@ public class MappingUtil {
 					}
 				} else {
 					String fileName = item.getName();
-					// System.out.println(item.getName());
+					 System.out.println(item.getName());
 					int indexOfPoint = fileName.indexOf(".");
-					// System.out.println(fileName.indexOf("."));
+					 System.out.println(fileName.indexOf("."));
 					String fName = fileName.substring(0, indexOfPoint);
 					String ext = fileName.substring(indexOfPoint + 1);
 					fileName = fName + "-" + System.nanoTime() + "." + ext;
