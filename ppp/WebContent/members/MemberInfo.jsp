@@ -14,8 +14,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-$(document).ready(function() {
 	var animallist = <%=session.getAttribute("animallistgson")%>
+
 	$.each(animallist, function(index, a) {
 		var animalNo = $("<td></td>").html(a.animalNo);
 		var animalName = $("<td></td>").html(a.animalName);
@@ -33,9 +33,6 @@ $(document).ready(function() {
 		var tr = $("<tr></tr>").append(animalNo).append(animalName).append(animalKind).append(animalGender).append(animalBreed).append(animalWeight).append(tdup).append(tddel);
 		$(".animal_list tbody").append(tr);
 	});
-	
-	
-});
 	
 </script>
 </head>
@@ -104,5 +101,6 @@ $(document).ready(function() {
 		<input type="button" value="받은 쪽지함" onclick="location.href = '/ppp/board/receivemessage'" /> 
 		<input type="button" value="홈으로" onclick="location.href = '/ppp/member/membermain'" />
 	</div>
+
 </body>
 </html>

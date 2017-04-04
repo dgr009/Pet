@@ -25,7 +25,7 @@ $(document).ready(function() {
 	var div_btn2 = $("<div class='btns'></div>");
 	var div_btn3 = $("<div class='btns'></div>");
 	var div_btn4 = $("<div class='btns'></div>");
-	var reserve_btn = div_btn1.append('<a href="/ppp/member/reserveBeauty"><span id="fon">예약</span><img src="/ppp/images/reserv.png" alt="Alternate Text" width="150" height="70" /></a>');
+	var reserve_btn = div_btn1.append('<a href="/ppp/member/reservebeauty?beauty_no=<%=h.getBeautyNo()%>"><span id="fon">예약</span><img src="/ppp/images/reserv.png" alt="Alternate Text" width="150" height="70" /></a>');
 	var update_btn = div_btn2.append('<a href="/ppp/beauty/beauticianupdate"><span id="fon">수정</span><img src="/ppp/images/update.png" alt="Alternate Text" width="150" height="70" /></a>')
 	var regist_btn = div_btn3.append('<a href="/ppp/beauty/beauticianregister"><span id="fon">추가</span><img src="/ppp/images/regist.png" alt="Alternate Text" width="150" height="70" /></a>')
 	var delete_btn = div_btn4.append('<a href="/ppp/beauty/beauticiandelete"><span id="fon">삭제</span><img src="/ppp/images/delete.png" alt="Alternate Text" width="150" height="70" /></a>')

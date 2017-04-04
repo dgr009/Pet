@@ -116,7 +116,8 @@ public class Controller {
 	@RequestMapping(value = "/member/memberinfo", method = "GET")
 	public static ModelAndView memberInfo(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView();	
+		System.out.println("왜 두번실행되니 ㅠㅠ");
 		mav.setView("/members/MemberInfo.jsp");
 
 		return mav;
@@ -787,46 +788,45 @@ public class Controller {
 
 		return mav;
 	}
-	
-	
+
 	// 병원 수의사 추가하기(폼으로)
-		@RequestMapping(value = "/hospital/vetregister", method = "GET")
-		public static ModelAndView vetRegisterStart(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.setView("/hospitals/VetRegister.jsp");
-			return mav;
-		}
+	@RequestMapping(value = "/hospital/vetregister", method = "GET")
+	public static ModelAndView vetRegisterStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/hospitals/VetRegister.jsp");
+		return mav;
+	}
 
-		// 병원 수의사 추가하기
-		@RequestMapping(value = "/hospital/vetregister", method = "POST")
-		public static ModelAndView vetRegisterEnd(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("result", service.VetInsert(req));
-			mav.setView("/ppp/hospital/hospitalareasearch");
-			mav.setRedirect();
-			return mav;
-		}
+	// 병원 수의사 추가하기
+	@RequestMapping(value = "/hospital/vetregister", method = "POST")
+	public static ModelAndView vetRegisterEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.VetInsert(req));
+		mav.setView("/ppp/hospital/hospitalareasearch");
+		mav.setRedirect();
+		return mav;
+	}
 
-		// 병원 회원의 상세 정보 보기 (인포)
-		@RequestMapping(value = "/hospital/hospitalinfo", method = "GET")
-		public static ModelAndView hospitalInfo(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.setView("/hospitals/HospitalInfo.jsp");
+	// 병원 회원의 상세 정보 보기 (인포)
+	@RequestMapping(value = "/hospital/hospitalinfo", method = "GET")
+	public static ModelAndView hospitalInfo(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/hospitals/HospitalInfo.jsp");
 
-			return mav;
-		}
+		return mav;
+	}
 
-		// 병원 정보 수정하기
-		@RequestMapping(value = "/hospital/hospitalupdate", method = "AJAX")
-		public static ModelAndView hospitalUpdateStart(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("result", service.vetUpdate(req));
-			return mav;
-		}
+	// 병원 정보 수정하기
+	@RequestMapping(value = "/hospital/hospitalupdate", method = "AJAX")
+	public static ModelAndView hospitalUpdateStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", service.vetUpdate(req));
+		return mav;
+	}
 
 	//////////////////////////
 	// 관리자 컨트롤러
@@ -959,18 +959,44 @@ public class Controller {
 		mav.setRedirect();
 		return mav;
 	}
-	
+
 	// 호텔 예약하기
-		@RequestMapping(value = "/member/reservehotel", method = "GET")
-		public static ModelAndView hotelReserve(HttpServletRequest req) {
-			Service service = (Service) req.getServletContext().getAttribute("service");
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("hotel", service.hotelView(req));
-			mav.addObject("room", service.roomView(req));
-			
-			mav.setView("/members/ReserveHotel.jsp");
-			
-			return mav;
-		}
-	
+	@RequestMapping(value = "/member/reservehotel", method = "GET")
+	public static ModelAndView hotelReserve(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hotel", service.hotelView(req));
+		mav.addObject("room", service.roomView(req));
+
+		mav.setView("/members/ReserveHotel.jsp");
+
+		return mav;
+	}
+
+	// 미용 예약하기
+	@RequestMapping(value = "/member/reservebeauty", method = "GET")
+	public static ModelAndView beautyReserve(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("beauty", service.beautyView(req));
+		mav.addObject("beautician", service.beauticianView(req));
+
+		mav.setView("/members/ReserveBeauty.jsp");
+
+		return mav;
+	}
+
+	// 병원 예약하기
+	@RequestMapping(value = "/member/reservehospital", method = "GET")
+	public static ModelAndView hospitalReserve(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hospital", service.hospitalView(req));
+		mav.addObject("vet", service.vetView(req));
+
+		mav.setView("/members/ReserveHospital.jsp");
+
+		return mav;
+	}
+
 }

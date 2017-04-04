@@ -1,40 +1,42 @@
 <%@page import="com.ppp.vo.Member"%>
-<%@page import="com.ppp.vo.Hotel"%>
+<%@page import="com.ppp.vo.Beauty"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <%
-	Hotel h = (Hotel) request.getAttribute("hotel");
+	Beauty h = (Beauty) request.getAttribute("beauty");
 	Member m = (Member) session.getAttribute("member");
 %>
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-	var roomGson =<%= request.getAttribute("room") %>
+	var beauticianGson =<%= request.getAttribute("beautician") %>
 	
 	$(function() {
-		$.each(roomGson, function(index, r) {
-			var roomPhoto = $("<img src='/ppp/hotels/roomimg/"+r.roomPhoto+"' alt='Alternate Text' width='200' height='200' >");
-			var roomNo = $("<td width='50px'></td>").html(r.roomNo);
-			var PhotoTd = $("<td width='200px' height='200px'></td>").append(roomPhoto);
-			var roomKind = $("<h4></h4>").html("방 종류 : " +r.roomKind);
-			var roomPrice = $("<h3><b></b></h3>").html("방 가격 : " +r.roomPrice);
-			var roomInfo = $("<td width='200px' height='200px'></td>").append(roomKind).append(roomPrice);
-			var tr = $('<tr></tr>').append(roomNo).append(PhotoTd).append(roomInfo);
-			$(".room_info tbody").append(tr);
+		$.each(beauticianGson, function(index, r) {
+			var beauticianPhoto = $("<img src='/ppp/beauties/beauticianimg/"+r.beauticianPhoto+"' alt='Alternate Text' width='200' height='200' >");
+			var beauticianNo = $("<td width='50px'></td>").html(r.beauticianNo);
+			var PhotoTd = $("<td width='200px' height='200px'></td>").append(beauticianPhoto);
+			var beauticianName = $("<h4></h4>").html("미용사 이름 : " +r.beauticianName);
+			var beauticianIntro = $("<h3><b></b></h3>").html("미용사 소개 : " +r.beauticianIntroduce);
+			var beauticianInfo = $("<td width='200px' height='200px'></td>").append(beauticianName).append(beauticianIntro);
+			var tr = $('<tr></tr>').append(beauticianNo).append(PhotoTd).append(beauticianInfo);
+			$(".beautician_info tbody").append(tr);
 			
-			var option = $("<option value='r.roomKind'></option>").html(r.roomKind);
-			$("#check_room").append(option);
+			var option = $("<option value='r.beauticianName'></option>").html(r.beauticianName);
+			$("#check_beautician").append(option);
+			
 		})
-		
+		nameCheck();
 	})
 	
-	function priceCheck(){
-			$.each(roomGson,function(index,r){
-				if(r.roomKind==$("#check_room").val())
-					$("#price").html(r.roomPrice);	
+	function nameCheck(){
+			$.each(beauticianGson,function(index,r){
+				$("#introduce").html(r.beauticianIntroduce);	
+				if(r.beauticianName==$("#check_beautician").val())
+					$("#introduce").html(r.beauticianIntroduce);	
 			})	
 		}
 </script>
@@ -43,7 +45,7 @@ header {
 	height: 135px;
 }
 
-.hotel_info {
+.beauty_info {
 	margin-left: 20px;
 }
 td,th{
@@ -57,7 +59,7 @@ tr{
 table{
 	padding : 5px;
 }
-.room_info {
+.beautician_info {
 	margin-left: 30px;
 	float: left;
 }
@@ -81,21 +83,21 @@ p{
 	<header> 안보이지롱 </header>
 
 
-	<div class='hotel_info'>
-		<h3><%=h.getHotelName()%></h3>
-		<p class="address btn_copy"><%=h.getHotelAddress()%></p>
-		<p class="tel"><%=h.getHotelPhone()%></p>
+	<div class='beauty_info'>
+		<h3><%=h.getBeautyName()%></h3>
+		<p class="address btn_copy"><%=h.getBeautyAddress()%></p>
+		<p class="tel"><%=h.getBeautyPhone()%></p>
 	</div>
 
 	<hr />
 
-	<div class="room_info">
+	<div class="beautician_info">
 		<table border='1'>
 			<thead>
 				<tr>
-					<th width='50px'>방 번호</th>
-					<th width='200px' >방 사진</th>
-					<th width='200px'>방 정보</th>
+					<th width='50px'>미용사 번호</th>
+					<th width='200px' >미용사 사진</th>
+					<th width='200px'>미용사 정보</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -127,7 +129,7 @@ p{
 			<tr>
 				<td>예약 시간</td>
 				<td><select name='reserve_time'>
-					<% for(int i=9; i<=18; i++){ %>
+					<% for(int i=9; i<=21; i++){ %>
 						<option value='<%= i %>:00'><%= i %>:00</option>
 						<option value='<%= i %>:30'><%= i %>:30</option>
 					<%} %>
@@ -135,12 +137,12 @@ p{
 				
 			</tr>
 			<tr>
-				<td>예약 방 선택</td>
-				<td><select onchange="priceCheck()" name="room_kind" id="check_room"></select></td>
+				<td>미용사 선택</td>
+				<td><select onchange="nameCheck()" name="beautician_Name" id="check_beautician"></select></td>
 			</tr>
 			<tr>
-				<td>예약 방 가격</td>
-				<td><p name='room_price' id='price'><p><td>
+				<td>미용사 소개</td>
+				<td><p name='beautician_introduce' id='introduce'><p><td>
 			</tr>
 		</table>
 		<hr />

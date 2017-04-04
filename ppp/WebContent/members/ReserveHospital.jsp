@@ -1,40 +1,49 @@
 <%@page import="com.ppp.vo.Member"%>
-<%@page import="com.ppp.vo.Hotel"%>
+<%@page import="com.ppp.vo.Hospital"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <%
-	Hotel h = (Hotel) request.getAttribute("hotel");
+	Hospital h = (Hospital) request.getAttribute("hospital");
 	Member m = (Member) session.getAttribute("member");
 %>
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-	var roomGson =<%= request.getAttribute("room") %>
+	var vetGson =<%= request.getAttribute("vet") %>
+	var animallist = <%=session.getAttribute("animallistgson")%>
+	
 	
 	$(function() {
-		$.each(roomGson, function(index, r) {
-			var roomPhoto = $("<img src='/ppp/hotels/roomimg/"+r.roomPhoto+"' alt='Alternate Text' width='200' height='200' >");
-			var roomNo = $("<td width='50px'></td>").html(r.roomNo);
-			var PhotoTd = $("<td width='200px' height='200px'></td>").append(roomPhoto);
-			var roomKind = $("<h4></h4>").html("방 종류 : " +r.roomKind);
-			var roomPrice = $("<h3><b></b></h3>").html("방 가격 : " +r.roomPrice);
-			var roomInfo = $("<td width='200px' height='200px'></td>").append(roomKind).append(roomPrice);
-			var tr = $('<tr></tr>').append(roomNo).append(PhotoTd).append(roomInfo);
-			$(".room_info tbody").append(tr);
+		$.each(vetGson, function(index, r) {
+			var vetPhoto = $("<img src='/ppp/hospitals/vetimg/"+r.vetPhoto+"' alt='Alternate Text' width='200' height='200' >");
+			var vetNo = $("<td width='50px'></td>").html(r.vetNo);
+			var PhotoTd = $("<td width='200px' height='200px'></td>").append(vetPhoto);
+			var vetName = $("<h4></h4>").html("수의사 이름 : " +r.vetName);
+			var vetIntro = $("<h3><b></b></h3>").html("수의사 소개 : " +r.vetIntroduce);
+			var vetInfo = $("<td width='200px' height='200px'></td>").append(vetName).append(vetIntro);
+			var tr = $('<tr></tr>').append(vetNo).append(PhotoTd).append(vetInfo);
+			$(".vet_info tbody").append(tr);
 			
-			var option = $("<option value='r.roomKind'></option>").html(r.roomKind);
-			$("#check_room").append(option);
+			var option = $("<option value='r.vetName'></option>").html(r.vetName);
+			$("#check_vet").append(option);
+			
 		})
+		nameCheck();
 		
+		$.each(animallist, function(index, a) {
+			var animalOp = $("<option value='a.animalNo'></option>").html(a.animalName);
+			$("#animal_name").append(animalOp);
+		})
 	})
 	
-	function priceCheck(){
-			$.each(roomGson,function(index,r){
-				if(r.roomKind==$("#check_room").val())
-					$("#price").html(r.roomPrice);	
+	function nameCheck(){
+			$.each(vetGson,function(index,r){
+				$("#introduce").html(r.vetIntroduce);	
+				if(r.vetName==$("#check_vet").val())
+					$("#introduce").html(r.vetIntroduce);	
 			})	
 		}
 </script>
@@ -43,7 +52,7 @@ header {
 	height: 135px;
 }
 
-.hotel_info {
+.hospital_info {
 	margin-left: 20px;
 }
 td,th{
@@ -57,7 +66,7 @@ tr{
 table{
 	padding : 5px;
 }
-.room_info {
+.vet_info {
 	margin-left: 30px;
 	float: left;
 }
@@ -81,21 +90,21 @@ p{
 	<header> 안보이지롱 </header>
 
 
-	<div class='hotel_info'>
-		<h3><%=h.getHotelName()%></h3>
-		<p class="address btn_copy"><%=h.getHotelAddress()%></p>
-		<p class="tel"><%=h.getHotelPhone()%></p>
+	<div class='hospital_info'>
+		<h3><%=h.getHospitalName()%></h3>
+		<p class="address btn_copy"><%=h.getHospitalAddress()%></p>
+		<p class="tel"><%=h.getHospitalPhone()%></p>
 	</div>
 
 	<hr />
 
-	<div class="room_info">
+	<div class="vet_info">
 		<table border='1'>
 			<thead>
 				<tr>
-					<th width='50px'>방 번호</th>
-					<th width='200px' >방 사진</th>
-					<th width='200px'>방 정보</th>
+					<th width='50px'>수의사 번호</th>
+					<th width='200px' >수의사 사진</th>
+					<th width='200px'>수의사 정보</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -127,7 +136,7 @@ p{
 			<tr>
 				<td>예약 시간</td>
 				<td><select name='reserve_time'>
-					<% for(int i=9; i<=18; i++){ %>
+					<% for(int i=9; i<=21; i++){ %>
 						<option value='<%= i %>:00'><%= i %>:00</option>
 						<option value='<%= i %>:30'><%= i %>:30</option>
 					<%} %>
@@ -135,12 +144,16 @@ p{
 				
 			</tr>
 			<tr>
-				<td>예약 방 선택</td>
-				<td><select onchange="priceCheck()" name="room_kind" id="check_room"></select></td>
+				<td>수의사 선택</td>
+				<td><select onchange="nameCheck()" name="vet_name" id="check_vet"></select></td>
 			</tr>
 			<tr>
-				<td>예약 방 가격</td>
-				<td><p name='room_price' id='price'><p><td>
+				<td>수의사 소개</td>
+				<td><p name='vet_introduce' id='introduce'><p><td>
+			</tr>
+			<tr>
+				<td>애완 동물 선택</td>
+				<td><select name="animal_name" id="animal_name"></select></td>
 			</tr>
 		</table>
 		<hr />
