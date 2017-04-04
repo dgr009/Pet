@@ -27,7 +27,7 @@
 			var tr = $('<tr></tr>').append(vetNo).append(PhotoTd).append(vetInfo);
 			$(".vet_info tbody").append(tr);
 			
-			var option = $("<option value='r.vetName'></option>").html(r.vetName);
+			var option = $("<option value='"+r.vetName+"'></option>").html(r.vetName);
 			$("#check_vet").append(option);
 			
 		})
@@ -40,8 +40,7 @@
 	})
 	
 	function nameCheck(){
-			$.each(vetGson,function(index,r){
-				$("#introduce").html(r.vetIntroduce);	
+			$.each(vetGson,function(index,r){	
 				if(r.vetName==$("#check_vet").val())
 					$("#introduce").html(r.vetIntroduce);	
 			})	

@@ -25,7 +25,7 @@
 			var tr = $('<tr></tr>').append(beauticianNo).append(PhotoTd).append(beauticianInfo);
 			$(".beautician_info tbody").append(tr);
 			
-			var option = $("<option value='r.beauticianName'></option>").html(r.beauticianName);
+			var option = $("<option value='"+r.beauticianName+"'></option>").html(r.beauticianName);
 			$("#check_beautician").append(option);
 			
 		})
@@ -33,8 +33,7 @@
 	})
 	
 	function nameCheck(){
-			$.each(beauticianGson,function(index,r){
-				$("#introduce").html(r.beauticianIntroduce);	
+			$.each(beauticianGson,function(index,r){	
 				if(r.beauticianName==$("#check_beautician").val())
 					$("#introduce").html(r.beauticianIntroduce);	
 			})	

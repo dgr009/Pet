@@ -47,8 +47,8 @@ public class Controller {
 		ModelAndView mav = new ModelAndView();
 		if (service.memberLogin(req) == null) {
 			// 로그인실패
-			mav.setView("/ppp/member/membermain");
-			mav.setRedirect();
+			mav.setView("/members/login.jsp");
+			
 		} else {
 			// 로그인성공
 			HttpSession session = req.getSession();

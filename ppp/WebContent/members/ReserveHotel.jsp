@@ -25,16 +25,18 @@
 			var tr = $('<tr></tr>').append(roomNo).append(PhotoTd).append(roomInfo);
 			$(".room_info tbody").append(tr);
 			
-			var option = $("<option value='r.roomKind'></option>").html(r.roomKind);
+			var option = $("<option value='"+r.roomKind+"'></option>").html(r.roomKind);
 			$("#check_room").append(option);
 		})
 		
+		priceCheck();
 	})
 	
-	function priceCheck(){
+	var priceCheck = function(){
 			$.each(roomGson,function(index,r){
 				if(r.roomKind==$("#check_room").val())
 					$("#price").html(r.roomPrice);	
+				
 			})	
 		}
 </script>
@@ -140,7 +142,7 @@ p{
 			</tr>
 			<tr>
 				<td>예약 방 가격</td>
-				<td><p name='room_price' id='price'><p><td>
+				<td><sapn name='room_price' id='price'><span><td>
 			</tr>
 		</table>
 		<hr />
