@@ -555,12 +555,12 @@ public class Controller {
 	 */
 
 	// 비활성화 된 미용실회원 조회
-	@RequestMapping(value = "/beauty/beautydeactiviysearch", method = "GET")
+	@RequestMapping(value = "/admin/beautydeactiviysearch", method = "GET")
 	public static ModelAndView beautyInactiveSearch(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveBeautySearch(req));
-		mav.setView("/beauties/inactiveBeautySearch.jsp");
+		mav.setView("/adminss/inactiveBeautyMember.jsp");
 		return mav;
 	}
 
@@ -699,12 +699,12 @@ public class Controller {
 	}
 
 	// 비활성화 된 병원회원 조회
-	@RequestMapping(value = "/hospital/hospitaldeactiviysearch", method = "GET")
+	@RequestMapping(value = "/admin/hospitaldeactiviysearch", method = "GET")
 	public static ModelAndView hospitalInactiveSearch(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveHospitalSearch(req));
-		mav.setView("/hospitals/inactiveHospitalSearch.jsp");
+		mav.setView("/adminss/inactiveHospitalMember.jsp");
 		return mav;
 	}
 
