@@ -21,12 +21,19 @@ body {
 }
 
 #section1 {
-   padding-top: 50px;
-   height: 770px;
+   height: 820px;
    color: black;
    background-image: url("/ppp/images/main.png");
    background-size: 100% 100%;
    background-repeat: no-repeat;
+   width:100%;
+   padding-left:0;
+   padding-right:0;
+   margin-left:0;
+   margin-right:0;
+   text-align: center;
+   margin-top : 135px;
+   
 }
 
 #section2 {
@@ -39,24 +46,33 @@ body {
    padding-top: 50px;
    height: 770px;
    color: black;
+   margin:0 107px;
 }
-
+.servicecenter{
+    padding-top: 200px;
+   background-image:url("/ppp/images/servicecenter.png");
+   background-size: 30%  100% ;
+   background-repeat: no-repeat; 
+}
 #section41 {
    padding-top: 50px;
    height: 770px;
    color: black;
+	text-align: center;
 }
 
 #section42 {
-   padding-top: 50px;
+   padding-top: 0;
    height: 770px;
    color: black;
+	text-align: center;
 }
 
 #section43 {
-   padding-top: 50px;
+   padding-top: 0;
    height: 770px;
    color: black;
+	text-align: center;
 }
 
 .btnimg {
@@ -71,15 +87,14 @@ body {
    width: 80px;
    height: 80px;
 }
+
 </style>
 </head>
 <body>
    <!-- 헤더 -->
    <%@ include file="BigHeader.jsp"%>
 
-   <div height='135px'></div>
    <div id="section1" class="container">
-      <br> <br> <br> <br>
       <h2>Pet PAPA에 오신걸 환영합니다</h2>
    </div>
    <div id="section41" class="container">
@@ -208,11 +223,10 @@ body {
    </div>
 
    <div id="section3" class="container-fluid">
-      <br> <br> <br> <br>
-      <div class="row">
+      
+      <div class="row servicecenter">
          <div class="col-lg-8 col-lg-offset-2 text-center">
             <h2 class="section-heading">고객센터</h2>
-            <hr class="primary">
             <p>궁금하신 사항은 1대1 문의게시판을 통해 문의할수 있습니다</p>
             <button type="button" class="btn btn-primary btn-sm">1대1문의</button>
          </div>
@@ -226,7 +240,6 @@ body {
                <a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
             </p>
          </div>
-
       </div>
    </div>
 </body>

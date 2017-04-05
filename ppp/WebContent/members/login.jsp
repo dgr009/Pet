@@ -93,6 +93,7 @@
 							type="button" class="btn btn-default" onclick="user_pwd_check()"
 							id="find_pwd" value="Find PWD"> <input type="button"
 							class="btn btn-default" onclick="login_check()" value="Login">
+							<input type="button" class="btn btn-default" onclick="location.href='/ppp/member/membermain'" value="홈으로">
 					</div>
 
 				</form>
