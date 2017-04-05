@@ -19,7 +19,7 @@
                      data-toggle="dropdown" href="#">회원리스트 <span class="caret"></span></a>
                      <ul class="dropdown-menu">
                      <li><a href="user/allList.jsp">회원 리스트</a></li>
-                     <li><a href="company/companyList.jsp">기업회원 리스트</a></li>
+                     <li><a href="company/companyList.jsp">호텔회원 리스트</a></li>
                
                         <li><a href="admin/adminList.jsp">관리자회원 리스트</a></li>
                         
@@ -38,7 +38,9 @@
                      <ul class="dropdown-menu">
                      
                         <li><a href="activation/normalActivate.jsp">일반회원보기</a></li>
-                        <li><a href="activation/companyActivate.jsp">기업회원보기</a></li>
+                        <li><a href="activation/companyActivate.jsp">병원회원보기</a></li>
+                        <li><a href="activation/companyActivate.jsp">미용실회원보기</a></li>
+                        <li><a href="/ppp/adminss/inactiveHotelMember.jsp">호텔회원보기</a></li>
  						                 
                      </ul>
                      <li class="dropdown"><a class="dropdown-toggle"

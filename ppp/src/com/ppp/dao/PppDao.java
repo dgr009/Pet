@@ -532,17 +532,28 @@ public class PppDao {
 	// 호텔회원 검색 기본
 	public Hotel basicHotel(ResultSet rs) throws SQLException {
 		Hotel h = new Hotel();
-		h.setHotelNo(rs.getInt("hotelNo"));
-		h.setHotelName(rs.getString("hotelName"));
-		h.setHotelOrnerName(rs.getString("hotelOrnerName"));
-		h.setHotelOrnerNo(rs.getString("hotelOrnerNo"));
-		h.setHotelMail(rs.getString("hotelMail"));
-		h.setHotelAddress(rs.getString("hotelAddress"));
-		h.setHotelPhone(rs.getString("hotelPhone"));
+		h.setHotelNo(rs.getInt("hotel_no"));
+		h.setHotelName(rs.getString("hotel_name"));
+		h.setHotelOrnerName(rs.getString("hotel_orner_name"));
+		h.setHotelOrnerNo(rs.getString("hotel_orner_no"));
+		h.setHotelMail(rs.getString("hotel_mail"));
+		h.setHotelAddress(rs.getString("hotel_address"));
+		h.setHotelPhone(rs.getString("hotel_phone"));
 		h.setHotelPhoto(rs.getString("hotel_photo"));
 		return h;
 	}
-
+	// 비활성화 호텔회원 검색 기본
+	public Hotel basicHotel2(ResultSet rs) throws SQLException {
+		Hotel h = new Hotel();
+		h.setHotelNo(rs.getInt("hotel_no"));
+		h.setHotelName(rs.getString("hotel_name"));
+		h.setHotelOrnerName(rs.getString("hotel_orner_name"));
+		h.setHotelOrnerNo(rs.getString("hotel_orner_no"));
+		h.setHotelMail(rs.getString("hotel_mail"));
+		h.setHotelAddress(rs.getString("hotel_address"));
+		h.setHotelPhone(rs.getString("hotel_phone"));
+		return h;
+	}
 	// 호텔회원 비활성화
 	public int inactiveHotel(Connection conn, int hotelNo) {
 		PreparedStatement pstmt = null;
@@ -567,7 +578,7 @@ public class PppDao {
 			pstmt = conn.prepareStatement(Sql.allInactiveHotel);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				list.add(basicHotel(rs));
+				list.add(basicHotel2(rs));
 				return list;
 			}
 		} catch (SQLException e) {

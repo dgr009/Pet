@@ -355,12 +355,13 @@ public class Controller {
 	}
 
 	// 비활성화 된 호텔 검색
-	@RequestMapping(value = "/hotel/hoteldeactiviysearch", method = "GET")
+	@RequestMapping(value = "/admin/hoteldeactiviysearch", method = "GET")
 	public static ModelAndView hotelInactiveSearch(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveHotelSearch(req));
-		mav.setView("/hotels/inactiveHotelSearch.jsp");
+		mav.setView("/adminss/inactiveHotelMember.jsp");
+		//mav.setView("/hotels/inactiveHotelSearch.jsp");
 		return mav;
 	}
 
