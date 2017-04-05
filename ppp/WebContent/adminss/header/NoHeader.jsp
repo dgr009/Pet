@@ -10,7 +10,7 @@
                <span class="icon-bar"></span> <span class="icon-bar"></span> <span
                   class="icon-bar"></span>
             </button>
-            <a ><img  src="/ppp/adminss/image/logos.png"></a>
+            <a href="/ppp/admin/adminmain"><img  src="/ppp/adminss/image/logos.png"></a>
          </div>
          <div>
             <div class="collapse navbar-collapse" id="myNavbar">

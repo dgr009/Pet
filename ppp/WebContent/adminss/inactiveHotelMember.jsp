@@ -21,16 +21,18 @@ $(document).ready(function() {
 	// 이름, 메일, 연락처, 위치 //사진
 	$.each(inactiveHotelList, function(index, h) {
 		//var tagA = $("<a href='#'></a>").html('<article class="hotel_article"><div class="hotel img"><img src="http://placehold.it/250x250" alt="병원사진" width="250px" height="250px;" /> </div><div class="hotel description"><h3 class="hotel_title row">대구 상동 딱지애견샵병원</h3><span>리뷰(3)</span><p class="hotel_address row">인천 남구 학익동 663-1 태승빌딩 5층 (1층 홈플러스)</p><p class="hotel_phone_number row">032 - 123 - 4567</p><p class="hotel_email row">petpapa@ICIA.com</p></div><div class="star">3.0</div></article><hr />');
-		var tagA = $("<a href='/ppp/admin/hospitalview? hotel_active=2'></a>");
-		var tagArticle = $('<article class="hotel_article"></article>');
-		var name = $('<h3 class="hotel_title row">'+h.hotelName+'</h3>');
-		var phone = $('<p class="hotel_phone_number row">'+h.hotelPhone+'</p>');
-		var mail = $('<p class="hotel_email row">'+h.hotelMail+'</p>');
-		var address = $('<p class="hotel_address row">'+h.hotelAddress+'</p>')
-		var tagConDiv = $('<div class="hotel description"></div>').append(name).append(phone).append(mail).append(mail).append(address);
-		tagArticle.append(tagConDiv);
-		tagA.append(tagArticle);
-		$(".list tbody").append(tagA);
+		var no = $("<td></td>").html(h.hotelNo);
+		var name = $("<td></td>").html(h.hotelName);
+		var id = $("<td></td>").html(h.hotelId);
+		var ornerNo = $("<td></td>").html(h.hotelOrnerNo);
+		var ornerName = $("<td></td>").html(h.hotelOrnerName);
+		var phone = $("<td></td>").html(h.hotelPhone);
+		var mail = $("<td></td>").html(h.hotelMail);
+		var address = $("<td></td>").html(h.hotelAddress);
+
+		var tr = $("<tr width='90%'></tr>").append(no).append(name).append(id).append(ornerNo).append(ornerName).append(phone).append(mail).append(address);
+		//var tagA = $("<a href='/ppp/admin/hotelview?hotel_no="+h.hotelNo+"'></a>").append(tr);
+		$(".list tbody").append(tr);
 	});
 	
 });
@@ -52,8 +54,18 @@ $(document).ready(function() {
 		<button>검색</button>
 	</form>
 	<hr />
-	<table class='list'>
+	<table class='list' border ='1' width='90%'>
 	<thead>
+	<tr>
+		<th>번호</th>
+		<th>아이디</th>
+		<th>호텔이름</th>
+		<th>사업자등록번호</th>
+		<th>사업주 이름</th>
+		<th>호텔 주소</th>
+		<th>호텔 연락처</th>
+		<th>호텔 메일</th>
+	</tr>
 	</thead>
 	<tbody>
 	

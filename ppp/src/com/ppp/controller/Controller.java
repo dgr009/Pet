@@ -903,7 +903,7 @@ public class Controller {
 	public static ModelAndView adminMain(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
-		mav.setView("/ppp/adminss/adminindex2.jsp");
+		mav.setView("/ppp/adminss/adminHome.jsp");
 		mav.setRedirect();
 		return mav;
 	}

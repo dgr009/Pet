@@ -4,60 +4,73 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="/ppp/css/reset.css" rel="stylesheet" />
-<link href="/ppp/css/list.css" rel="stylesheet" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
-<style>
-	#list_title{
-		display:inline-block;
-	}
-	.inline_form{
-		display:inline-block;
-	}
-</style>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
-	var inactiveHospitalList = <%= request.getAttribute("result") %>
+	var inactivehospitalList = <%= request.getAttribute("result") %>
 	// 이름, 메일, 연락처, 위치 //사진
-	$.each(inactiveHospitalList, function(index, h) {
-		//var tagA = $("<a href='#'></a>").html('<article class="hospital_article"></div><div class="hospital description"><h3 class="hospital_title row">대구 상동 딱지애견샵병원</h3><span>리뷰(3)</span><p class="hospital_address row">인천 남구 학익동 663-1 태승빌딩 5층 (1층 홈플러스)</p><p class="hospital_phone_number row">032 - 123 - 4567</p><p class="hospital_email row">petpapa@ICIA.com</p></div><div class="star">3.0</div></article><hr />');
-		var tagA = $("<a href='/ppp/admin/hospitalview? hospital_active=2'></a>");
-		var tagArticle = $('<article class="hospital_article"></article>');
-		var name = $('<h3 class="hospital_title row">'+h.hospitalName+'</h3>');
-		var phone = $('<p class="hospital_phone_number row">'+h.hospitalPhone+'</p>');
-		var mail = $('<p class="hospital_email row">'+h.hospitalMail+'</p>');
-		var address = $('<p class="hospital_address row">'+h.hospitalAddress+'</p>')
-		var tagConDiv = $('<div class="hospital description"></div>').append(name).append(phone).append(mail).append(mail).append(address);
-		tagArticle.append(tagConDiv);
-		tagA.append(tagArticle);
-		$("#content").append(tagA);
+	$.each(inactivehospitalList, function(index, h) {
+		//var tagA = $("<a href='#'></a>").html('<article class="hospital_article"><div class="hospital img"><img src="http://placehold.it/250x250" alt="병원사진" width="250px" height="250px;" /> </div><div class="hospital description"><h3 class="hospital_title row">대구 상동 딱지애견샵병원</h3><span>리뷰(3)</span><p class="hospital_address row">인천 남구 학익동 663-1 태승빌딩 5층 (1층 홈플러스)</p><p class="hospital_phone_number row">032 - 123 - 4567</p><p class="hospital_email row">petpapa@ICIA.com</p></div><div class="star">3.0</div></article><hr />');
+		var no = $("<td></td>").html(h.hospitalNo);
+		var name = $("<td></td>").html(h.hospitalName);
+		var id = $("<td></td>").html(h.hospitalId);
+		var ornerNo = $("<td></td>").html(h.hospitalOrnerNo);
+		var ornerName = $("<td></td>").html(h.hospitalOrnerName);
+		var phone = $("<td></td>").html(h.hospitalPhone);
+		var mail = $("<td></td>").html(h.hospitalMail);
+		var address = $("<td></td>").html(h.hospitalAddress);
+
+		var tr = $("<tr width='90%'></tr>").append(no).append(name).append(id).append(ornerNo).append(ornerName).append(phone).append(mail).append(address);
+		//var tagA = $("<a href='/ppp/admin/hospitalview?hospital_no="+h.hospitalNo+"'></a>").append(tr);
+		$(".list tbody").append(tr);
 	});
 	
 });
 
 </script>
+<style>
+	table{
+		margin-left: 100px;
+	}
+</style>
 <body>
 <header> 
  <%@ include file='../adminss/header/YesHeader.jsp' %>  
 </header>
-	<section class="admin_section">
+	<div height="135px">as</div>
+	<br><br><br><br><br><br>
 	<h2 class="list_title">Inactive hospital List</h2>
 	<form id="inline_form" action="/ppp/admin/hospitaldeactiviysearch" method="get">
 		<button>검색</button>
 	</form>
 	<hr />
-	<div id="content">
-		
-	</div>
-	</section>
+	<table class='list' border ='1' width='90%'>
+	<thead>
+	<tr>
+		<th>번호</th>
+		<th>아이디</th>
+		<th>병원이름</th>
+		<th>사업자등록번호</th>
+		<th>사업주 이름</th>
+		<th>병원 주소</th>
+		<th>병원 연락처</th>
+		<th>병원 메일</th>
+	</tr>
+	</thead>
+	<tbody>
+	
+	</tbody>
+	</table>
 
 </body>
 </html>

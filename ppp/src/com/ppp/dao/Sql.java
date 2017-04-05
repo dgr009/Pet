@@ -35,11 +35,11 @@ public interface Sql {
 	// 16. 호텔회원 비활성화
 	public String inactiveHotel = "update hotel set hotel_active=2 where hotel_no=?";
 	// 17. 비활성화 된 병원회원 조회
-	public String allInactiveHospital = "select hospital_no,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_address,hospital_phone from hospital where hospital_active=2 order by  hospital_active_date desc";
+	public String allInactiveHospital = "select hospital_no,hospital_id,hospital_name,hospital_orner_name,hospital_orner_no,hospital_mail,hospital_address,hospital_phone from hospital where hospital_active=2 order by  hospital_active_date desc";
 	// 18. 비활성화 된 미용실회원 조회
-	public String allInactiveBeauty = "select beauty_no,beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_address,beauty_phone from beauty where beauty_active=2 order by beauty_active_date desc";
+	public String allInactiveBeauty = "select beauty_no,beauty_id,beauty_name,beauty_orner_name,beauty_orner_no,beauty_mail,beauty_address,beauty_phone from beauty where beauty_active=2 order by beauty_active_date desc";
 	// 19. 비활성화 된 호텔회원 조회
-	public String allInactiveHotel = "select hotel_no,hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_address,hotel_phone from hotel where hotel_active=2 order by hotel_active_date desc";
+	public String allInactiveHotel = "select hotel_no,hotel_name,hotel_orner_name,hotel_orner_no,hotel_mail,hotel_address,hotel_phone,hotel_id from hotel where hotel_active=2 order by hotel_active_date desc";
 	// 20. 회원 삭제
 	public String deleteMember = "delete from member where member_no=?";
 	// 21. 병원 삭제

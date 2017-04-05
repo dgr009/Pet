@@ -405,6 +405,18 @@ public class PppDao {
 		h.setHospitalPhone(rs.getString("hospitalPhone"));
 		return h;
 	}
+	private Hospital basicHospital2(ResultSet rs) throws SQLException {
+		Hospital h = new Hospital();
+		h.setHospitalNo(rs.getInt("hospital_no"));
+		h.setHospitalName(rs.getString("hospital_name"));
+		h.setHospitalOrnerName(rs.getString("hospital_orner_name"));
+		h.setHospitalOrnerNo(rs.getString("hospital_orner_no"));
+		h.setHospitalMail(rs.getString("hospital_mail"));
+		h.setHospitalId(rs.getString("hospital_id"));
+		h.setHospitalAddress(rs.getString("hospital_address"));
+		h.setHospitalPhone(rs.getString("hospital_phone"));
+		return h;
+	}
 
 	// 병원 전체 리스트 조회
 	public ArrayList<Hospital> selectAllHospital(Connection conn, Hospital h) {
@@ -469,7 +481,7 @@ public class PppDao {
 			pstmt = conn.prepareStatement(Sql.allInactiveHospital);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				list.add(basicHospital(rs));
+				list.add(basicHospital2(rs));
 			}
 			return list;
 		} catch (SQLException e) {
@@ -490,6 +502,19 @@ public class PppDao {
 		b.setBeautyMail(rs.getString("beautyMail"));
 		b.setBeautyAddress(rs.getString("beautyAddress"));
 		b.setBeautyPhone(rs.getString("beautyPhone"));
+		return b;
+	}
+	// 비활성화 미용실 검색 기본
+	public Beauty basicBeauty2(ResultSet rs) throws SQLException {
+		Beauty b = new Beauty();
+		b.setBeautyNo(rs.getInt("beauty_no"));
+		b.setBeautyName(rs.getString("beauty_name"));
+		b.setBeautyOrnerName(rs.getString("beauty_orner_name"));
+		b.setBeautyOrnerNo(rs.getString("beauty_orner_no"));
+		b.setBeautyId(rs.getString("beauty_id"));
+		b.setBeautyMail(rs.getString("beauty_mail"));
+		b.setBeautyAddress(rs.getString("beauty_address"));
+		b.setBeautyPhone(rs.getString("beauty_phone"));
 		return b;
 	}
 
@@ -518,7 +543,7 @@ public class PppDao {
 			pstmt = conn.prepareStatement(Sql.allInactiveBeauty);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				list.add(basicBeauty(rs));
+				list.add(basicBeauty2(rs));
 			}
 			return list;
 		} catch (SQLException e) {
@@ -550,6 +575,7 @@ public class PppDao {
 		h.setHotelOrnerName(rs.getString("hotel_orner_name"));
 		h.setHotelOrnerNo(rs.getString("hotel_orner_no"));
 		h.setHotelMail(rs.getString("hotel_mail"));
+		h.setHotelId(rs.getString("hotel_id"));
 		h.setHotelAddress(rs.getString("hotel_address"));
 		h.setHotelPhone(rs.getString("hotel_phone"));
 		return h;
