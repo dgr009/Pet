@@ -269,8 +269,8 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicMember(rs));
-				return list;
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -308,8 +308,8 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicMember(rs));
-				return list;
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -358,8 +358,8 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicMember(rs));
-				return list;
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -416,8 +416,8 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicHospital(rs));
-				return list;
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -470,8 +470,8 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicHospital(rs));
-				return list;
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -519,8 +519,8 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicBeauty(rs));
-				return list;
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -579,8 +579,9 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicHotel2(rs));
-				return list;
+				
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -809,8 +810,8 @@ public class PppDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(basicHospital(rs));
-				return list;
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

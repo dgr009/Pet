@@ -4,22 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="/ppp/css/reset.css" rel="stylesheet" />
-<link href="/ppp/css/list.css" rel="stylesheet" />
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
-<style>
-	#list_title{
-		display:inline-block;
-	}
-	.inline_form{
-		display:inline-block;
-	}
-</style>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -38,26 +30,35 @@ $(document).ready(function() {
 		var tagConDiv = $('<div class="hotel description"></div>').append(name).append(phone).append(mail).append(mail).append(address);
 		tagArticle.append(tagConDiv);
 		tagA.append(tagArticle);
-		$("#content").append(tagA);
+		$(".list tbody").append(tagA);
 	});
 	
 });
 
 </script>
+<style>
+	table{
+		margin-left: 100px;
+	}
+</style>
 <body>
 <header> 
  <%@ include file='../adminss/header/YesHeader.jsp' %>  
 </header>
-	<section class="admin_section">
+	<div height="135px">as</div>
+	<br><br><br><br><br><br>
 	<h2 class="list_title">Inactive Hotel List</h2>
 	<form id="inline_form" action="/ppp/admin/hoteldeactiviysearch" method="get">
 		<button>검색</button>
 	</form>
 	<hr />
-	<div id="content">
-		
-	</div>
-	</section>
+	<table class='list'>
+	<thead>
+	</thead>
+	<tbody>
+	
+	</tbody>
+	</table>
 
 </body>
 </html>
