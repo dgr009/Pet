@@ -18,10 +18,11 @@
                   <li class="dropdown"><a class="dropdown-toggle"
                      data-toggle="dropdown" href="#">회원리스트 <span class="caret"></span></a>
                      <ul class="dropdown-menu">
-                     <li><a href="user/allList.jsp">회원 리스트</a></li>
-                     <li><a href="company/companyList.jsp">호텔회원 리스트</a></li>
-               
-                        <li><a href="admin/adminList.jsp">관리자회원 리스트</a></li>
+                     <li><a href="/ppp/adminss/memerList.jsp">회원 리스트</a></li>
+                     <li><a href="/ppp/adminss/hotelList.jsp">호텔회원 리스트</a></li>
+               		<li><a href="/ppp/adminss/hospitalList.jsp">병원회원 리스트</a></li>
+               		<li><a href="/ppp/adminss/beautyList.jsp">미용실회원 리스트</a></li>
+                        <li><a href="/ppp/adminss/adminList.jsp">관리자회원 리스트</a></li>
                         
                      </ul>
                                <li class="dropdown"><a class="dropdown-toggle"
