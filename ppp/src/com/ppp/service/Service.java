@@ -805,8 +805,8 @@ public class Service {
 		JdbcUtil.close(conn);
 		return new Gson().toJson(v);
 	}
-	
-	//병원 정보 변경하기
+
+	// 병원 정보 변경하기
 	public Object vetUpdate(HttpServletRequest req) {
 		Connection conn = JdbcUtil.getConnection();
 		HttpSession session = req.getSession();
@@ -822,6 +822,75 @@ public class Service {
 		session.setAttribute("hospitalgson", new Gson().toJson(hospital));
 		JdbcUtil.close(conn);
 		return new Gson().toJson(hospital);
+	}
+
+	// 병원 예약하기
+	public void hospitalReserve(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member) session.getAttribute("member");
+		ArrayList<Animal> a = (ArrayList<Animal>) session.getAttribute("animallist");
+		int reserveNo = dao.selectReserveHospitalMaxNo(conn, Integer.parseInt(req.getParameter("hospital_no")));
+		HospitalReserveDetail hord = MappingUtil.getReserveHotelFromRequest(req, reserveNo, m, a);
+		int result = dao.hospitalReserve(conn, hord);
+		JdbcUtil.close(conn);
+
+	}
+
+	// 회원 예약 리스트 보기
+	public String memberReserveList(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member) session.getAttribute("member");
+		ArrayList<HospitalReserveList> horl = dao.memberHospitalReserveList(conn, m.getMemberNo());
+		ArrayList<HotelReserveList> hrl = dao.memberHotelReserveList(conn, m.getMemberNo());
+		ArrayList<BeautyReserveList> brl = dao.memberBeautyReserveList(conn, m.getMemberNo());
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("horl", horl);
+		map.put("hrl", hrl);
+		map.put("brl", brl);
+		JdbcUtil.close(conn);
+
+		return new Gson().toJson(map);
+	}
+
+	// 회원 병원 예약 취소하기
+	public int hospitalReserveDelete(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member) session.getAttribute("member");
+		int hospitalNo = Integer.parseInt(req.getParameter("hospital_no"));
+		int result = dao.hospitalReserveDelete(conn,m.getMemberNo(),hospitalNo);
+		JdbcUtil.close(conn);
+		return result;
+	}
+	
+	//회원 병원 예약 리뷰 작성하기
+	public int writeHospitalReview(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		HttpSession session = req.getSession();
+		Member m = (Member) session.getAttribute("member");
+		int hospitalNo = Integer.parseInt(req.getParameter("hospital_no"));
+		int hospitalReviewNo = dao.selectHospitalReviewMaxNo(conn,hospitalNo);
+		HospitalReview hr = new HospitalReview();
+		hr.setHospitalNo(hospitalNo);
+		hr.setHospitalReviewEpilogue(req.getParameter("epilogue"));
+		hr.setHospitalReviewNo(hospitalReviewNo);
+		hr.setHospitalReviewScore(Float.parseFloat(req.getParameter("score")));
+		hr.setMemberNo(m.getMemberNo());
+		int result= dao.insertHospitalReview(conn, hr);
+		JdbcUtil.close(conn);
+		return result;
+	}
+
+	// 병원 리뷰 리스트 보기
+	public String selectHospitalReview(HttpServletRequest req) {
+		Connection conn = JdbcUtil.getConnection();
+		int hospitalNo = Integer.parseInt(req.getParameter("hospital_no"));
+		ArrayList<HospitalReview> list = dao.selectHospitalReview(conn,hospitalNo);
+		JdbcUtil.close(conn);
+		return new Gson().toJson(list);
 	}
 
 }

@@ -126,7 +126,7 @@ body {
    </div>
    <div id="section42" class="container">
       <div class="containe">
-         <br> <br> <br> <br>
+         <br> <br> <br> <br><br> <br> <br> <br>
          <h2>동물병원 보기</h2>
          <div class="row">
             <div class="col-sm-3 col-md-6 col-lg-3 btnimg">
@@ -152,9 +152,10 @@ body {
          </div>
       </div>
    </div>
+   
    <div id="section43" class="container">
       <div class="container">
-         <br> <br> <br> <br>
+         <br> <br> <br> <br><br> <br> <br> <br>
          <h2>애견샵 보기</h2>
          <div class="row">
             <div class="col-sm-3 col-md-6 col-lg-3 btnimg">
@@ -164,7 +165,7 @@ body {
             <div class="col-sm-3 col-md-6 col-lg-3 btnimg"
                style="background-color: white;">
                <a href="/ppp/beauty/beautyscoresearch"><img
-                  src="/ppp/images/review.png" width="150px" height="170"><br>평점순 호텔보기</a>
+                  src="/ppp/images/grade.png" width="150px" height="170"><br>평점순 호텔보기</a>
             </div>
             <div class="col-sm-3 col-md-6 col-lg-3 btnimg">
                <a href="/ppp/beauty/beautyreviewsearch"><img 

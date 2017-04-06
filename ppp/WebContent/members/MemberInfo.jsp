@@ -125,7 +125,9 @@
 			onclick="location.href = '/ppp/member/memberupdate'" /> <input
 			type="button" class="btn btn-info" value="동물 추가"
 			onclick="location.href = '/ppp/member/animalinsert'" /> <input
-			type="button" class="btn btn-info" value="받은 쪽지함"
+			type="button" class="btn btn-info" value="예약내역"
+			onclick="location.href = '/ppp/member/memberreservelist'" /> <input
+			type="button" class="btn btn-info" value="쪽지함"
 			onclick="location.href = '/ppp/board/receivemessage'" /> <input
 			type="button" class="btn btn-info" value="홈으로"
 			onclick="location.href = '/ppp/member/membermain'" />

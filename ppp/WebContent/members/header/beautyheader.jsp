@@ -1,7 +1,13 @@
+<%@page import="com.ppp.vo.Beauty"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
          <div class="navbar-header">
@@ -15,14 +21,9 @@
          <div>
             <div class="collapse navbar-collapse" id="myNavbar">
                <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown"><a class="dropdown-toggle"
-                     data-toggle="dropdown" href="#">예약 <span class="caret"></span></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#section41">호텔</a></li>
-                        <li><a href="#section42">병원</a></li>
-                        <li><a href="#section43">미용</a></li>
-                     </ul>
-                     <li><a href="#section2">게시판</a></li>
+                  <li><a href="/ppp/beauty/beautyareasearch">등록</a></li> 
+                       
+                    <li><a href="#section2">게시판</a></li>
                      <li><a href="#section3">고객센터</a></li>
                   <li><a href="/ppp/beauty/beautyinfo" data-toggle="modal" data-target="#myModall" ><span class="glyphicon glyphicon-user"></span> My Page</a></li>
                   <li><a href="/ppp/beauty/beautylogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>

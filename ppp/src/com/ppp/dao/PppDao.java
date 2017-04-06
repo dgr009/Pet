@@ -3355,4 +3355,168 @@ public class PppDao {
 		return 0;
 	}
 
+	// 병원 예약 마지막 번호 가져오기
+	public int selectReserveHospitalMaxNo(Connection conn, int lastNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			pstmt = conn.prepareStatement(Sql.reserveHospitalMaxNo);
+			pstmt.setInt(1, lastNo);
+
+			rs = pstmt.executeQuery();
+			if (rs.next())
+				return rs.getInt(1);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return -1;
+	}
+
+	// 병원 예약 하기
+	public int hospitalReserve(Connection conn, HospitalReserveDetail hrd) {
+		PreparedStatement pstmt = null;
+
+		try {
+			/*
+			 * reserve_hospital_no, member_no, hospital_no, animal_kind,
+			 * animal_weight, reserve_hospital_time, vet_name,
+			 * reserve_hospital_date
+			 */
+			pstmt = conn.prepareStatement(Sql.insertReserveHospitalDetail);
+			pstmt.setInt(1, hrd.getReserveHospitalNo());
+			pstmt.setInt(2, hrd.getMemberNo());
+			pstmt.setInt(3, hrd.getHospitalNo());
+			pstmt.setString(4, hrd.getAnimalKind());
+			pstmt.setFloat(5, hrd.getAniamlWeight());
+			pstmt.setString(6, hrd.getReserveHostpitalTime());
+			pstmt.setString(7, hrd.getVetName());
+			pstmt.setDate(8, hrd.getReserveHospitalDate());
+
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt, null);
+		}
+		return 0;
+	}
+
+	// 회원 병원 예약 리스트 보기
+	public ArrayList<HospitalReserveList> memberHospitalReserveList(Connection conn, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<HospitalReserveList> horl= new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(Sql.memberHospitalReserveDatail);
+			pstmt.setInt(1, memberNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				HospitalReserveList h = new HospitalReserveList();
+				h.setHospitalName(rs.getString(1));
+				h.setHospitalPhone(rs.getString(2));
+				h.setHospitalAddress(rs.getString(3));
+				h.setVetName(rs.getString(4));
+				h.setReserveHospitalDate(rs.getDate(5));
+				h.setReserveHospitalTime(rs.getString(6));
+				h.setAnimalName(rs.getString(7));
+				h.setHospitalNo(rs.getInt(8));
+				horl.add(h);
+			}
+			return horl;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt, rs);
+		}
+		return null;
+	}
+
+	// 회원 호텔 예약 리스트 보기
+	public ArrayList<HotelReserveList> memberHotelReserveList(Connection conn, int memberNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	// 회원 미용 예약 리스트 보기
+	public ArrayList<BeautyReserveList> memberBeautyReserveList(Connection conn, int memberNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	// 회원 병원 예약 취소 하기
+	public int hospitalReserveDelete(Connection conn, int memberNo, int hospitalNo) {
+		PreparedStatement pstmt =null;
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.hospitalReserveDelete);
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, hospitalNo);
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(pstmt, null);
+		}
+		return 0;
+	}
+
+	// 병원 리뷰 마지막 번호 찾기
+	public int selectHospitalReviewMaxNo(Connection conn, int hospitalNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.reserveHospitalReviewMaxNo);
+			pstmt.setInt(1, hospitalNo);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				return rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	//병원 리뷰 가져오기 번호로
+	public ArrayList<HospitalReview> selectHospitalReview(Connection conn, int hospitalNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<HospitalReview> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(Sql.selectHospitalReview);
+			pstmt.setInt(1, hospitalNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				HospitalReview h = new HospitalReview();
+				h.setHospitalNo(hospitalNo);
+				h.setHospitalReviewNo(rs.getInt(1));
+				h.setHospitalReviewScore(rs.getFloat(2));
+				h.setHospitalReviewEpilogue(rs.getString(3));
+				list.add(h);
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			JdbcUtil.close(pstmt, rs);
+		}
+		
+		return null;
+	}
+
 }

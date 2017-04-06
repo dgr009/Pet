@@ -9,9 +9,18 @@ public class HotelReserveDetail {
 	int roomNo;
 	String animalkind;
 	float animalWeight;
+	String animalName;
 	Date checkIn;
 	Date checkOut;
 	int reserveHotelPrice;
+	
+	
+	public String getAnimalName() {
+		return animalName;
+	}
+	public void setAnimalName(String animalName) {
+		this.animalName = animalName;
+	}
 	public int getReserveHotelNo() {
 		return reserveHotelNo;
 	}

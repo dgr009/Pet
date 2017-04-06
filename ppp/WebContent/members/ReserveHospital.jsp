@@ -21,8 +21,8 @@
 			var vetPhoto = $("<img src='/ppp/hospitals/vetimg/"+r.vetPhoto+"' alt='Alternate Text' width='200' height='200' >");
 			var vetNo = $("<td width='50px'></td>").html(r.vetNo);
 			var PhotoTd = $("<td width='200px' height='200px'></td>").append(vetPhoto);
-			var vetName = $("<h4></h4>").html("수의사 이름 : " +r.vetName);
-			var vetIntro = $("<h3><b></b></h3>").html("수의사 소개 : " +r.vetIntroduce);
+			var vetName = $("<h4></h4>").html(r.vetName);
+			var vetIntro = $("<h3><b></b></h3>").html(r.vetIntroduce);
 			var vetInfo = $("<td width='200px' height='200px'></td>").append(vetName).append(vetIntro);
 			var tr = $('<tr></tr>').append(vetNo).append(PhotoTd).append(vetInfo);
 			$(".vet_info tbody").append(tr);
@@ -34,7 +34,7 @@
 		nameCheck();
 		
 		$.each(animallist, function(index, a) {
-			var animalOp = $("<option value='a.animalNo'></option>").html(a.animalName);
+			var animalOp = $("<option value='"+a.animalName+"'></option>").html(a.animalName);
 			$("#animal_name").append(animalOp);
 		})
 	})
@@ -42,7 +42,7 @@
 	function nameCheck(){
 			$.each(vetGson,function(index,r){	
 				if(r.vetName==$("#check_vet").val())
-					$("#introduce").html(r.vetIntroduce);	
+					$("#introduce").html(r.vetIntroduce);
 			})	
 		}
 </script>
@@ -113,19 +113,20 @@ p{
 	</div>
 
 	<div class='reserve'>
+	<form action='/ppp/member/reservehospital' method='post'>
 		<table border='1' width='500px' height='500px'>
 			<tr>
 				<td><h5>예약자 이름</h5></td>
-
-				<td><input type="text" class="inp_txt" name="member_name" id="member_name" width='100%'
-					placeholder="이름을 입력해 주세요."  value="<%=m.getMemberName()%>"></td>
+				
+				<td><input type="hidden" name="member_name" id="member_name" width='100%'
+					value="<%=m.getMemberName()%>" ><%=m.getMemberName()%></td>
 			</tr>
 			<tr>
 				<td><h5>휴대폰 번호</h5></td>
 
-				<td><input type="tel" class="inp_txt" name="member_phone"
-					id="member_phone" placeholder="휴대폰 번호를 입력해 주세요." 
-					value="<%=m.getMemberPhone()%>"></td>
+				<td><input type="hidden" name="member_phone"
+					id="member_phone"
+					value="<%=m.getMemberPhone()%>" ><%=m.getMemberPhone()%></td>
 					
 			</tr>
 			<tr>
@@ -148,15 +149,17 @@ p{
 			</tr>
 			<tr>
 				<td>수의사 소개</td>
-				<td><p name='vet_introduce' id='introduce'><p><td>
+				<td id='introduce'><td>
 			</tr>
 			<tr>
 				<td>애완 동물 선택</td>
 				<td><select name="animal_name" id="animal_name"></select></td>
 			</tr>
 		</table>
+		<input type="hidden" value="<%=h.getHospitalNo() %>" name="hospital_no">
 		<hr />
 		<button>예약하기</button>
+		</form>
 	</div>
 
 

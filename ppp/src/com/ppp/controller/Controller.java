@@ -48,7 +48,7 @@ public class Controller {
 		if (service.memberLogin(req) == null) {
 			// 로그인실패
 			mav.setView("/members/login.jsp");
-			
+
 		} else {
 			// 로그인성공
 			HttpSession session = req.getSession();
@@ -116,7 +116,7 @@ public class Controller {
 	@RequestMapping(value = "/member/memberinfo", method = "GET")
 	public static ModelAndView memberInfo(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
-		ModelAndView mav = new ModelAndView();	
+		ModelAndView mav = new ModelAndView();
 		System.out.println("왜 두번실행되니 ㅠㅠ");
 		mav.setView("/members/MemberInfo.jsp");
 
@@ -784,6 +784,7 @@ public class Controller {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hospital", service.hospitalView(req));
 		mav.addObject("vet", service.vetView(req));
+		mav.addObject("review", service.selectHospitalReview(req));
 		mav.setView("/hospitals/HospitalView.jsp");
 
 		return mav;
@@ -828,6 +829,39 @@ public class Controller {
 		return mav;
 	}
 
+	// 병원 리뷰 작성하기(폼으로)
+	@RequestMapping(value = "/hospital/writehospitalreview", method = "GET")
+	public static ModelAndView hospitalReviewStart(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.setView("/members/hospitalReview.jsp");
+		return mav;
+	}
+
+	// 병원 예약완료 후 리뷰 작성하기
+	@RequestMapping(value = "/hospital/writehospitalreview", method = "POST")
+	public static ModelAndView hospitalReviewEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		service.writeHospitalReview(req);
+		service.hospitalReserveDelete(req);
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+		return mav;
+	}
+	
+	//병원 예약 취소하기
+	@RequestMapping(value = "/hospital/hospitalreservedelete", method = "GET")
+	public static ModelAndView hospitalReserveDelete(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		service.hospitalReserveDelete(req);
+		mav.setView("/ppp/member/memberreservelist");
+		mav.setRedirect();
+		return mav;
+	}
+	
+	
 	//////////////////////////
 	// 관리자 컨트롤러
 
@@ -986,9 +1020,9 @@ public class Controller {
 		return mav;
 	}
 
-	// 병원 예약하기
+	// 병원 예약하기(폼으로)
 	@RequestMapping(value = "/member/reservehospital", method = "GET")
-	public static ModelAndView hospitalReserve(HttpServletRequest req) {
+	public static ModelAndView hospitalReserveStart(HttpServletRequest req) {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hospital", service.hospitalView(req));
@@ -999,4 +1033,25 @@ public class Controller {
 		return mav;
 	}
 
+	// 병원 예약하기
+	@RequestMapping(value = "/member/reservehospital", method = "POST")
+	public static ModelAndView hospitalReserveEnd(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		service.hospitalReserve(req);
+		mav.setView("/ppp/member/membermain");
+		mav.setRedirect();
+		return mav;
+	}
+
+	// 회원 예약 리스트 보기
+	@RequestMapping(value = "/member/memberreservelist", method = "GET")
+	public static ModelAndView memberReserveList(HttpServletRequest req) {
+		Service service = (Service) req.getServletContext().getAttribute("service");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reserve", service.memberReserveList(req));
+		mav.setView("/members/MemberReserveList.jsp");
+
+		return mav;
+	}
 }
