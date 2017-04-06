@@ -946,4 +946,36 @@ public class Service {
 			return new Gson().toJson(m);
 		}
 		
+		//   회원 리스트
+		public String memberList(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Member> list = dao.memberList(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+
+		//  병원 리스트
+		public String hospitalList(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Hospital> list = dao.hospitalList(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+
+		// 미용실 리스트
+		public String beautyList(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Beauty> list = dao.beautyList(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+
+		// 호텔 리스트
+		public String hotelList(HttpServletRequest req) {
+			Connection conn = JdbcUtil.getConnection();
+			ArrayList<Hotel> list = dao.hotelList(conn);
+			JdbcUtil.close(conn);
+			return new Gson().toJson(list);
+		}
+			
 }

@@ -17,9 +17,9 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	var inactivebeautyList = <%= request.getAttribute("result") %>
+	var beautyList = <%= request.getAttribute("result") %>
 	// 이름, 메일, 연락처, 위치 //사진
-	$.each(inactivebeautyList, function(index, h) {
+	$.each(beautyList, function(index, h) {
 		//var tagA = $("<a href='#'></a>").html('<article class="beauty_article"><div class="beauty img"><img src="http://placehold.it/250x250" alt="미용실사진" width="250px" height="250px;" /> </div><div class="beauty description"><h3 class="beauty_title row">대구 상동 딱지애견샵미용실</h3><span>리뷰(3)</span><p class="beauty_address row">인천 남구 학익동 663-1 태승빌딩 5층 (1층 홈플러스)</p><p class="beauty_phone_number row">032 - 123 - 4567</p><p class="beauty_email row">petpapa@ICIA.com</p></div><div class="star">3.0</div></article><hr />');
 		var no = $("<td></td>").html(h.beautyNo);
 		var name = $("<td></td>").html(h.beautyName);
@@ -49,8 +49,8 @@ $(document).ready(function() {
 </header>
 	<div height="135px">as</div>
 	<br><br><br><br><br><br>
-	<h2 class="list_title">Inactive beauty List</h2>
-	<form id="inline_form" action="/ppp/admin/beautydeactiviysearch" method="get">
+	<h2 class="list_title">beauty List</h2>
+	<form id="inline_form" action="/ppp/admin/beautylist" method="get">
 		<button>검색</button>
 	</form>
 	<hr />

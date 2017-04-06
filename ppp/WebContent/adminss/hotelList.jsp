@@ -1,71 +1,76 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.ppp.vo.Hotel"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<%
-	Hotel hotel = (Hotel)session.getAttribute("hotel");
-%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-</script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
 </head>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var hotelList = <%= request.getAttribute("result") %>
+	// ì´ë¦„, ë©”ì¼, ì—°ë½ì²˜, ìœ„ì¹˜ //ì‚¬ì§„
+	$.each(hotelList, function(index, h) {
+		//var tagA = $("<a href='#'></a>").html('<article class="hotel_article"><div class="hotel img"><img src="http://placehold.it/250x250" alt="í˜¸í…”ì‚¬ì§„" width="250px" height="250px;" /> </div><div class="hotel description"><h3 class="hotel_title row">ëŒ€êµ¬ ìƒë™ ë”±ì§€ì• ê²¬ìƒµí˜¸í…”</h3><span>ë¦¬ë·°(3)</span><p class="hotel_address row">ì¸ì²œ ë‚¨êµ¬ í•™ìµë™ 663-1 íƒœìŠ¹ë¹Œë”© 5ì¸µ (1ì¸µ í™ˆí”ŒëŸ¬ìŠ¤)</p><p class="hotel_phone_number row">032 - 123 - 4567</p><p class="hotel_email row">petpapa@ICIA.com</p></div><div class="star">3.0</div></article><hr />');
+		var no = $("<td></td>").html(h.hotelNo);
+		var name = $("<td></td>").html(h.hotelName);
+		var id = $("<td></td>").html(h.hotelId);
+		var ornerNo = $("<td></td>").html(h.hotelOrnerNo);
+		var ornerName = $("<td></td>").html(h.hotelOrnerName);
+		var phone = $("<td></td>").html(h.hotelPhone);
+		var mail = $("<td></td>").html(h.hotelMail);
+		var address = $("<td></td>").html(h.hotelAddress);
+
+		var tr = $("<tr width='90%'></tr>").append(no).append(name).append(id).append(ornerNo).append(ornerName).append(phone).append(mail).append(address);
+		//var tagA = $("<a href='/ppp/admin/hotelview?hotel_no="+h.hotelNo+"'></a>").append(tr);
+		$(".list tbody").append(tr);
+	});
+	
+});
+
+</script>
+<style>
+	table{
+		margin-left: 100px;
+	}
+</style>
 <body>
-	<div>
-		<table border="1" width="500px">
-			<thead>
-				<!-- 
-					int hotelNo;
-					String hotelId;
-					String hotelName;
-					String hotelAddress;
-					String hotelOrnerName;
-					String hotelOrnerNo;
-					String hotelMail;
-					String hotelPhone;
-					String hotelPhoto;
-					int hotelActive;
-					Date hotelActiveDate;
-				-->
-				<tr>
-					<td>¹øÈ£</td>
-					<td>¾ÆÀÌµğ</td>
-					<td>ÀÌ¸§</td>
-					<td>ÁÖ¼Ò</td>
-					<td>»ç¾÷ÀÚ ÀÌ¸§</td>
-					<td>»ç¾÷ÀÚ ¹øÈ£</td>
-					<td>ÀÌ¸ŞÀÏ</td>
-					<td>ÀüÈ­¹øÈ£<td>
-					<td>»çÁø</td>
-					<td>ºñÈ°¼ºÈ­ ³¯Â¥</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%=hotel.getHotelNo() %></td>
-					<td><%=hotel.getHotelId() %></td>
-					<td><%=hotel.getHotelName() %></td>
-					<td><%=hotel.getHotelAddress() %></td>
-					<td><%=hotel.getHotelOrnerName() %></td>
-					<td><%=hotel.getHotelOrnerNo() %></td>
-					<td><%=hotel.getHotelMail() %></td>
-					<td><%=hotel.getHotelPhone() %></td>
-					<td><%=hotel.getHotelPhoto() %></td>
-					<td><%=hotel.getHotelActiveDate() %></td>
-				</tr>
-				<tr><td colspan="8">---------------------------------</td></tr>
-			</tbody>
-		</table>
-		<input type="button" value="Á¤º¸ ¼öÁ¤" onclick="location.href = '/ppp/member/memberupdate'" />
-		<input type="button" value="µ¿¹° Ãß°¡" onclick="location.href = '/ppp/member/animalinsert'" />
-		<input type="button" value="¹ŞÀº ÂÊÁöÇÔ" onclick="location.href = '/ppp/board/receivemessage'" /> 
-		<input type="button" value="È¨À¸·Î" onclick="location.href = '/ppp/member/membermain'" />
-	</div>
+<header> 
+ <%@ include file='../adminss/header/YesHeader.jsp' %>  
+</header>
+	<div height="135px">as</div>
+	<br><br><br><br><br><br>
+	<h2 class="list_title">hotel List</h2>
+	<form id="inline_form" action="/ppp/admin/hotellist" method="get">
+		<button>ê²€ìƒ‰</button>
+	</form>
+	<hr />
+	<table class='list' border ='1' width='90%'>
+	<thead>
+	<tr>
+		<th>ë²ˆí˜¸</th>
+		<th>ì•„ì´ë””</th>
+		<th>í˜¸í…”ì´ë¦„</th>
+		<th>ì‚¬ì—…ìë“±ë¡ë²ˆí˜¸</th>
+		<th>ì‚¬ì—…ì£¼ ì´ë¦„</th>
+		<th>í˜¸í…” ì£¼ì†Œ</th>
+		<th>í˜¸í…” ì—°ë½ì²˜</th>
+		<th>í˜¸í…” ë©”ì¼</th>
+	</tr>
+	</thead>
+	<tbody>
+	
+	</tbody>
+	</table>
+
 </body>
 </html>
-
