@@ -257,12 +257,12 @@ public class Controller {
 	}
 
 	// 비활성화 된 회원 검색
-	@RequestMapping(value = "/member/memberdeactiviysearch", method = "GET")
+	@RequestMapping(value = "/admin/memberdeactiviysearch", method = "GET")
 	public static ModelAndView memberInactiveSearch(HttpServletRequest req) {
 		Service s = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", s.inactiveMemberSearch(req));
-		mav.setView("/adminss/user/inactiveMemberSearch.jsp");
+		mav.setView("/adminss/inactiveMember.jsp");
 		return mav;
 	}
 	/////////////////////////////////

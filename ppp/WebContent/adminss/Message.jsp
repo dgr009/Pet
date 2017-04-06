@@ -64,7 +64,7 @@ body {
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/ppp/admin/messagesend" method='post'>
+
 	<div id="section41" class="container-fluid">
 		<h1>ÂÊÁö</h1>
 		<div class="container">
@@ -76,15 +76,15 @@ body {
 				<div class="col-md-8">
 					<div class="row">
 						<div class="col-sm-6 form-group">
-							<input class="form-control" id="subject" name="message_title"
+							<input class="form-control" id="subject" name="subject"
 								placeholder="subject" type="text" required>
 						</div>
 						<div class="col-sm-6 form-group">
-							<input class="form-control" id="id" name="member_no" placeholder="member_no"
+							<input class="form-control" id="id" name="id" placeholder="ID"
 								type="text" required>
 						</div>
 					</div>
-					<textarea class="form-control" id="contents" name="message_content"
+					<textarea class="form-control" id="contents" name="contents"
 						placeholder="contents" rows="5"></textarea>
 					<div class="row">
 						<div class="col-md-12 form-group">
@@ -95,7 +95,7 @@ body {
 			</div>
 		</div>
 	</div>
-</form>
+
 
 </body>
 </html>

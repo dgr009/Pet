@@ -140,8 +140,11 @@ public class Service {
 		HttpSession session = req.getSession();
 		Admin a = (Admin) session.getAttribute("admin");
 		int messageNo = dao.selectMessageNoMax(conn);
+		System.out.println("sdfsdfsd :::::: "+messageNo);
 		int adminNo = a.getAdminNo();
 		Message m = MappingUtil.getSendMessge(req, adminNo, messageNo);
+		System.out.println("sdfsdfsd :::::: "+m.toString());
+
 		int result = dao.insertMessage(conn, m);
 		JsonObject ob = new JsonObject();
 		if (result == 1)

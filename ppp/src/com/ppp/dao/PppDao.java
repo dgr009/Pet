@@ -258,6 +258,16 @@ public class PppDao {
 		m.setMemberCoupon(rs.getInt("memberCoupon"));
 		return m;
 	}
+	private Member basicMember2(ResultSet rs) throws SQLException {
+		Member m = new Member();
+		m.setMemberNo(rs.getInt("member_no"));
+		m.setMemberId(rs.getString("member_id"));
+		m.setMemberAddress(rs.getString("member_address"));
+		m.setMemberPhone(rs.getString("member_phone"));
+		m.setMemberName(rs.getString("member_name"));
+		m.setMemberMail(rs.getString("member_mail"));
+		return m;
+	}
 
 	// 회원정보 조회
 	public ArrayList<Member> selectAllMember(Connection conn, Member member) {
@@ -357,8 +367,8 @@ public class PppDao {
 			pstmt = conn.prepareStatement(Sql.allInactiveMember);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				list.add(basicMember(rs));
 			}
+			list.add(basicMember2(rs));
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
