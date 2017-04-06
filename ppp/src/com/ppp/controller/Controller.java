@@ -914,7 +914,7 @@ public class Controller {
 		Service service = (Service) req.getServletContext().getAttribute("service");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", service.memberCoupon(req));
-		mav.setView("/ppp/adminss/user/MemberCouponList.jsp");
+		mav.setView("/ppp/adminss/memberCoupon.jsp");
 		return mav;
 		
 	}
