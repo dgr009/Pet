@@ -2,10 +2,8 @@ package com.ppp.util;
 
 import java.io.*;
 import java.sql.*;
-
+import java.text.*;
 import java.util.*;
-
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.*;
@@ -438,5 +436,35 @@ public class MappingUtil {
 			e.printStackTrace();
 		}
 		return v;
+	}
+
+	//호텔 예약 만들기
+	public static HospitalReserveDetail getReserveHotelFromRequest(HttpServletRequest req,int reserveNo, Member m, ArrayList<Animal> ani) {
+		HospitalReserveDetail hrd = new HospitalReserveDetail();
+		 
+        java.util.Date date;
+		try {
+			date = new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("reserve_date").toString());
+			java.sql.Date close = new java.sql.Date(date.getTime());
+			hrd.setReserveHospitalDate(close);
+			hrd.setReserveHospitalNo(reserveNo);
+			hrd.setMemberNo(m.getMemberNo());
+			hrd.setMemberName(req.getParameter("member_name"));
+			hrd.setMemberPhone(req.getParameter("member_phone"));
+			for (Animal a : ani) {
+				if(a.getAnimalName().equals(req.getParameter("animal_name"))){
+					hrd.setAnimalName(a.getAnimalName());
+					hrd.setAnimalKind(a.getAnimalKind());
+					hrd.setAniamlWeight(a.getAnimalWeight());
+				}
+			}
+			hrd.setHospitalNo(Integer.parseInt(req.getParameter("hospital_no")));
+			hrd.setReserveHostpitalTime(req.getParameter("reserve_time"));
+			hrd.setVetName(req.getParameter("vet_name"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hrd;
 	}
 }

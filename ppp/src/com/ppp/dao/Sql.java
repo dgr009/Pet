@@ -199,7 +199,7 @@ public interface Sql {
 	// 98. 호텔예약 추가
 	public String insertReserveHotel = "insert into reserve_hotel(reserve_hotel_no,reserve_hotel_date,member_no,hotel_no,room_no) values(?,?,?,?,?)";
 	// 99. 병원 상세예약 추가
-	public String insertReserveHospitalDetail = "insert into reserve_hospital_detail(reserve_hospital_no,member_no,hospital_no,animal_kind,animal_weight) values(?,?,?,?,?)";
+	public String insertReserveHospitalDetail = "insert into reserve_hospital_detail(reserve_hospital_no,member_no,hospital_no,animal_kind,animal_weight,reserve_hospital_time,vet_name,reserve_hospital_date) values(?,?,?,?,?,?,?,?)";
 	// 100. 미용실 상세예약 추가
 	public String insertReserveBeautyDetail = "insert into reserve_beauty_detail(reserve_beauty_no,member_no,beauty_no,animal_kind,animal_weight) values(?,?,?,?,?)";
 	// 101. 호텔 상세예약 추가
@@ -570,7 +570,21 @@ public interface Sql {
 
 	// 마지막 미용사 번호 가져오기
 	public String beauticianNoMax = "select nvl(max(beautician_no),0)+1 from beautician where beauty_no=?";
-	//수의사 마지막 번호 가져오기
+	// 수의사 마지막 번호 가져오기
 	public String vetNoMax = "select nvl(max(vet_no),0)+1 from vet where hospital_no=?";
+	// 병원 예약 마지막 번호 가져오기
+	public String reserveHospitalMaxNo = "select nvl(max(reserve_hospital_no),0)+1 from reserve_hospital_detail where hospital_no=?";
+	// 호텔 예약 마지막 번호 가져오기
+	public String reserveHotelMaxNo = "select nvl(max(reserve_hotel_no),0)+1 from reserve_hotel_detail where hotel_no=?";
+	// 미용 예약 마지막 번호 가져오기
+	public String reserveBeautyMaxNo = "select nvl(max(reserve_beauty_no),0)+1 from reserve_beauty_detail where beauty_no=?";
+	// 병원 예약 리스트 불러오기 회원번호로
+	public String memberHospitalReserveDatail = "select h.hospital_name,h.hospital_phone,h.hospital_address,v.vet_name,r.RESERVE_HOSPITAL_DATE,r.RESERVE_HOSPITAL_TIME,a.ANIMAL_NAME, h.hospital_no from reserve_hospital_detail r,hospital h,animal a,member m,vet v where r.member_no=? and r.member_no=m.member_no and r.animal_kind=a.animal_kind and r.vet_name=v.vet_name and r.hospital_no=h.hospital_no";
+	// 병원 예약 취소 하기
+	public String hospitalReserveDelete = "delete from RESERVE_HOSPITAL_DETAIL where member_no=? and hospital_no=?";
+	// 병원 리뷰 마지막 번호 찾기
+	public String reserveHospitalReviewMaxNo = "select nvl(max(hospital_review_no),0)+1 from hospital_review where hospital_no=?";
+	// 병원 리뷰 병원 번호로 검색
+	public String selectHospitalReview = "select hospital_review_no,hospital_review_score,hospital_review_epilogue from hospital_review where hospital_no=?";
 
 }

@@ -25,7 +25,7 @@
 			var tr = $('<tr></tr>').append(roomNo).append(PhotoTd).append(roomInfo);
 			$(".room_info tbody").append(tr);
 			
-			var option = $("<option value='"+r.roomKind+"'></option>").html(r.roomKind);
+			var option = $("<option value='"+r.roomNo+"'></option>").html(r.roomKind);
 			$("#check_room").append(option);
 		})
 		
@@ -123,8 +123,12 @@ p{
 					
 			</tr>
 			<tr>
-				<td>예약 날짜</td>
-				<td><input type="date" name="reserve_date" id="reserve_date"></td>
+				<td>체크인 날짜</td>
+				<td><input type="date" name="check_in_date" id="check_in_date"></td>
+			</tr>
+			<tr>
+				<td>체크아웃 날짜</td>
+				<td><input type="date" name="check_out_date" id="check_out_date"></td>
 			</tr>
 			<tr>
 				<td>예약 시간</td>
@@ -138,7 +142,7 @@ p{
 			</tr>
 			<tr>
 				<td>예약 방 선택</td>
-				<td><select onchange="priceCheck()" name="room_kind" id="check_room"></select></td>
+				<td><select onchange="priceCheck()" name="room_no" id="check_room"></select></td>
 			</tr>
 			<tr>
 				<td>예약 방 가격</td>

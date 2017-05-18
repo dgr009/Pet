@@ -12,13 +12,15 @@
  <title>PetPaPa HospitalList</title>
     <link href="/ppp/css/reset.css" rel="stylesheet" />
     <link href="/ppp/css/view_detail.css" rel="stylesheet" />
-   
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 
 var vetDetail = <%=request.getAttribute("vet")%>
 var hospital = <%=session.getAttribute("hospitalgson") %>
+var hospitalReview = <%=request.getAttribute("review")%>
+
 $(document).ready(function() {
 	
 	var div_btn1 = $("<div class='btns'></div>");
@@ -48,8 +50,14 @@ $(document).ready(function() {
 		$("#vet_info tbody").append(tr);
 			
 	})
-	
-	
+	$.each(hospitalReview, function(index,hr){
+		var hrNo = $("<td style='text-align:center; border:1px solid black;'></td>").html(hr.hospitalReviewNo);
+		var hrScore = $("<td style='text-align:center; border:1px solid black;'></td>").html(hr.hospitalReviewScore);
+		var hrEpil = $("<td style='text-align:center; border:1px solid black;'></td>").html(hr.hospitalReviewEpilogue);
+		
+		var tr = $('<tr></tr>').append(hrNo).append(hrScore).append(hrEpil);
+		$('.hospital_review tbody').append(tr);
+	})
 	
 });
 </script>
@@ -104,6 +112,19 @@ $(document).ready(function() {
             </div>
         </article>
     </section>
-
+    <hr />
+    <h3 style='text-align:center;'>리뷰</h3>
+				<table class='hospital_review' width='90%'  style='margin: 50px; border:1px solid skyblue; '>
+                        <thead id='hospital_review_header'>
+                            <tr style='border:1px solid skyblue;'>
+                                <th width='10%' style='text-align:center; border:1px solid black;'>번호</th>
+                                <th width='10%' style='text-align:center; border:1px solid black;'>점수</th>
+                                <th width='70%' style='text-align:center; border:1px solid black;'>내용</th>
+                            </tr>
+                        </thead>
+                        <tbody id='hospital_review_body'>
+                          	
+                        </tbody>
+                    </table>
 </body>
 </html>
